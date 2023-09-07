@@ -1,6 +1,6 @@
 {
-    "name": "shape_weather",
-    "short_name": "shape_weather",
+    "name": "Shape Weather",
+    "short_name": "weather",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
