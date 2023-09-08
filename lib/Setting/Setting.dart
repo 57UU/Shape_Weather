@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/WeatherUI/Control.dart';
 import 'package:shape_weather/test.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -19,7 +20,11 @@ class _SettingState extends State<Setting> {
       ),
       body: ListView(
         children: [
-          ElevatedButton(onPressed: (){}, child: Text("Clear All Data")),
+          ElevatedButton(onPressed: ()async{
+            if (!await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather") )) {
+
+            }
+          }, child: const Text("Open Github Repo")),
           ElevatedButton(onPressed: (){
 
             Navigator.push(context, CupertinoPageRoute(builder: (builder){

@@ -23,10 +23,10 @@ Widget basicCard(
     required Widget? child,
     void Function(BuildContext context)? onTap}) {
   Widget? realChild;
-  if(onTap==null){
-    realChild=child;
-  }else{
-    realChild=InkWell(
+  if (onTap == null) {
+    realChild = child;
+  } else {
+    realChild = InkWell(
         highlightColor: Colors.transparent,
         // 透明色
         splashColor: Colors.transparent,
@@ -46,8 +46,7 @@ Widget basicCard(
           color: Theme.of(context).colorScheme.secondaryContainer,
         ),
         width: double.infinity,
-        child: realChild
-    ),
+        child: realChild),
   );
 }
 
@@ -58,7 +57,7 @@ Widget commonCard(
     Widget? icon,
     void Function(BuildContext context)? onTap}) {
   return basicCard(
-    onTap:  onTap,
+      onTap: onTap,
       context: context,
       child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
@@ -201,10 +200,15 @@ class ForecastDataGrid extends StatelessWidget {
 void pushForecastPage(BuildContext context, WeatherData weatherData) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     WeatherPageData weatherPageData =
-        WeatherPageData(locationInfo: LocationInfo.empty)..title="Forecast";
+        WeatherPageData(locationInfo: LocationInfo.empty)..title = "Forecast";
     weatherPageData.weatherData = weatherData;
     weatherPageData.weatherType = WeatherType.forecast;
-    return WeatherInterface(weatherPageData);
+    return Scaffold(
+      body: WeatherInterface(weatherPageData),
+      appBar: AppBar(
+        title: Text("Forecast"),
+      ),
+    );
   }));
 }
 
@@ -271,14 +275,25 @@ class CommonCardWithVariableOnClick<T> extends StatelessWidget {
   final Widget? child;
   final Widget? icon;
   final T parameter;
-  final void Function(BuildContext,T) onTap;
-  const CommonCardWithVariableOnClick({super.key, required this.title, required this.parameter,required this.onTap,this.child, this.icon});
+  final void Function(BuildContext, T) onTap;
+
+  const CommonCardWithVariableOnClick(
+      {super.key,
+      required this.title,
+      required this.parameter,
+      required this.onTap,
+      this.child,
+      this.icon});
 
   @override
   Widget build(BuildContext context) {
-    return commonCard(context: context, title: title, child: child,icon: icon,onTap: (context){
-      onTap(context,parameter);
-    });
+    return commonCard(
+        context: context,
+        title: title,
+        child: child,
+        icon: icon,
+        onTap: (context) {
+          onTap(context, parameter);
+        });
   }
 }
-
