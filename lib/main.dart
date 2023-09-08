@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
@@ -5,6 +7,7 @@ import 'package:shape_weather/Setting/Setting.dart';
 import 'package:shape_weather/WeatherUI/Search.dart';
 import 'package:shape_weather/WeatherUI/Welcome.dart';
 
+import 'WeatherUI/Control.dart';
 import 'WeatherUI/mainUI.dart';
 
 void main() {
@@ -21,7 +24,8 @@ void updateWeatherPages(WeatherPageData weatherPageData) {
   //weatherPages.add(weatherPageData);
   saveConfig();
 }
-void clearWeatherPages(){
+
+void clearWeatherPages() {
   _globalKey.currentState?.setState(() {
     weatherPages.clear();
   });
@@ -55,13 +59,18 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           // 请求已结束
           if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              // 请求失败，显示错误
-              return HomePage(key: _globalKey,);
-            } else {
-              // 请求成功，显示数据
-              return HomePage(key: _globalKey,);
-            }
+
+              return OrientationBuilder(
+                builder: (context, orientation) {
+                  return HomePage(
+                    orientation,
+                    key: _globalKey,
+                  );
+                },
+              );
+
+
+
           } else {
             // 请求未结束，显示loading
             return CircularProgressIndicator();
@@ -72,9 +81,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Orientation orientation;
+
+  const HomePage(this.orientation, {super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -99,30 +109,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (weatherPages.isEmpty) {
-      return const Welcome();
-    }
-    if (weatherPages.length == 1) {
-      title = weatherPages.first.title;
-    }
     var pages = <Widget>[];
 
     for (WeatherPageData weatherPageData in weatherPages) {
       pages.add(WeatherInterface(weatherPageData));
     }
-
-    //return MyWidget();
-    return Scaffold(
+    if (weatherPages.isEmpty) {
+      return const Welcome();
+    }
+    bool isLandscape=widget.orientation==Orientation.landscape;
+    if (weatherPages.length == 1) {
+      title = weatherPages.first.title;
+    }
+    var mainWidget=Scaffold(
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
+              isLandscape?empty: IconButton(
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (builder) {
-                      return LocationChoose(pageController);
-                    }));
+                          return LocationChoose(pageController);
+                        }));
                   },
                   icon: const Icon(Icons.map)),
               Text(title),
@@ -130,8 +139,8 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(context,
                         CupertinoPageRoute(builder: (builder) {
-                      return Setting();
-                    }));
+                          return Setting();
+                        }));
                   },
                   icon: const Icon(Icons.settings))
             ],
@@ -146,5 +155,18 @@ class _HomePageState extends State<HomePage> {
           },
           children: pages,
         ));
+    if(isLandscape){
+      var width =MediaQuery.of(context).size.width;
+      return Row(children: [
+        SizedBox(width:width*2/5,child: LocationChoose(pageController)),
+        SizedBox(width: width*3/5,child: mainWidget)
+      ],);
+    }else{
+      return mainWidget;
+    }
+
+
+    //return MyWidget();
+
   }
 }

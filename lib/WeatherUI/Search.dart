@@ -22,53 +22,57 @@ class _LocationChooseState extends State<LocationChoose> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width / 2;
+
     var children = <Widget>[
-      Row(
-        children: [
-          SizedBox(
-            width: width,
-            child: commonCard(
-                context: context,
-                title: "ADD",
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(
-                      Icons.add,
-                      color: Colors.blueAccent,
+      LayoutBuilder(
+        builder: (context,constraints) {
+          return Row(
+            children: [
+              SizedBox(
+                width: constraints.maxWidth/2,
+                child: commonCard(
+                    context: context,
+                    title: "ADD",
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.add,
+                          color: Colors.blueAccent,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                onTap: (context) async {
-                  await Navigator.push(context,
-                      CupertinoPageRoute(builder: (builder) {
-                    return const LocationSearch();
-                  }));
-                  setState(() {});
-                }),
-          ),
-          SizedBox(
-            width: width,
-            child: commonCard(
-                onTap: (context) {
-                  setState(() {
-                    isDelete = !isDelete;
-                  });
-                },
-                context: context,
-                title: isDelete ? "Cancel" : "Delete",
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(
-                      isDelete? Icons.subdirectory_arrow_left:Icons.delete,
-                      color: Colors.red,
-                    )
-                  ],
-                )),
-          ),
-        ],
+                    onTap: (context) async {
+                      await Navigator.push(context,
+                          CupertinoPageRoute(builder: (builder) {
+                        return const LocationSearch();
+                      }));
+                      setState(() {});
+                    }),
+              ),
+              SizedBox(
+                width: constraints.maxWidth/2,
+                child: commonCard(
+                    onTap: (context) {
+                      setState(() {
+                        isDelete = !isDelete;
+                      });
+                    },
+                    context: context,
+                    title: isDelete ? "Cancel" : "Delete",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          isDelete? Icons.subdirectory_arrow_left:Icons.delete,
+                          color: Colors.red,
+                        )
+                      ],
+                    )),
+              ),
+            ],
+          );
+        }
       )
     ];
     for (int i = 0; i < weatherPages.length; i++) {
