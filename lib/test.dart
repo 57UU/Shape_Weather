@@ -8,7 +8,8 @@ class Test extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(child: Column(
       children: [
-        CupertinoButton(child: Text("Hello"), onPressed: (){})
+        CupertinoButton(child: Text("Hello"), onPressed: (){}),
+        CupertinoButton(child: Text("Hello2"), onPressed: (){})
       ],
     ),
 
