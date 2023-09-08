@@ -18,26 +18,58 @@ class LocationChoose extends StatefulWidget {
 }
 
 class _LocationChooseState extends State<LocationChoose> {
+  bool isDelete = false;
+
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width / 2;
     var children = <Widget>[
-      commonCard(
-          context: context,
-          title: "ADD",
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Icon(Icons.add),
-            ],
+      Row(
+        children: [
+          SizedBox(
+            width: width,
+            child: commonCard(
+                context: context,
+                title: "ADD",
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.blueAccent,
+                    ),
+                  ],
+                ),
+                onTap: (context) async {
+                  await Navigator.push(context,
+                      CupertinoPageRoute(builder: (builder) {
+                    return const LocationSearch();
+                  }));
+                  setState(() {});
+                }),
           ),
-          onTap: (context) async {
-            await Navigator.push(context, CupertinoPageRoute(builder: (builder) {
-              return LocationSearch();
-            }));
-            setState(() {
-
-            });
-          })
+          SizedBox(
+            width: width,
+            child: commonCard(
+                onTap: (context) {
+                  setState(() {
+                    isDelete = !isDelete;
+                  });
+                },
+                context: context,
+                title: isDelete ? "Cancel" : "Delete",
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      isDelete? Icons.subdirectory_arrow_left:Icons.delete,
+                      color: Colors.red,
+                    )
+                  ],
+                )),
+          ),
+        ],
+      )
     ];
     for (int i = 0; i < weatherPages.length; i++) {
       children.add(commonCard(
@@ -50,18 +82,32 @@ class _LocationChooseState extends State<LocationChoose> {
                   ? const Text("Unknown")
                   : Text(
                       "${weatherPages[i].weatherData!.temperature.currentTemperature}℃"),
-              weatherPages[i].weatherData == null
-                  ? const Text("Weather")
-                  : Text(weatherPages[i]
-                      .weatherData!
-                      .details
-                      .first
-                      .weatherShortDescription),
+              isDelete
+                  ? const Text(
+                      "✖",
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : weatherPages[i].weatherData == null
+                      ? const Text("Weather")
+                      : Text(weatherPages[i]
+                          .weatherData!
+                          .details
+                          .first
+                          .weatherShortDescription),
             ],
           ),
           onTap: (context) {
-            widget.pageController.jumpToPage(i);
-            Navigator.pop(context);
+            if(isDelete){
+              setState(() {
+                deleteWeatherPageData(weatherPages[i]);
+
+              });
+
+            }else{
+              widget.pageController.jumpToPage(i);
+              Navigator.pop(context);
+            }
+
           }));
     }
     return Scaffold(
@@ -91,8 +137,8 @@ class _LocationSearchState extends State<LocationSearch> {
     _increase();
   }
 
-  int count = 0;
-  final int countMax = 1;
+  double count = 0;
+  final double countMax = 1;
   bool _isFetched = false;
   bool isDispose = false;
 
@@ -101,7 +147,7 @@ class _LocationSearchState extends State<LocationSearch> {
       if (isDispose) {
         return;
       }
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 500));
 
       if (count >= countMax) {
         if (!_isFetched) {
@@ -111,7 +157,7 @@ class _LocationSearchState extends State<LocationSearch> {
 
         continue;
       }
-      count++;
+      count += 0.9;
     }
   }
 
@@ -158,16 +204,17 @@ class _LocationSearchState extends State<LocationSearch> {
                     var children = <Widget>[];
                     for (var i in cities) {
                       late String text;
-                      if(i.state==""){
-                        text="Country : ${i.country}";
-                      }else{
-                        text="${i.country},${i.state}";
+                      if (i.state == "") {
+                        text = "Country : ${i.country}";
+                      } else {
+                        text = "${i.country},${i.state}";
                       }
                       children.add(CommonCardWithVariableOnClick(
                           icon: const Icon(Icons.add),
                           title: i.name,
                           parameter: i,
-                          onTap: (BuildContext context, CityLocationData citiesData) {
+                          onTap: (BuildContext context,
+                              CityLocationData citiesData) {
                             setState(() {
                               updateWeatherPages(WeatherPageData(
                                   locationInfo:
@@ -187,7 +234,8 @@ class _LocationSearchState extends State<LocationSearch> {
                                   textScaleFactor: 1.1,
                                 ),
                               ),
-                              Text("Latitude ${i.lat.toStringAsFixed(2)} & Longitude ${i.lon.toStringAsFixed(2)}"),
+                              Text(
+                                  "Latitude ${i.lat.toStringAsFixed(2)} & Longitude ${i.lon.toStringAsFixed(2)}"),
                             ],
                           )));
                     }
@@ -215,16 +263,19 @@ class _LocationSearchState extends State<LocationSearch> {
       return [];
     }
     //await Future.delayed(Duration(seconds: 1));
-    try{
-      var result1=await Weather.getCitiesByName(cityName);
-      if(result1.length!=0){
+    try {
+      var result1 = await Weather.getCitiesByName(cityName);
+      if (result1.length != 0) {
         return result1;
       }
-    }catch(e){}
+    } catch (e) {}
 
-    var result2=await Weather.getWeather(LocationInfo(cityName));
-    return [CityLocationData()..lon=result2.coordinates!.lon
-      ..lat=result2.coordinates!.lat..name=result2.name!];
-
+    var result2 = await Weather.getWeather(LocationInfo(cityName));
+    return [
+      CityLocationData()
+        ..lon = result2.coordinates!.lon
+        ..lat = result2.coordinates!.lat
+        ..name = result2.name!
+    ];
   }
 }

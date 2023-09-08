@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Setting/Setting.dart';
@@ -20,8 +21,21 @@ void updateWeatherPages(WeatherPageData weatherPageData) {
   //weatherPages.add(weatherPageData);
   saveConfig();
 }
+void clearWeatherPages(){
+  _globalKey.currentState?.setState(() {
+    weatherPages.clear();
+  });
+  //weatherPages.add(weatherPageData);
+  saveConfig();
+}
 
-void deleteWeatherPageData(WeatherPageData weatherPageData) {}
+void deleteWeatherPageData(WeatherPageData weatherPageData) {
+  _globalKey.currentState?.setState(() {
+    weatherPages.remove(weatherPageData);
+  });
+  //weatherPages.add(weatherPageData);
+  saveConfig();
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -115,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) {
+                        CupertinoPageRoute(builder: (builder) {
                       return Setting();
                     }));
                   },
