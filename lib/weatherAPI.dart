@@ -68,11 +68,13 @@ class Weather {
     var cities = <CityLocationData>[];
 
     for (var i in result) {
+/*      String lon=(i["lon"])as String;
+      String lat=(i["lat"])as String;*/
       var data=
       CityLocationData()
         ..name = i["name"]!
-        ..lat = i["lat"] as double
-        ..lon = i["lon"] as double
+        ..lat =i["lat"]
+        ..lon = i["lon"]
         ..country = i["country"]!;
       if (i.containsKey("state")) {
         data.state = i["state"]!;
@@ -85,9 +87,9 @@ class Weather {
 }
 
 class CityLocationData {
-  late String name;
-  late double lat;
-  late double lon;
+  String name="Unknown";
+  double lat=double.nan;
+  double lon=double.nan;
   String country = "Unknown";
-  String state = "Unknown";
+  String state = "";
 }

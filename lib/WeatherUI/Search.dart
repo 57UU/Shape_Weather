@@ -157,6 +157,12 @@ class _LocationSearchState extends State<LocationSearch> {
                     var cities = (snapshot.data as List<CityLocationData>);
                     var children = <Widget>[];
                     for (var i in cities) {
+                      late String text;
+                      if(i.state==""){
+                        text="Country : ${i.country}";
+                      }else{
+                        text="${i.country},${i.state}";
+                      }
                       children.add(CommonCardWithVariableOnClick(
                           icon: const Icon(Icons.add),
                           title: i.name,
@@ -176,12 +182,12 @@ class _LocationSearchState extends State<LocationSearch> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                                 child: Text(
-                                  "${i.country},${i.state}",
+                                  text,
                                   textAlign: TextAlign.start,
                                   textScaleFactor: 1.1,
                                 ),
                               ),
-                              Text("Latitude${i.lat}&Longitude${i.lon}"),
+                              Text("Latitude ${i.lat.toStringAsFixed(2)} & Longitude ${i.lon.toStringAsFixed(2)}"),
                             ],
                           )));
                     }

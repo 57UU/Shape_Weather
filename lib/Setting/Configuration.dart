@@ -1,6 +1,7 @@
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/weatherAPI.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationInfo {
   static final LocationInfo empty = LocationInfo("null");
@@ -34,3 +35,31 @@ class WeatherPageData {
 }
 
 var weatherPages = <WeatherPageData>[];
+const String _key="config";
+Future saveConfig()async{
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  var list=<String>[];
+  for(var i in weatherPages){
+    list.add("${i.locationInfo.lon}/${i.locationInfo.lat}/${i.locationInfo.cityName}");
+  }
+  prefs.setStringList(_key, list);
+
+}
+Future<String> loadConfig()async{
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  var list=prefs.getStringList(_key);
+  if(list==null){
+    return "Error";
+  }
+  weatherPages.clear();
+
+  for(String i in list){
+    var splited=i.split("/");
+    late LocationInfo locationInfo=LocationInfo(splited[2]);
+    locationInfo.lon=double.parse(splited[0]) ;
+    locationInfo.lat=double.parse(splited[1]);
+    weatherPages.add(WeatherPageData(locationInfo: locationInfo));
+  }
+  return "Done";
+
+}

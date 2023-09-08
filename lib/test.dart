@@ -1,5 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:shape_weather/Setting/Configuration.dart';
+import 'package:shape_weather/weatherAPI.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});
@@ -9,7 +11,13 @@ class Test extends StatelessWidget {
     return CupertinoPageScaffold(child: Column(
       children: [
         CupertinoButton(child: Text("Hello"), onPressed: (){}),
-        CupertinoButton(child: Text("Hello2"), onPressed: (){})
+        CupertinoButton(child: Text("Test Search api"), onPressed: (){
+          Weather.getCitiesByName("java");
+        }),
+        CupertinoButton(child: Text("Load config"), onPressed: (){
+          loadConfig();
+        }),
+
       ],
     ),
 

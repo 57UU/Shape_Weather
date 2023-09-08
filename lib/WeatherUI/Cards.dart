@@ -93,42 +93,43 @@ class WindCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return commonCard(
-        title: "Wind",
-        icon: Icon(Icons.wind_power),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Speed ${weatherData.wind.speed}m/s"),
-                Text("Direction ${weatherData.wind.deg}°"),
-                Text(
-                    "Gust ${weatherData.wind.gust == null ? " N/A " : weatherData.wind.gust}"),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-              child: Transform.rotate(
-                angle: weatherData.wind.deg / 180 * pi,
-                child: const Text(
-                  "↑",
-                  textScaleFactor: 2,
-                  style: TextStyle(fontWeight: FontWeight.w800),
-                ),
+    return basicCard(
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                   titleText("Wind"),
+                  Text("Speed ${weatherData.wind.speed}m/s"),
+                  Text("Direction ${weatherData.wind.deg}°"),
+                  Text("Gust ${weatherData.wind.gust == null ? " N/A " : weatherData.wind.gust}"),
+                ],
               ),
-            )
-          ],
-        ),
-        context: context);
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                child: Transform.rotate(
+                  angle: weatherData.wind.deg / 180 * pi,
+                  child: const Text(
+                    "↑",
+                    textScaleFactor: 2.3,
+                    style: TextStyle(fontWeight: FontWeight.w800),
+                  ),
+                ),
+              )
+            ],
+          )), context: context,
+    );
+    
   }
 }
 
 class ForecastCard extends NullableCard<WeatherForecastData> {
   ForecastCard(super.parameter, {super.key, super.title = "Forecast"}) {
-    icon=const Icon(Icons.cloud);
+    icon=null;
     onTap = (context, parameter) {
       Navigator.push(context, MaterialPageRoute(builder: (builder) {
         return Forecasts(parameter);
@@ -173,7 +174,7 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return commonCard(
-      icon: Icon(Icons.grid_view),
+
         context: context,
         title: "Details",
         child: Column(
@@ -212,6 +213,7 @@ class LocationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return commonCard(context: context, title: "Location", child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Latitude ${weatherData.coordinates==null ? 'Unknown':weatherData.coordinates!.lat}"),
         Text("Latitude ${weatherData.coordinates==null ? 'Unknown':weatherData.coordinates!.lon}"),

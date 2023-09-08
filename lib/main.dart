@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Setting/Setting.dart';
 import 'package:shape_weather/WeatherUI/Search.dart';
+import 'package:shape_weather/WeatherUI/Welcome.dart';
 
 import 'WeatherUI/mainUI.dart';
 
@@ -9,16 +10,18 @@ void main() {
   //test();
   runApp(const MyApp());
 }
-GlobalKey<_HomePageState> _globalKey=GlobalKey<_HomePageState>();
-void updateWeatherPages(WeatherPageData weatherPageData){
+
+GlobalKey<_HomePageState> _globalKey = GlobalKey<_HomePageState>();
+
+void updateWeatherPages(WeatherPageData weatherPageData) {
   _globalKey.currentState?.setState(() {
     weatherPages.add(weatherPageData);
   });
   //weatherPages.add(weatherPageData);
+  saveConfig();
 }
-void deleteWeatherPageData(WeatherPageData weatherPageData){
 
-}
+void deleteWeatherPageData(WeatherPageData weatherPageData) {}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,7 +29,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Shape Weather',
       theme: ThemeData(
@@ -34,10 +36,28 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
-      home: HomePage(key: _globalKey,),
+      home: FutureBuilder<String>(
+        future: loadConfig(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          // 请求已结束
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              // 请求失败，显示错误
+              return HomePage(key: _globalKey,);
+            } else {
+              // 请求成功，显示数据
+              return HomePage(key: _globalKey,);
+            }
+          } else {
+            // 请求未结束，显示loading
+            return CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,14 +75,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    for (var i in ["chengdu", "guangdong", "shuangliu"]) {
+/*    for (var i in ["chengdu", "guangdong", "shuangliu"]) {
       weatherPages.add(WeatherPageData(locationInfo: LocationInfo(i)));
+    }*/
+    if (!weatherPages.isEmpty) {
+      title = weatherPages.first.title;
     }
-    title = weatherPages.first.title;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (weatherPages.isEmpty) {
+      return const Welcome();
+    }
+    if (weatherPages.length == 1) {
+      title = weatherPages.first.title;
+    }
     var pages = <Widget>[];
 
     for (WeatherPageData weatherPageData in weatherPages) {
@@ -84,11 +112,14 @@ class _HomePageState extends State<HomePage> {
                   },
                   icon: const Icon(Icons.map)),
               Text(title),
-              IconButton(onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (builder){
-                  return Setting();
-                }));
-              }, icon: const Icon(Icons.settings))
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) {
+                      return Setting();
+                    }));
+                  },
+                  icon: const Icon(Icons.settings))
             ],
           ),
         ),
