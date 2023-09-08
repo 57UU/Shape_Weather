@@ -16,64 +16,68 @@ class Overview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(0, 5, 0, 90),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 100, 0, 50),
-                child: Stack(alignment: Alignment.center, children: [
-                  Text(data.temperature.currentTemperature.toString(),
-                      textScaleFactor: 4,
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Positioned(
-                      right: size.width / 2 - 100,
-                      top: 10,
-                      child: const Text(
-                        "℃",
-                        textScaleFactor: 1.5,
-                      ))
-                ]),
-              ),
-            ),
-            Row(
+    return LayoutBuilder(
+      builder: (context,constrains) {
+        return Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 90),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Opacity(
-                  opacity: 0.8,
-                  child: OutlinedButton(
-                    child: Text(data.details.first.weatherShortDescription),
-                    onPressed: () {
-                      showInfoDialog(
-                          context: context,
-                          title: "Weather Description",
-                          content: data.details.first.weatherLongDescription);
-                    },
+                Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 100, 0, 50),
+                    child: Stack(alignment: Alignment.center, children: [
+                      Text(data.temperature.currentTemperature.toString(),
+                          textScaleFactor: 4,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Positioned(
+                          right: constrains.maxWidth / 2 - 100,
+                          top: 10,
+                          child: const Text(
+                            "℃",
+                            textScaleFactor: 1.5,
+                          ))
+                    ]),
                   ),
                 ),
-                Text("  "),
-                Opacity(
-                  opacity: 0.8,
-                  child: OutlinedButton(
-                    child: Text("Feels like ${data.temperature.feelsLike}°"),
-                    onPressed: () {
-                      showInfoDialog(
-                          context: context,
-                          title: "Temperature",
-                          content: "Feels like ${data.temperature.feelsLike}\n"
-                              "Min ${data.temperature.tempMin}\n"
-                              "Max ${data.temperature.tempMax}\n");
-                    },
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Opacity(
+                      opacity: 0.8,
+                      child: OutlinedButton(
+                        child: Text(data.details.first.weatherShortDescription),
+                        onPressed: () {
+                          showInfoDialog(
+                              context: context,
+                              title: "Weather Description",
+                              content: data.details.first.weatherLongDescription);
+                        },
+                      ),
+                    ),
+                    Text("  "),
+                    Opacity(
+                      opacity: 0.8,
+                      child: OutlinedButton(
+                        child: Text("Feels like ${data.temperature.feelsLike}°"),
+                        onPressed: () {
+                          showInfoDialog(
+                              context: context,
+                              title: "Temperature",
+                              content: "Feels like ${data.temperature.feelsLike}\n"
+                                  "Min ${data.temperature.tempMin}\n"
+                                  "Max ${data.temperature.tempMax}\n");
+                        },
+                      ),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ));
+            ));
+      }
+    );
   }
 }
 

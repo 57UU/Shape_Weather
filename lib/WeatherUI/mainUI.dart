@@ -19,29 +19,26 @@ class WeatherInterface extends StatefulWidget {
   State<WeatherInterface> createState() => _WeatherInterfaceState();
 }
 
-class _WeatherInterfaceState extends State<WeatherInterface> with AutomaticKeepAliveClientMixin {
+class _WeatherInterfaceState extends State<WeatherInterface>
+    with AutomaticKeepAliveClientMixin {
   WeatherData? weatherData;
   WeatherForecastData? weatherForecastData;
   bool onError = false;
 
-
   @override
   Widget build(BuildContext context) {
-
-
-    return
-
-        RefreshIndicator(
-          child: Stack(
-            children: [
-              background(),
-              foreground(),
-            ],
-          ),
-          onRefresh: () async {
-            await getAllData();
-          },
-        );
+    super.build(context);
+    return RefreshIndicator(
+      child: Stack(
+        children: [
+          background(),
+          foreground(),
+        ],
+      ),
+      onRefresh: () async {
+        await getAllData();
+      },
+    );
   }
 
   Widget background() {

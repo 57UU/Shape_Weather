@@ -10,8 +10,9 @@ import '../Setting/Configuration.dart';
 
 class LocationChoose extends StatefulWidget {
   final PageController pageController;
+  final Orientation orientation;
 
-  const LocationChoose(this.pageController, {super.key});
+  const LocationChoose(this.orientation,this.pageController, {super.key});
 
   @override
   State<LocationChoose> createState() => _LocationChooseState();
@@ -109,7 +110,11 @@ class _LocationChooseState extends State<LocationChoose> {
 
             }else{
               widget.pageController.jumpToPage(i);
-              Navigator.pop(context);
+              if(widget.orientation!=Orientation.landscape){
+
+                Navigator.pop(context);
+              }
+
             }
 
           }));

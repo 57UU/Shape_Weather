@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (builder) {
-                          return LocationChoose(pageController);
+                          return LocationChoose(widget.orientation,pageController);
                         }));
                   },
                   icon: const Icon(Icons.map)),
@@ -157,9 +157,15 @@ class _HomePageState extends State<HomePage> {
         ));
     if(isLandscape){
       var width =MediaQuery.of(context).size.width;
+      var locationChooseWidth=width*2/5;
+      double widthMax=350;
+      if(locationChooseWidth>widthMax){
+        locationChooseWidth=widthMax;
+      }
       return Row(children: [
-        SizedBox(width:width*2/5,child: LocationChoose(pageController)),
-        SizedBox(width: width*3/5,child: mainWidget)
+
+        SizedBox(width:locationChooseWidth,child: LocationChoose(widget.orientation,pageController)),
+        SizedBox(width: width-locationChooseWidth,child: mainWidget)
       ],);
     }else{
       return mainWidget;
