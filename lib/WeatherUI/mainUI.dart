@@ -87,13 +87,22 @@ class _WeatherInterfaceState extends State<WeatherInterface>
   @override
   void initState() {
     weatherData = widget.weatherPageData.weatherData;
+    weatherForecastData= widget.weatherPageData.weatherForecastData;
     super.initState();
     getAllData();
   }
 
   Future getAllData() async {
     if (widget.weatherPageData.weatherType == WeatherType.current) {
-      await Future.wait([getWeatherForecastData(), getWeatherData()]);
+      var list=<Future<dynamic>>[];
+      if(widget.weatherPageData.weatherData==null){
+        list.add(getWeatherData());
+      }
+      if(widget.weatherPageData.weatherForecastData==null){
+        list.add(getWeatherForecastData());
+      }
+
+      await Future.wait(list);
     }
   }
 
