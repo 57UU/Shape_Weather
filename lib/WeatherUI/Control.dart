@@ -112,52 +112,7 @@ Widget loading() {
       ));
 }
 
-class AnimatedWeatherCard extends StatefulWidget {
-  const AnimatedWeatherCard({super.key});
 
-  @override
-  State<AnimatedWeatherCard> createState() => _AnimatedWeatherCardState();
-}
-
-class _AnimatedWeatherCardState extends State<AnimatedWeatherCard> {
-  bool isTimeOut = false;
-
-  @override
-  Widget build(BuildContext context) {
-    countdown();
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: AnimatedContainer(
-          alignment: Alignment.topLeft,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.circular(20)),
-            color: Theme.of(context).colorScheme.secondaryContainer,
-          ),
-          width: double.infinity,
-          duration: Duration(seconds: 1),
-          curve: Curves.ease,
-          child: Padding(
-              padding: EdgeInsetsDirectional.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  titleText("title"),
-                  isTimeOut ? Text("data") : loading(),
-                ],
-              ))),
-    );
-  }
-
-  Future countdown() async {
-    await Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        isTimeOut = true;
-      });
-    });
-  }
-}
 
 class ForecastDataGrid extends StatelessWidget {
   final WeatherData weatherData;

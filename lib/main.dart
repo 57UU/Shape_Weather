@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               isLandscape
-                  ? const Text("Weather")
+                  ? const Icon(Icons.cloud_queue)
                   : IconButton(
                       onPressed: () {
                         Navigator.push(context,
@@ -169,8 +169,10 @@ class _HomePageState extends State<HomePage> {
           children: pages,
         ));
 
+    var width = MediaQuery.of(context).size.width;
+
     if (isLandscape) {
-      var width = MediaQuery.of(context).size.width;
+
       var locationChooseWidth = width * 2 / 5;
       double widthMax = 350;
       if (locationChooseWidth > widthMax) {

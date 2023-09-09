@@ -209,6 +209,7 @@ class _LocationSearchState extends State<LocationSearch> {
                 ),
               ),
             ),
+            controller.text==""?empty:
             FutureBuilder(
               future: searchProvider(controller.text),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
