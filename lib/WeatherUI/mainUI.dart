@@ -36,7 +36,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         ],
       ),
       onRefresh: () async {
-        await getAllData();
+        await getAllDataForce();
       },
     );
   }
@@ -101,9 +101,11 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       if(widget.weatherPageData.weatherForecastData==null){
         list.add(getWeatherForecastData());
       }
-
       await Future.wait(list);
     }
+  }
+  Future getAllDataForce()async{
+    await Future.wait([getWeatherData(),getWeatherForecastData()]);
   }
 
   Future getWeatherData() async {

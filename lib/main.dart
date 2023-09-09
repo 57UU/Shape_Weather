@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               isLandscape
-                  ? empty
+                  ? const Text("Weather")
                   : IconButton(
                       onPressed: () {
                         Navigator.push(context,
@@ -140,7 +140,14 @@ class _HomePageState extends State<HomePage> {
                         }));
                       },
                       icon: const Icon(Icons.map)),
-              Text(title),
+              AnimatedSwitcher(
+                  switchInCurve: Curves.easeIn,
+                  switchOutCurve: Curves.easeOut,
+                  duration: const Duration(milliseconds: 200),
+                  child: Text(
+                    title,
+                    key: ValueKey<String>(title),
+                  )),
               IconButton(
                   onPressed: () {
                     Navigator.push(context,
