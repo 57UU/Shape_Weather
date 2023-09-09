@@ -143,6 +143,12 @@ class _LocationSearchState extends State<LocationSearch> {
     _increase();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    isDispose=true;
+  }
+
   double count = 0;
   final double countMax = 1;
   bool _isFetched = false;
@@ -166,6 +172,7 @@ class _LocationSearchState extends State<LocationSearch> {
       count += 0.5;
     }
   }
+  String prevStr="";
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +180,12 @@ class _LocationSearchState extends State<LocationSearch> {
       if (controller.text == "") {
         return;
       }
+      if(prevStr==controller.text){
+        return;
+      }else{
+        prevStr=controller.text;
+      }
+
       _isFetched = false;
 
       count = 0;
@@ -277,7 +290,10 @@ class _LocationSearchState extends State<LocationSearch> {
       if (result1.length != 0) {
         return result1;
       }
-    } catch (e) {}
+    } catch (e) {
+      debugPrint("get locations failed,use another method ,reason${e.toString()}");
+
+    }
 
     var result2 = await Weather.getWeather(LocationInfo(cityName));
     return [

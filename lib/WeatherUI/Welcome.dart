@@ -19,9 +19,9 @@ class Welcome extends StatelessWidget {
             ),
             ElevatedButton(onPressed: (){
               Navigator.push(context, CupertinoPageRoute(builder: (builder) {
-                return LocationSearch();
+                return const LocationSearch();
               }));
-            }, child: Text("ADD")),
+            }, child: const Text("ADD")),
           ],
         ),
       ),

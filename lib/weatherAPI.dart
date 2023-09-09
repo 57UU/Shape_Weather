@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/widgets.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Languages.dart';
 import 'package:open_weather_client/enums/languages.dart';
 import 'package:open_weather_client/open_weather.dart';
+import 'package:http/http.dart' as http;
 
 class Weather {
   static Languages language = Languages.ENGLISH;
@@ -53,17 +55,22 @@ class Weather {
   }
 
   static Future<String> request(String uri) async {
-    HttpClient httpClient = HttpClient();
+/*    HttpClient httpClient =HttpClient();
     HttpClientRequest request = await httpClient.getUrl(Uri.parse(uri));
     HttpClientResponse response = await request.close();
     String responseBody = await response.transform(utf8.decoder).join();
     httpClient.close();
-    return responseBody;
+    return responseBody;*/
+/*    var response = await http.get((Uri.parse(uri)));
+    debugPrint('Response status: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');*/
+
+    return (await http.read(Uri.parse(uri)));
   }
 
   static Future<List<CityLocationData>> getCitiesByName(String cityName) async {
     var response = await request(
-        "http://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_key");
+        "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_key");
     var result = jsonDecode(response);
     var cities = <CityLocationData>[];
 
