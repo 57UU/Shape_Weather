@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Setting/Setting.dart';
+import 'package:shape_weather/WeatherUI/Cards.dart';
 import 'package:shape_weather/WeatherUI/Search.dart';
 import 'package:shape_weather/WeatherUI/Welcome.dart';
 
@@ -18,7 +19,7 @@ void main() {
 GlobalKey<_HomePageState> _globalKey = GlobalKey<_HomePageState>();
 
 void updateWeatherPages(WeatherPageData weatherPageData) {
-  if(weatherPages.contains(weatherPageData)){
+  if (weatherPages.contains(weatherPageData)) {
     return;
   }
   _globalKey.currentState?.setState(() {
@@ -62,18 +63,14 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           // 请求已结束
           if (snapshot.connectionState == ConnectionState.done) {
-
-              return OrientationBuilder(
-                builder: (context, orientation) {
-                  return HomePage(
-                    orientation,
-                    key: _globalKey,
-                  );
-                },
-              );
-
-
-
+            return OrientationBuilder(
+              builder: (context, orientation) {
+                return HomePage(
+                  orientation,
+                  key: _globalKey,
+                );
+              },
+            );
           } else {
             // 请求未结束，显示loading
             return CircularProgressIndicator();
@@ -120,30 +117,36 @@ class _HomePageState extends State<HomePage> {
     if (weatherPages.isEmpty) {
       return const Welcome();
     }
-    bool isLandscape=widget.orientation==Orientation.landscape;
+    bool isLandscape = widget.orientation == Orientation.landscape;
     if (weatherPages.length == 1) {
       title = weatherPages.first.title;
     }
-    var mainWidget=Scaffold(
+    var mainWidget = Scaffold(
+/*      drawer: Drawer(
+        child: LocationChoose(widget.orientation,pageController),
+      ),*/
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              isLandscape?empty: IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) {
-                          return LocationChoose(widget.orientation,pageController);
+              isLandscape
+                  ? empty
+                  : IconButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (builder) {
+                          return LocationChoose(
+                              widget.orientation, pageController);
                         }));
-                  },
-                  icon: const Icon(Icons.map)),
+                      },
+                      icon: const Icon(Icons.map)),
               Text(title),
               IconButton(
                   onPressed: () {
                     Navigator.push(context,
                         CupertinoPageRoute(builder: (builder) {
-                          return Setting();
-                        }));
+                      return Setting();
+                    }));
                   },
                   icon: const Icon(Icons.settings))
             ],
@@ -158,24 +161,34 @@ class _HomePageState extends State<HomePage> {
           },
           children: pages,
         ));
-    if(isLandscape){
-      var width =MediaQuery.of(context).size.width;
-      var locationChooseWidth=width*2/5;
-      double widthMax=350;
-      if(locationChooseWidth>widthMax){
-        locationChooseWidth=widthMax;
-      }
-      return Row(children: [
 
-        SizedBox(width:locationChooseWidth,child: LocationChoose(widget.orientation,pageController)),
-        SizedBox(width: width-locationChooseWidth,child: mainWidget)
-      ],);
-    }else{
+    if (isLandscape) {
+      var width = MediaQuery.of(context).size.width;
+      var locationChooseWidth = width * 2 / 5;
+      double widthMax = 350;
+      if (locationChooseWidth > widthMax) {
+        locationChooseWidth = widthMax;
+      }
+      return Row(
+        children: [
+          SizedBox(
+              width: locationChooseWidth,
+              child: Fragment(
+                child: LocationChoose(widget.orientation, pageController),
+              )),
+          SizedBox(
+              width: width - locationChooseWidth,
+              child: Platform.isAndroid||Platform.isFuchsia
+                  ? mainWidget
+                  : Fragment(
+                      child: mainWidget,
+                    ))
+        ],
+      );
+    } else {
       return mainWidget;
     }
 
-
     //return MyWidget();
-
   }
 }

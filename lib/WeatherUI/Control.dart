@@ -297,3 +297,27 @@ class CommonCardWithVariableOnClick<T> extends StatelessWidget {
         });
   }
 }
+
+class Fragment extends StatelessWidget {
+  final Widget child;
+  final String root;
+  const Fragment({required this.child,this.root="/",super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      initialRoute: root,
+      onGenerateRoute: (RouteSettings settings) {
+        WidgetBuilder builder;
+/*        switch (settings.name) {
+          case '/':
+            builder = (context) => child;
+            break;
+        }*/
+        builder = (context) => child;
+        return MaterialPageRoute(builder: builder);
+      },
+    );
+  }
+}
+
