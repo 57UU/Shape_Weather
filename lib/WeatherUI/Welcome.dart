@@ -15,7 +15,7 @@ class Welcome extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 50, 0, 20),
-              child: Text("It seems you have not added a city yet\nClick the button to add one" ,textAlign: TextAlign.center,),
+              child: Text("It seems that you haven't added a city yet\nClick the button below to add one" ,textAlign: TextAlign.center,),
             ),
             ElevatedButton(onPressed: (){
               Navigator.push(context, CupertinoPageRoute(builder: (builder) {
