@@ -12,7 +12,7 @@ class LocationChoose extends StatefulWidget {
   final PageController pageController;
   final Orientation orientation;
 
-  const LocationChoose(this.orientation,this.pageController, {super.key});
+  const LocationChoose(this.orientation, this.pageController, {super.key});
 
   @override
   State<LocationChoose> createState() => _LocationChooseState();
@@ -23,58 +23,55 @@ class _LocationChooseState extends State<LocationChoose> {
 
   @override
   Widget build(BuildContext context) {
-
     var children = <Widget>[
-      LayoutBuilder(
-        builder: (context,constraints) {
-          return Row(
-            children: [
-              SizedBox(
-                width: constraints.maxWidth/2,
-                child: commonCard(
-                    context: context,
-                    title: "ADD",
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: Colors.blueAccent,
-                        ),
-                      ],
-                    ),
-                    onTap: (context) async {
-                      await Navigator.push(context,
-                          CupertinoPageRoute(builder: (builder) {
-                        return const LocationSearch();
-                      }));
-                      setState(() {});
-                    }),
-              ),
-              SizedBox(
-                width: constraints.maxWidth/2,
-                child: commonCard(
-                    onTap: (context) {
-                      setState(() {
-                        isDelete = !isDelete;
-                      });
-                    },
-                    context: context,
-                    title: isDelete ? "Cancel" : "Delete",
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          isDelete? Icons.subdirectory_arrow_left:Icons.delete,
-                          color: Colors.red,
-                        )
-                      ],
-                    )),
-              ),
-            ],
-          );
-        }
-      )
+      LayoutBuilder(builder: (context, constraints) {
+        return Row(
+          children: [
+            SizedBox(
+              width: constraints.maxWidth / 2,
+              child: commonCard(
+                  context: context,
+                  title: "ADD",
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: Colors.blueAccent,
+                      ),
+                    ],
+                  ),
+                  onTap: (context) async {
+                    await Navigator.push(context,
+                        CupertinoPageRoute(builder: (builder) {
+                      return const LocationSearch();
+                    }));
+                    setState(() {});
+                  }),
+            ),
+            SizedBox(
+              width: constraints.maxWidth / 2,
+              child: commonCard(
+                  onTap: (context) {
+                    setState(() {
+                      isDelete = !isDelete;
+                    });
+                  },
+                  context: context,
+                  title: isDelete ? "Cancel" : "Delete",
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        isDelete ? Icons.subdirectory_arrow_left : Icons.delete,
+                        color: Colors.red,
+                      )
+                    ],
+                  )),
+            ),
+          ],
+        );
+      })
     ];
     for (int i = 0; i < weatherPages.length; i++) {
       children.add(commonCard(
@@ -102,21 +99,20 @@ class _LocationChooseState extends State<LocationChoose> {
             ],
           ),
           onTap: (context) {
-            if(isDelete){
+            if (isDelete) {
               setState(() {
                 deleteWeatherPageData(weatherPages[i]);
-
               });
-
-            }else{
-              widget.pageController.jumpToPage(i);
-              if(widget.orientation!=Orientation.landscape){
-
+            } else {
+              if (widget.orientation == Orientation.landscape) {
+                widget.pageController.animateToPage(i,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.fastEaseInToSlowEaseOut);
+              } else {
+                widget.pageController.jumpToPage(i);
                 Navigator.pop(context);
               }
-
             }
-
           }));
     }
     return Scaffold(
@@ -129,6 +125,7 @@ class _LocationChooseState extends State<LocationChoose> {
     );
   }
 }
+//-----------------------------------------------------------
 
 class LocationSearch extends StatefulWidget {
   const LocationSearch({super.key});
@@ -156,7 +153,7 @@ class _LocationSearchState extends State<LocationSearch> {
       if (isDispose) {
         return;
       }
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 250));
 
       if (count >= countMax) {
         if (!_isFetched) {
@@ -166,7 +163,7 @@ class _LocationSearchState extends State<LocationSearch> {
 
         continue;
       }
-      count += 0.9;
+      count += 0.5;
     }
   }
 
@@ -189,11 +186,14 @@ class _LocationSearchState extends State<LocationSearch> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(11, 11, 11, 20),
-              child: SearchBar(
-                controller: controller,
-                padding: const MaterialStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 16.0)),
-                leading: const Icon(Icons.search),
+              child: Container(
+                alignment: AlignmentDirectional.topStart,
+                child: SearchBar(
+                  controller: controller,
+                  padding: const MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0)),
+                  leading: const Icon(Icons.search),
+                ),
               ),
             ),
             FutureBuilder(

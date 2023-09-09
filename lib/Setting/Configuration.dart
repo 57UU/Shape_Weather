@@ -18,6 +18,16 @@ class LocationInfo {
   late String cityName;
   double lon=-1000;
   double lat=-1000;
+
+  @override
+  bool operator ==(Object other) {
+    if(other is LocationInfo){
+      bool flag1=cityName==other.cityName && (lon-other.lon).abs()<0.1 &&(lat-other.lat).abs()<0.1;
+      return flag1;
+
+    }
+    return false;
+  }
 }
 
 enum WeatherType { current, forecast }
@@ -32,6 +42,18 @@ class WeatherPageData {
   WeatherPageData({required this.locationInfo}) {
     title = locationInfo.cityName;
   }
+
+
+  @override
+  bool operator ==(Object other) {
+    if(other is WeatherPageData){
+      return locationInfo == other.locationInfo;
+    }
+    return false;
+
+  }
+
+
 }
 
 var weatherPages = <WeatherPageData>[];

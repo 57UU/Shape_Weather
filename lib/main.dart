@@ -18,6 +18,9 @@ void main() {
 GlobalKey<_HomePageState> _globalKey = GlobalKey<_HomePageState>();
 
 void updateWeatherPages(WeatherPageData weatherPageData) {
+  if(weatherPages.contains(weatherPageData)){
+    return;
+  }
   _globalKey.currentState?.setState(() {
     weatherPages.add(weatherPageData);
   });
