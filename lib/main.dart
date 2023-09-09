@@ -176,13 +176,7 @@ class _HomePageState extends State<HomePage> {
               child: Fragment(
                 child: LocationChoose(widget.orientation, pageController),
               )),
-          SizedBox(
-              width: width - locationChooseWidth,
-              child: Platform.isAndroid||Platform.isFuchsia
-                  ? mainWidget
-                  : Fragment(
-                      child: mainWidget,
-                    ))
+          SizedBox(width: width - locationChooseWidth, child: mainWidget)
         ],
       );
     } else {
