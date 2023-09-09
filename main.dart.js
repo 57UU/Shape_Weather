@@ -84739,7 +84739,7 @@ A.pJ.prototype={
 aj(){return new A.UQ(B.i)}}
 A.UQ.prototype={
 G(a){var s=null
-return A.mX(A.lM(A.aY("Setting",s,s,s,s,s,s,s)),A.yv(A.a([A.a1P(B.SQ,new A.anA()),A.a1P(A.aY("Clear All Data",s,s,s,s,s,s,s),new A.anB()),A.a1P(A.aY("Test",s,s,s,s,s,s,s),new A.anC(a))],t.p)))}}
+return A.mX(A.lM(A.aY("Setting",s,s,s,s,s,s,s)),A.yv(A.a([A.a1P(B.SP,new A.anA()),A.a1P(A.aY("Clear All Data",s,s,s,s,s,s,s),new A.anB()),A.a1P(A.aY("Test",s,s,s,s,s,s,s),new A.anC(a))],t.p)))}}
 A.anA.prototype={
 $0(){var s=0,r=A.S(t.H)
 var $async$$0=A.T(function(a,b){if(a===1)return A.P(b,r)
@@ -85094,10 +85094,10 @@ q=r.e
 q===$&&A.b()
 r=r.b
 p=r==null
-o=p?B.SR:A.aY(A.h(r.c.a)+"\u2103",n,n,n,n,n,n,n)
-if(this.d)r=B.SM
-else r=p?B.SO:A.aY(B.b.gI(r.a).b,n,n,n,n,n,n,n)
-l.push(A.nN(A.ez(A.a([o,r],m),B.T,B.cp,B.G,n),a,n,new A.al5(this,s),q))}return A.mX(A.lM(B.SL),A.yv(l))}}
+o=p?B.SQ:A.aY(A.h(r.c.a)+"\u2103",n,n,n,n,n,n,n)
+if(this.d)r=B.SL
+else r=p?B.SN:A.aY(B.b.gI(r.a).b,n,n,n,n,n,n,n)
+l.push(A.nN(A.ez(A.a([o,r],m),B.T,B.cp,B.G,n),a,n,new A.al5(this,s),q))}return A.mX(A.lM(B.SK),A.yv(l))}}
 A.al4.prototype={
 $2(a,b){var s=null,r=b.b/2,q=this.a,p=A.hd(A.nN(B.LX,a,s,new A.al2(q),"ADD"),s,r),o=q.d,n=o?"Cancel":"Delete",m=t.p
 return A.ez(A.a([p,A.hd(A.nN(A.ez(A.a([A.Jv(o?B.E3:B.DZ,B.fH,s)],m),B.T,B.fD,B.G,s),a,s,new A.al3(q),n),s,r)],m),B.T,B.R,B.G,s)},
@@ -85163,7 +85163,7 @@ case 3:return A.Q(null,r)}})
 return A.R($async$wm,r)},
 G(a){var s=this,r=null,q=s.d
 q.W(0,new A.al9(s))
-return A.mX(A.lM(B.SS),A.at7(A.dH(A.a([new A.bg(B.Dk,A.fq(B.bC,new A.Ar(q,B.mN,B.Jz,r),B.x,r,r,r,r,r,r,r,r,r,r),r),A.awX(new A.ala(s),s.qB(q.a.a),t.Xv)],t.p),B.T,B.R,B.G),B.b_))},
+return A.mX(A.lM(B.SR),A.at7(A.dH(A.a([new A.bg(B.Dk,A.fq(B.bC,new A.Ar(q,B.mN,B.Jz,r),B.x,r,r,r,r,r,r,r,r,r,r),r),A.awX(new A.ala(s),s.qB(q.a.a),t.Xv)],t.p),B.T,B.R,B.G),B.b_))},
 qB(a){return this.Wi(a)},
 Wi(a){var s=0,r=A.S(t.Xv),q,p=2,o,n,m,l,k,j,i
 var $async$qB=A.T(function(b,c){if(b===1){o=c
@@ -85211,7 +85211,7 @@ s.e=0},
 $S:0}
 A.ala.prototype={
 $2(a,b){var s,r,q,p,o,n,m,l,k,j,i=null
-if(b.a===B.dA)if(b.c!=null)return B.SP
+if(b.a===B.dA)if(b.c!=null)return B.SO
 else{s=t.Xv.a(b.b)
 r=t.p
 q=A.a([],r)
@@ -85235,7 +85235,7 @@ A.aS7(A.atn(r))},
 $S:0}
 A.OI.prototype={
 G(a){var s=null
-return A.mX(A.lM(B.SN),A.lU(A.dH(A.a([B.KN,A.a1P(A.aY("ADD",s,s,s,s,s,s,s),new A.af0(a))],t.p),B.T,B.R,B.G),s,s))}}
+return A.mX(A.lM(B.SM),A.lU(A.dH(A.a([B.KN,A.a1P(A.aY("ADD",s,s,s,s,s,s,s),new A.af0(a))],t.p),B.T,B.R,B.G),s,s))}}
 A.af0.prototype={
 $0(){var s=A.a_R(new A.af_(),t.z)
 A.ew(this.a,!1).fK(s)},
@@ -90981,14 +90981,14 @@ B.cY=new A.t4(1,"landscape")
 B.KL=new A.zc(null)
 B.W6=new A.KX(0,"start")
 B.KM=new A.KX(1,"end")
-B.Dj=new A.al(0,50,0,20)
-B.SK=new A.dS("It seems you have not added a city yet\nClick the button to add one",null,null,B.et,null,null,null,null,null,null)
-B.KN=new A.bg(B.Dj,B.SK,null)
 B.Du=new A.al(5,5,5,5)
 B.Wc=new A.afh(0,"material")
 B.lr=new A.k9(4,0,null,null,null,null,null,null,null,null)
 B.AM=new A.wD(B.D,null,null,B.lr,null)
 B.tx=new A.bg(B.Du,B.AM,null)
+B.Dj=new A.al(0,50,0,20)
+B.SS=new A.dS("It seems that you haven't added a city yet\nClick the button below to add one",null,null,B.et,null,null,null,null,null,null)
+B.KN=new A.bg(B.Dj,B.SS,null)
 B.Dh=new A.al(0,100,0,0)
 B.KO=new A.bg(B.Dh,B.lr,null)
 B.KP=new A.ze(null)
@@ -91637,19 +91637,19 @@ B.RU=new A.p(!0,B.k,null,"Roboto",null,null,null,null,null,null,null,null,null,n
 B.RM=new A.p(!0,B.k,null,"Roboto",null,null,null,null,null,null,null,null,null,null,null,null,null,B.e,null,null,null,"whiteMountainView labelMedium",null,null,null,null)
 B.Rm=new A.p(!0,B.k,null,"Roboto",null,null,null,null,null,null,null,null,null,null,null,null,null,B.e,null,null,null,"whiteMountainView labelSmall",null,null,null,null)
 B.SJ=new A.d2(B.R1,B.Sn,B.S4,B.Py,B.RX,B.QW,B.Sr,B.Q3,B.QB,B.RQ,B.Pp,B.S5,B.RU,B.RM,B.Rm)
-B.SL=new A.dS("Map",null,null,null,null,null,null,null,null,null)
+B.SK=new A.dS("Map",null,null,null,null,null,null,null,null,null)
 B.Qf=new A.p(!0,B.fH,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.SM=new A.dS("\u2716",null,B.Qf,null,null,null,null,null,null,null)
+B.SL=new A.dS("\u2716",null,B.Qf,null,null,null,null,null,null,null)
 B.yv=new A.dS("\u2103",null,null,null,null,null,1.5,null,null,null)
-B.SN=new A.dS("Welcome to Shape Weather",null,null,null,null,null,null,null,null,null)
-B.SO=new A.dS("Weather",null,null,null,null,null,null,null,null,null)
-B.SP=new A.dS("Can not fetch data",null,null,B.et,null,null,null,null,null,null)
+B.SM=new A.dS("Welcome to Shape Weather",null,null,null,null,null,null,null,null,null)
+B.SN=new A.dS("Weather",null,null,null,null,null,null,null,null,null)
+B.SO=new A.dS("Can not fetch data",null,null,B.et,null,null,null,null,null,null)
 B.yw=new A.dS("Forecasts",null,null,null,null,null,null,null,null,null)
 B.k2=new A.dS("",null,null,null,null,null,null,null,null,null)
 B.yx=new A.dS("",null,null,null,null,null,0,null,null,null)
-B.SQ=new A.dS("Open Github Repo",null,null,null,null,null,null,null,null,null)
-B.SR=new A.dS("Unknown",null,null,null,null,null,null,null,null,null)
-B.SS=new A.dS("Search",null,null,null,null,null,null,null,null,null)
+B.SP=new A.dS("Open Github Repo",null,null,null,null,null,null,null,null,null)
+B.SQ=new A.dS("Unknown",null,null,null,null,null,null,null,null,null)
+B.SR=new A.dS("Search",null,null,null,null,null,null,null,null,null)
 B.yy=new A.dS("\u2191",null,B.k1,null,null,null,2.3,null,null,null)
 B.Wb=new A.aed(0,"system")
 B.Ky=new A.j(0.056,0.024)
