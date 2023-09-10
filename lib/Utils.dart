@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shape_weather/WeatherUI/Control.dart';
 
 Future showInfoDialog(
     {required BuildContext context,
@@ -21,6 +22,50 @@ Future showInfoDialog(
         );
       });
 }
+
+class ContextWarpper{
+  late BuildContext context;
+}
+
+Future showLoadingDialog(
+    {required BuildContext context,
+      String title = "Loading",
+      required Future Function() func,
+      String button = "Cancel"}) {
+  ContextWarpper contextWarpper=ContextWarpper();
+  func().then((v){
+    Future.delayed(const Duration(milliseconds: 100)).then((value)  {
+      Navigator.pop(contextWarpper.context);
+    });
+
+  });
+  return showDialog(
+    barrierDismissible: false,
+      context: context,
+      builder: (context) {
+      contextWarpper.context=context;
+        return AlertDialog(
+          title: Text(title),
+          content:  const Padding(
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  //Navigator.of(context).pop();
+                },
+                child: Text(button))
+          ],
+        );
+      });
+}
+
 
 class NotCampatible extends StatelessWidget {
   const NotCampatible({super.key});

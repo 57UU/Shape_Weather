@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/widgets/modules/location_view_widget.dart';
+import 'package:shape_weather/Utils.dart';
 import 'package:shape_weather/WeatherUI/Control.dart';
 import 'package:shape_weather/main.dart';
 import 'package:shape_weather/weatherAPI.dart';
@@ -146,7 +147,7 @@ class _LocationSearchState extends State<LocationSearch> {
   @override
   void dispose() {
     super.dispose();
-    isDispose=true;
+    isDispose = true;
   }
 
   double count = 0;
@@ -172,7 +173,8 @@ class _LocationSearchState extends State<LocationSearch> {
       count += 0.5;
     }
   }
-  String prevStr="";
+
+  String prevStr = "";
 
   @override
   Widget build(BuildContext context) {
@@ -180,10 +182,10 @@ class _LocationSearchState extends State<LocationSearch> {
       if (controller.text == "") {
         return;
       }
-      if(prevStr==controller.text){
+      if (prevStr == controller.text) {
         return;
-      }else{
-        prevStr=controller.text;
+      } else {
+        prevStr = controller.text;
       }
 
       _isFetched = false;
@@ -199,82 +201,104 @@ class _LocationSearchState extends State<LocationSearch> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(11, 11, 11, 20),
-              child: Container(
-                alignment: AlignmentDirectional.topStart,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
                 child: SearchBar(
                   controller: controller,
                   padding: const MaterialStatePropertyAll<EdgeInsets>(
                       EdgeInsets.symmetric(horizontal: 16.0)),
                   leading: const Icon(Icons.search),
+                  trailing: [
+                    IconButton(
+                      onPressed: () async {
+                        late CityLocationData location ;
+                        await showLoadingDialog(context: context, func: ()async{
+                          location = await Weather.getCityByIP();
+                        });
+
+                        setState(() {
+                          updateWeatherPages(WeatherPageData(
+                              locationInfo:
+                                  LocationInfo.formCityData(location)));
+                        });
+
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.gps_fixed_rounded),
+                    )
+                  ], //const Icon(Icons.gps_fixed_rounded)
                 ),
               ),
             ),
-            controller.text==""?empty:
-            FutureBuilder(
-              future: searchProvider(controller.text),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                // 请求已结束
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    // 请求失败，显示错误
-                    return const Text(
-                      "Can not fetch data",
-                      textAlign: TextAlign.center,
-                    );
-                  } else {
-                    // 请求成功，显示数据
-                    var cities = (snapshot.data as List<CityLocationData>);
-                    var children = <Widget>[];
-                    for (var i in cities) {
-                      late String text;
-                      if (i.state == "") {
-                        text = "Country : ${i.country}";
+            controller.text == ""
+                ? empty
+                : FutureBuilder(
+                    future: searchProvider(controller.text),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      // 请求已结束
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          // 请求失败，显示错误
+                          return const Text(
+                            "Can not fetch data",
+                            textAlign: TextAlign.center,
+                          );
+                        } else {
+                          // 请求成功，显示数据
+                          var cities =
+                              (snapshot.data as List<CityLocationData>);
+                          var children = <Widget>[];
+                          for (var i in cities) {
+                            late String text;
+                            if (i.state == "") {
+                              text = "Country : ${i.country}";
+                            } else {
+                              text = "${i.country},${i.state}";
+                            }
+                            children.add(CommonCardWithVariableOnClick(
+                                icon: const Icon(Icons.add),
+                                title: i.name,
+                                parameter: i,
+                                onTap: (BuildContext context,
+                                    CityLocationData citiesData) {
+                                  setState(() {
+                                    updateWeatherPages(WeatherPageData(
+                                        locationInfo: LocationInfo.formCityData(
+                                            citiesData)));
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                                      child: Text(
+                                        text,
+                                        textAlign: TextAlign.start,
+                                        textScaleFactor: 1.1,
+                                      ),
+                                    ),
+                                    Text(
+                                        "Latitude ${i.lat.toStringAsFixed(2)} & Longitude ${i.lon.toStringAsFixed(2)}"),
+                                  ],
+                                )));
+                          }
+                          return Column(
+                            children: children,
+                          );
+                        }
                       } else {
-                        text = "${i.country},${i.state}";
+                        // 请求未结束，显示loading
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+                          child: CircularProgressIndicator(),
+                        );
                       }
-                      children.add(CommonCardWithVariableOnClick(
-                          icon: const Icon(Icons.add),
-                          title: i.name,
-                          parameter: i,
-                          onTap: (BuildContext context,
-                              CityLocationData citiesData) {
-                            setState(() {
-                              updateWeatherPages(WeatherPageData(
-                                  locationInfo:
-                                      LocationInfo.formCityData(citiesData)));
-                            });
-                            Navigator.pop(context);
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                child: Text(
-                                  text,
-                                  textAlign: TextAlign.start,
-                                  textScaleFactor: 1.1,
-                                ),
-                              ),
-                              Text(
-                                  "Latitude ${i.lat.toStringAsFixed(2)} & Longitude ${i.lon.toStringAsFixed(2)}"),
-                            ],
-                          )));
-                    }
-                    return Column(
-                      children: children,
-                    );
-                  }
-                } else {
-                  // 请求未结束，显示loading
-                  return const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            )
+                    },
+                  )
           ],
         ),
       ),
@@ -292,8 +316,8 @@ class _LocationSearchState extends State<LocationSearch> {
         return result1;
       }
     } catch (e) {
-      debugPrint("get locations failed,use another method ,reason${e.toString()}");
-
+      debugPrint(
+          "get locations failed,use another method ,reason${e.toString()}");
     }
 
     var result2 = await Weather.getWeather(LocationInfo(cityName));

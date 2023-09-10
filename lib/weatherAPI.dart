@@ -9,9 +9,10 @@ import 'package:http/http.dart' as http;
 
 class Weather {
   static Languages language = Languages.ENGLISH;
-  static const String _key = r"4712166053f9a5ae4cf514b908becdf0";
+  static const String _key_openweather = r"4712166053f9a5ae4cf514b908becdf0";
+  static const String _key_baidu=r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
 
-  static OpenWeather openWeather = OpenWeather(apiKey: _key);
+  static OpenWeather openWeather = OpenWeather(apiKey: _key_openweather);
 
   static Future<WeatherData> getWeather(LocationInfo info) async {
     if (info.lat < -200 && info.lon < -200) {
@@ -67,10 +68,20 @@ class Weather {
 
     return (await http.read(Uri.parse(uri)));
   }
+  static Future<CityLocationData> getCityByIP()async{
+    var result=jsonDecode(await request("https://api.map.baidu.com/location/ip?coor=bd09ll&ak=$_key_baidu"));
+    var content=result["content"];
+    var detail=content["address_detail"];
+    CityLocationData cityLocationData=CityLocationData()..name=detail["city"]..state=detail["province"]..country="China";
+    cityLocationData.lat=double.parse(content["point"]["y"]);
+    cityLocationData.lon=double.parse(content["point"]["x"]);
+    return cityLocationData;
+
+  }
 
   static Future<List<CityLocationData>> getCitiesByName(String cityName) async {
     var response = await request(
-        "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_key");
+        "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_key_openweather");
     var result = jsonDecode(response);
     var cities = <CityLocationData>[];
 
