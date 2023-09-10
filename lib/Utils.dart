@@ -23,30 +23,35 @@ Future showInfoDialog(
       });
 }
 
-class ContextWarpper{
+class ContextWarpper {
   late BuildContext context;
 }
 
 Future showLoadingDialog(
     {required BuildContext context,
-      String title = "Loading",
-      required Future Function() func,
-      String button = "Cancel"}) {
-  ContextWarpper contextWarpper=ContextWarpper();
-  func().then((v){
-    Future.delayed(const Duration(milliseconds: 100)).then((value)  {
+    String title = "Loading",
+    required Future Function() func,
+    String button = "Cancel",
+    void Function()? onError}) {
+  ContextWarpper contextWarpper = ContextWarpper();
+  func().then((v) {
+    Future.delayed(const Duration(milliseconds: 100)).then((value) {
       Navigator.pop(contextWarpper.context);
     });
-
+  }).onError((error, stackTrace) {
+    Navigator.pop(contextWarpper.context);
+    if(onError!=null){
+      onError();
+    }
   });
   return showDialog(
-    barrierDismissible: false,
+      barrierDismissible: false,
       context: context,
       builder: (context) {
-      contextWarpper.context=context;
+        contextWarpper.context = context;
         return AlertDialog(
           title: Text(title),
-          content:  const Padding(
+          content: const Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +70,6 @@ Future showLoadingDialog(
         );
       });
 }
-
 
 class NotCampatible extends StatelessWidget {
   const NotCampatible({super.key});

@@ -64,7 +64,8 @@ class Weather {
     return responseBody;*/
 /*    var response = await http.get((Uri.parse(uri)));
     debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');*/
+    debugPrint('Response body: ${response.body}');
+    return response.body;*/
 
     return (await http.read(Uri.parse(uri)));
   }

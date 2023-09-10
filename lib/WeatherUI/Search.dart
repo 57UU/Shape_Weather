@@ -214,6 +214,8 @@ class _LocationSearchState extends State<LocationSearch> {
                         late CityLocationData location ;
                         await showLoadingDialog(context: context, func: ()async{
                           location = await Weather.getCityByIP();
+                        },onError: (){
+                          showInfoDialog(context: context,title: "Error",content: "Can not locate");
                         });
 
                         setState(() {
