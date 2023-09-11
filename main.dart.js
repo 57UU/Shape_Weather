@@ -82232,7 +82232,7 @@ return A.N(null,r)}})
 return A.O($async$$0,r)},
 $S:71}
 A.aid.prototype={
-$0(){A.v_("Can not locate",this.a,"Error")},
+$0(){A.v_("Can not locate\nPs:Web version is not supported now",this.a,"Error")},
 $S:0}
 A.aie.prototype={
 $0(){A.azJ(A.adB(A.aus(this.a.aH())))},
