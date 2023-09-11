@@ -215,7 +215,7 @@ class _LocationSearchState extends State<LocationSearch> {
                         await showLoadingDialog(context: context, func: ()async{
                           location = await Weather.getCityByIP();
                         },onError: (){
-                          showInfoDialog(context: context,title: "Error",content: "Can not locate");
+                          showInfoDialog(context: context,title: "Error",content: "Can not locate\nPs:Web version is not supported now");
                         });
 
                         setState(() {
