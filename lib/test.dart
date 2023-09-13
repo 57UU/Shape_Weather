@@ -1,36 +1,42 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/weatherAPI.dart';
 
 import 'WeatherUI/Control.dart';
 
 class Test extends StatelessWidget {
-
   const Test({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          CupertinoButton(child: Text("Hello"), onPressed: () {}),
+          CupertinoButton(
+              child: Text("Test Search api"),
+              onPressed: () {
+                Weather.getCitiesByName("java");
+              }),
+          CupertinoButton(
+              child: Text("Load config"),
+              onPressed: () {
+                loadConfig();
+              }),
+          const AnimatedWeatherCard(),
 
-    return Scaffold(body: Column(
-      children: [
-        CupertinoButton(child: Text("Hello"), onPressed: (){}),
-        CupertinoButton(child: Text("Test Search api"), onPressed: (){
-          Weather.getCitiesByName("java");
-        }),
-        CupertinoButton(child: Text("Load config"), onPressed: (){
-          loadConfig();
-        }),
-        const AnimatedWeatherCard(),
-
-      ],
-    ),
-
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (builder){
+              return Scaffold(appBar:AppBar(),body: const DragList(),);
+            }));
+          }, child: const Text("Reorder")),
+        ],
+      ),
     );
   }
 }
-
 
 class AnimatedWeatherCard extends StatefulWidget {
   const AnimatedWeatherCard({super.key});
@@ -76,5 +82,58 @@ class _AnimatedWeatherCardState extends State<AnimatedWeatherCard> {
         isTimeOut = true;
       });
     });
+  }
+}
+
+
+
+
+
+class DragList extends StatefulWidget {
+  const DragList({super.key});
+
+  @override
+  State<DragList> createState() => _DragListState();
+}
+
+class _DragListState extends State<DragList> {
+  late List<Widget> _tiles;
+
+  @override
+  Widget build(BuildContext context) {
+    void _onReorder(int oldIndex, int newIndex) {
+      setState(() {
+        Widget row = _tiles.removeAt(oldIndex);
+        _tiles.insert(newIndex, row);
+      });
+    }
+    ScrollController scrollController = PrimaryScrollController.of(context) ?? ScrollController();
+    return CustomScrollView(
+      controller: scrollController,
+      slivers: <Widget>[
+        const SliverAppBar(
+          expandedHeight: 210.0,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text('ReorderableSliverList'),
+          ),
+        ),
+        ReorderableSliverList(
+          delegate: ReorderableSliverChildListDelegate(_tiles),
+          onReorder: _onReorder,
+        )
+      ],
+    );
+  }
+
+  @override
+  void initState() {
+
+    _tiles = weatherPages.value
+        .map((i) {
+          return Text(i.title);
+        })
+        .cast<Widget>()
+        .toList();
+    super.initState();
   }
 }

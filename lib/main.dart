@@ -72,15 +72,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String title = "Welcome to Shape Weather";
 
+
   final PageController pageController = PageController();
+  late int currentPage;
 
   @override
   void initState() {
     super.initState();
-
-/*    for (var i in ["chengdu", "guangdong", "shuangliu"]) {
-      weatherPages.add(WeatherPageData(locationInfo: LocationInfo(i)));
-    }*/
+    currentPage=pageController.initialPage;
     if (weatherPages.value.isNotEmpty) {
       title = weatherPages.value.first.title;
     }
@@ -90,7 +89,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (weatherPages.value.isEmpty) {
       title = "Welcome to Shape Weather";
+    }else{
+      title=weatherPages.value[currentPage].title;
+
     }
+
     var pages = <Widget>[];
 
     for (WeatherPageData weatherPageData in weatherPages.value) {
@@ -148,8 +151,9 @@ class _HomePageState extends State<HomePage> {
             : PageView(
                 controller: pageController,
                 onPageChanged: (int num) {
+                  currentPage=num;
                   setState(() {
-                    title = weatherPages.value[num].title;
+
                   });
                 },
                 children: pages,

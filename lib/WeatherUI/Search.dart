@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
+import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/Utils.dart';
 import 'package:shape_weather/WeatherUI/Control.dart';
 import 'package:shape_weather/main.dart';
@@ -22,120 +23,135 @@ class LocationChoose extends StatefulWidget {
 class _LocationChooseState extends State<LocationChoose> {
   bool isDelete = false;
 
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      var row = weatherPages.value.removeAt(oldIndex);
+      weatherPages.value.insert(newIndex, row);
+    });
+    weatherPages.notifyListeners();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var children = <Widget>[
-      LayoutBuilder(builder: (context, constraints) {
-        return Row(
-          children: [
-            SizedBox(
-              width: constraints.maxWidth / 2,
-              child: commonCard(
-                  context: context,
-                  title: "ADD",
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.add,
-                        color: Colors.blueAccent,
-                      ),
-                    ],
-                  ),
-                  onTap: (context) async {
-                    await Navigator.push(context,
-                        CupertinoPageRoute(builder: (builder) {
-                      return const LocationSearch();
-                    }));
-                    setState(() {});
-                  }),
-            ),
-            SizedBox(
-              width: constraints.maxWidth / 2,
-              child: commonCard(
-                  onTap: (context) {
-                    setState(() {
-                      isDelete = !isDelete;
-                    });
-                  },
-                  context: context,
-                  title: isDelete ? "Cancel" : "Delete",
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        isDelete ? Icons.subdirectory_arrow_left : Icons.delete,
-                        color: Colors.red,
-                      )
-                    ],
-                  )),
-            ),
-          ],
-        );
-      })
-    ];
-    for (int i = 0; i < weatherPages.value.length; i++) {
-      children.add(commonCard(
-          context: context,
-          title: weatherPages.value[i].title,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ValueListenableBuilder<WeatherData?>(
-                builder: (context,value,child) {
-                  return weatherPages.value[i].weatherData.value == null
-                      ? const Text("Unknown")
-                      : Text(
-                          "${weatherPages.value[i].weatherData.value!.temperature.currentTemperature}℃");
-                },
-                valueListenable:weatherPages.value[i].weatherData ,
-              ),
-              isDelete
-                  ? const Text(
-                      "✖",
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : ValueListenableBuilder<WeatherData?>(
-                      builder: (context, value, child) {
-                        return weatherPages.value[i].weatherData.value == null
-                            ? const Text("Weather")
-                            : Text(weatherPages.value[i]
-                                .weatherData
-                                .value!
-                                .details
-                                .first
-                                .weatherShortDescription);
-                      },
-                      valueListenable: weatherPages.value[i].weatherData,
+    var children = <Widget>[];
+    var header = LayoutBuilder(builder: (context, constraints) {
+      return Row(
+        children: [
+          SizedBox(
+            width: constraints.maxWidth / 2,
+            child: commonCard(
+                context: context,
+                title: "ADD",
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.blueAccent,
                     ),
-            ],
+                  ],
+                ),
+                onTap: (context) async {
+                  await Navigator.push(context,
+                      CupertinoPageRoute(builder: (builder) {
+                    return const LocationSearch();
+                  }));
+                  setState(() {});
+                }),
           ),
-          onTap: (context) {
-            if (isDelete) {
-              setState(() {
-                weatherPages.value.remove(weatherPages.value[i]);
-                weatherPages.notifyListeners();
-              });
-            } else {
-              if (widget.orientation == Orientation.landscape) {
-                widget.pageController.animateToPage(i,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.fastEaseInToSlowEaseOut);
+          SizedBox(
+            width: constraints.maxWidth / 2,
+            child: commonCard(
+                onTap: (context) {
+                  setState(() {
+                    isDelete = !isDelete;
+                  });
+                },
+                context: context,
+                title: isDelete ? "Cancel" : "Delete",
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      isDelete ? Icons.subdirectory_arrow_left : Icons.delete,
+                      color: Colors.red,
+                    )
+                  ],
+                )),
+          ),
+        ],
+      );
+    });
+    for (int i = 0; i < weatherPages.value.length; i++) {
+      children.add(Container(
+        key: ObjectKey(weatherPages.value[i]),
+        child: commonCard(
+            context: context,
+            title: weatherPages.value[i].title,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ValueListenableBuilder<WeatherData?>(
+                  builder: (context, value, child) {
+                    return weatherPages.value[i].weatherData.value == null
+                        ? const Text("Unknown")
+                        : Text(
+                            "${weatherPages.value[i].weatherData.value!.temperature.currentTemperature}℃");
+                  },
+                  valueListenable: weatherPages.value[i].weatherData,
+                ),
+                isDelete
+                    ? const Text(
+                        "✖",
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : ValueListenableBuilder<WeatherData?>(
+                        builder: (context, value, child) {
+                          return weatherPages.value[i].weatherData.value == null
+                              ? const Text("Weather")
+                              : Text(weatherPages.value[i].weatherData.value!
+                                  .details.first.weatherShortDescription);
+                        },
+                        valueListenable: weatherPages.value[i].weatherData,
+                      ),
+              ],
+            ),
+            onTap: (context) {
+              if (isDelete) {
+                setState(() {
+                  weatherPages.value.remove(weatherPages.value[i]);
+                  weatherPages.notifyListeners();
+                });
               } else {
-                widget.pageController.jumpToPage(i);
-                Navigator.pop(context);
+                if (widget.orientation == Orientation.landscape) {
+                  widget.pageController.animateToPage(i,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.fastEaseInToSlowEaseOut);
+                } else {
+                  widget.pageController.jumpToPage(i);
+                  Navigator.pop(context);
+                }
               }
-            }
-          }));
+            }),
+      ));
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Map"),
-      ),
-      body: ListView(
-        children: children,
-      ),
-    );
+        appBar: AppBar(
+          title: const Text("Map"),
+        ),
+        body: ReorderableColumn(
+            buildDraggableFeedback: (context, constraints, child) {
+              return ConstrainedBox(
+                  constraints: constraints,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: child,
+                  ));
+            },
+            header: header,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            onReorder: _onReorder,
+            children: children));
   }
 }
 //-----------------------------------------------------------
@@ -240,7 +256,7 @@ class _LocationSearchState extends State<LocationSearch> {
                         setState(() {
                           weatherPages.value.add(WeatherPageData(
                               locationInfo:
-                              LocationInfo.formCityData(location)));
+                                  LocationInfo.formCityData(location)));
                           weatherPages.notifyListeners();
                         });
 
