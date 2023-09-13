@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:open_weather_client/widgets/modules/location_view_widget.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/weatherAPI.dart';
 import 'package:shape_weather/Utils.dart';
-import 'package:open_weather_client/models/weather_data.dart';
-import 'package:open_weather_client/models/weather_forecast_data.dart';
 
 import 'package:shape_weather/WeatherUI/Background.dart';
 import 'Cards.dart';
-import 'Control.dart';
 
 class WeatherInterface extends StatefulWidget {
   final WeatherPageData weatherPageData;
@@ -21,8 +17,6 @@ class WeatherInterface extends StatefulWidget {
 
 class _WeatherInterfaceState extends State<WeatherInterface>
     with AutomaticKeepAliveClientMixin {
-  WeatherData? weatherData;
-  WeatherForecastData? weatherForecastData;
   bool onError = false;
 
   @override
@@ -43,7 +37,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
 
   Widget background() {
     if (Theme.of(context).colorScheme.brightness == Brightness.dark) {
-      return Opacity(opacity: 0.3, child: const AnimatedGradient());
+      return const Opacity(opacity: 0.3, child: AnimatedGradient());
     }
     return const AnimatedGradient();
   }
@@ -53,30 +47,30 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       return Center(
         child: TextButton(
           onPressed: getWeatherData,
-          child: Text("Tap to Reload"),
+          child: const Text("Tap to Reload"),
         ),
       );
     }
 
-    if (weatherData == null) {
-      return Center(child: CircularProgressIndicator());
+    if (widget.weatherPageData.weatherData.value == null) {
+      return const Center(child: CircularProgressIndicator());
     } else {
       return ListView(
         children: [
           //LocationView(weatherData: weatherData!),
-          Overview(weatherData!),
+          Overview(widget.weatherPageData.weatherData.value!),
 
           (widget.weatherPageData.weatherType == WeatherType.current)
-              ? ForecastCard(weatherForecastData)
+              ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
               : const Text(
                   "",
                   textScaleFactor: 0,
                 ),
-          WindCard(weatherData!),
-          Details(weatherData!),
-          WeatherIcon(weatherData!),
-          TimeCard(weatherData),
-          LocationDetail(weatherData!),
+          WindCard(widget.weatherPageData.weatherData.value!),
+          Details(widget.weatherPageData.weatherData.value!),
+          WeatherIcon(widget.weatherPageData.weatherData.value!),
+          TimeCard(widget.weatherPageData.weatherData.value),
+          LocationDetail(widget.weatherPageData.weatherData.value!),
 
           //AnimatedWeatherCard(),
         ],
@@ -86,8 +80,6 @@ class _WeatherInterfaceState extends State<WeatherInterface>
 
   @override
   void initState() {
-    weatherData = widget.weatherPageData.weatherData;
-    weatherForecastData= widget.weatherPageData.weatherForecastData;
     super.initState();
     getAllData();
   }
@@ -95,10 +87,10 @@ class _WeatherInterfaceState extends State<WeatherInterface>
   Future getAllData() async {
     if (widget.weatherPageData.weatherType == WeatherType.current) {
       var list=<Future<dynamic>>[];
-      if(widget.weatherPageData.weatherData==null){
+      if(widget.weatherPageData.weatherData.value==null){
         list.add(getWeatherData());
       }
-      if(widget.weatherPageData.weatherForecastData==null){
+      if(widget.weatherPageData.weatherForecastData.value==null){
         list.add(getWeatherForecastData());
       }
       await Future.wait(list);
@@ -114,10 +106,10 @@ class _WeatherInterfaceState extends State<WeatherInterface>
     });
     try {
       var data = await Weather.getWeather(widget.weatherPageData.locationInfo);
-      widget.weatherPageData.weatherData = data;
+      widget.weatherPageData.weatherData.value = data;
 
       setState(() {
-        weatherData = data;
+        widget.weatherPageData.weatherData.value = data;
         onError = false;
       });
     } catch (e) {
@@ -131,9 +123,8 @@ class _WeatherInterfaceState extends State<WeatherInterface>
   Future getWeatherForecastData() async {
     var data2 =
         await Weather.getWeatherForecast(widget.weatherPageData.locationInfo);
-    widget.weatherPageData.weatherForecastData = data2;
     setState(() {
-      weatherForecastData = data2;
+      widget.weatherPageData.weatherForecastData.value = data2;
     });
   }
 

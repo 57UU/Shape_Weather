@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
-import 'package:open_weather_client/widgets/modules/location_view_widget.dart';
+import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/Utils.dart';
 import 'package:shape_weather/WeatherUI/Control.dart';
 import 'package:shape_weather/main.dart';
@@ -81,22 +81,33 @@ class _LocationChooseState extends State<LocationChoose> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              weatherPages[i].weatherData == null
-                  ? const Text("Unknown")
-                  : Text(
-                      "${weatherPages[i].weatherData!.temperature.currentTemperature}℃"),
+              ValueListenableBuilder<WeatherData?>(
+                builder: (context,value,child) {
+                  return weatherPages[i].weatherData.value == null
+                      ? const Text("Unknown")
+                      : Text(
+                          "${weatherPages[i].weatherData.value!.temperature.currentTemperature}℃");
+                },
+                valueListenable:weatherPages[i].weatherData ,
+              ),
               isDelete
                   ? const Text(
                       "✖",
                       style: TextStyle(color: Colors.red),
                     )
-                  : weatherPages[i].weatherData == null
-                      ? const Text("Weather")
-                      : Text(weatherPages[i]
-                          .weatherData!
-                          .details
-                          .first
-                          .weatherShortDescription),
+                  : ValueListenableBuilder<WeatherData?>(
+                      builder: (context, value, child) {
+                        return weatherPages[i].weatherData.value == null
+                            ? const Text("Weather")
+                            : Text(weatherPages[i]
+                                .weatherData
+                                .value!
+                                .details
+                                .first
+                                .weatherShortDescription);
+                      },
+                      valueListenable: weatherPages[i].weatherData,
+                    ),
             ],
           ),
           onTap: (context) {
@@ -211,12 +222,19 @@ class _LocationSearchState extends State<LocationSearch> {
                   trailing: [
                     IconButton(
                       onPressed: () async {
-                        late CityLocationData location ;
-                        await showLoadingDialog(context: context, func: ()async{
-                          location = await Weather.getCityByIP();
-                        },onError: (){
-                          showInfoDialog(context: context,title: "Error",content: "Can not locate\nPs:Web version is not supported now");
-                        });
+                        late CityLocationData location;
+                        await showLoadingDialog(
+                            context: context,
+                            func: () async {
+                              location = await Weather.getCityByIP();
+                            },
+                            onError: () {
+                              showInfoDialog(
+                                  context: context,
+                                  title: "Error",
+                                  content:
+                                      "Can not locate\nPs:Web version is not supported now");
+                            });
 
                         setState(() {
                           updateWeatherPages(WeatherPageData(
@@ -314,7 +332,7 @@ class _LocationSearchState extends State<LocationSearch> {
     //await Future.delayed(Duration(seconds: 1));
     try {
       var result1 = await Weather.getCitiesByName(cityName);
-      if (result1.length != 0) {
+      if (result1.isNotEmpty) {
         return result1;
       }
     } catch (e) {

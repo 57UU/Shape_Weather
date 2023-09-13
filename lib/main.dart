@@ -91,7 +91,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late String title;
+  String title = "Welcome to Shape Weather";
 
   final PageController pageController = PageController();
 
@@ -109,14 +109,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if(weatherPages.isEmpty){
+      title = "Welcome to Shape Weather";
+    }
     var pages = <Widget>[];
 
     for (WeatherPageData weatherPageData in weatherPages) {
       pages.add(WeatherInterface(weatherPageData));
     }
-    if (weatherPages.isEmpty) {
+/*    if (weatherPages.isEmpty) {
       return const Welcome();
-    }
+    }*/
     bool isLandscape = widget.orientation == Orientation.landscape;
     if (weatherPages.length == 1) {
       title = weatherPages.first.title;
@@ -152,27 +155,30 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(context,
                         CupertinoPageRoute(builder: (builder) {
-                      return Setting();
+                      return const Setting();
                     }));
                   },
                   icon: const Icon(Icons.settings))
             ],
           ),
         ),
-        body: PageView(
-          controller: pageController,
-          onPageChanged: (int num) {
-            setState(() {
-              title = weatherPages[num].title;
-            });
-          },
-          children: pages,
-        ));
+        body: weatherPages.isEmpty
+            ? Builder(builder: (context) {
+                return const Welcome();
+              })
+            : PageView(
+                controller: pageController,
+                onPageChanged: (int num) {
+                  setState(() {
+                    title = weatherPages[num].title;
+                  });
+                },
+                children: pages,
+              ));
 
     var width = MediaQuery.of(context).size.width;
 
     if (isLandscape) {
-
       var locationChooseWidth = width * 2 / 5;
       double widthMax = 350;
       if (locationChooseWidth > widthMax) {

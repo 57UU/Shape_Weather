@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/weatherAPI.dart';
@@ -34,8 +35,8 @@ enum WeatherType { current, forecast }
 
 class WeatherPageData {
   WeatherType weatherType = WeatherType.current;
-  WeatherData? weatherData;
-  WeatherForecastData? weatherForecastData;
+  ValueNotifier<WeatherData?> weatherData=ValueNotifier(null);
+  ValueNotifier< WeatherForecastData?> weatherForecastData=ValueNotifier(null);
   LocationInfo locationInfo;
   late String title;
 
@@ -57,6 +58,8 @@ class WeatherPageData {
 }
 
 var weatherPages = <WeatherPageData>[];
+
+
 const String _key="config";
 Future saveConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();

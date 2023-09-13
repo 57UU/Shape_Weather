@@ -7,7 +7,7 @@ import 'package:open_weather_client/models/weather_data.dart';
 
 Widget titleText(String text) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
     child: Text(
       text,
       textScaleFactor: 1.3,
@@ -37,7 +37,7 @@ Widget basicCard(
         child: child);
   }
   return Padding(
-    padding: EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
     child: Container(
         alignment: Alignment.topLeft,
         decoration: ShapeDecoration(
@@ -137,7 +137,7 @@ class ForecastDataGrid extends StatelessWidget {
                   pushForecastPage(context, weatherData);
                 },
                 child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Text(dateFormat.format(time)),
@@ -156,12 +156,12 @@ void pushForecastPage(BuildContext context, WeatherData weatherData) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     WeatherPageData weatherPageData =
         WeatherPageData(locationInfo: LocationInfo.empty)..title = "Forecast";
-    weatherPageData.weatherData = weatherData;
+    weatherPageData.weatherData.value = weatherData;
     weatherPageData.weatherType = WeatherType.forecast;
     return Scaffold(
       body: WeatherInterface(weatherPageData),
       appBar: AppBar(
-        title: Text("Forecast"),
+        title: const Text("Forecast"),
       ),
     );
   }));
@@ -195,7 +195,7 @@ class ForecastDataList extends StatelessWidget {
                 "${weatherData.temperature.currentTemperature}℃",
                 textScaleFactor: 1.2,
               ),
-              Spacer(),
+              const Spacer(),
               Text(weatherData.details.first.weatherShortDescription),
             ],
           )),
