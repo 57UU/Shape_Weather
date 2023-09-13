@@ -29,6 +29,9 @@ class LocationInfo {
     }
     return false;
   }
+
+
+
 }
 
 enum WeatherType { current, forecast }
@@ -57,14 +60,15 @@ class WeatherPageData {
 
 }
 
-var weatherPages = <WeatherPageData>[];
+ValueNotifier<List<WeatherPageData>> weatherPages = ValueNotifier([]);
+
 
 
 const String _key="config";
 Future saveConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   var list=<String>[];
-  for(var i in weatherPages){
+  for(var i in weatherPages.value){
     list.add("${i.locationInfo.lon}/${i.locationInfo.lat}/${i.locationInfo.cityName}");
   }
   prefs.setStringList(_key, list);
@@ -76,14 +80,14 @@ Future<String> loadConfig()async{
   if(list==null){
     return "Error";
   }
-  weatherPages.clear();
+  weatherPages.value.clear();
 
   for(String i in list){
     var splited=i.split("/");
     late LocationInfo locationInfo=LocationInfo(splited[2]);
     locationInfo.lon=double.parse(splited[0]) ;
     locationInfo.lat=double.parse(splited[1]);
-    weatherPages.add(WeatherPageData(locationInfo: locationInfo));
+    weatherPages.value.add(WeatherPageData(locationInfo: locationInfo));
   }
   return "Done";
 

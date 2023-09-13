@@ -1,10 +1,8 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Setting/Setting.dart';
-import 'package:shape_weather/WeatherUI/Cards.dart';
 import 'package:shape_weather/WeatherUI/Search.dart';
 import 'package:shape_weather/WeatherUI/Welcome.dart';
 
@@ -14,36 +12,12 @@ import 'WeatherUI/mainUI.dart';
 void main() {
   //test();
   runApp(const MyApp());
+  weatherPages.addListener(() {
+    saveConfig();
+  });
 }
 
 GlobalKey<_HomePageState> _globalKey = GlobalKey<_HomePageState>();
-
-void updateWeatherPages(WeatherPageData weatherPageData) {
-  if (weatherPages.contains(weatherPageData)) {
-    return;
-  }
-  _globalKey.currentState?.setState(() {
-    weatherPages.add(weatherPageData);
-  });
-  //weatherPages.add(weatherPageData);
-  saveConfig();
-}
-
-void clearWeatherPages() {
-  _globalKey.currentState?.setState(() {
-    weatherPages.clear();
-  });
-  //weatherPages.add(weatherPageData);
-  saveConfig();
-}
-
-void deleteWeatherPageData(WeatherPageData weatherPageData) {
-  _globalKey.currentState?.setState(() {
-    weatherPages.remove(weatherPageData);
-  });
-  //weatherPages.add(weatherPageData);
-  saveConfig();
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -65,15 +39,20 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             return OrientationBuilder(
               builder: (context, orientation) {
-                return HomePage(
-                  orientation,
-                  key: _globalKey,
+                return ValueListenableBuilder(
+                  builder: (context, v, child) {
+                    return HomePage(
+                      orientation,
+                      key: _globalKey,
+                    );
+                  },
+                  valueListenable: weatherPages,
                 );
               },
             );
           } else {
             // 请求未结束，显示loading
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         },
       ),
@@ -102,27 +81,27 @@ class _HomePageState extends State<HomePage> {
 /*    for (var i in ["chengdu", "guangdong", "shuangliu"]) {
       weatherPages.add(WeatherPageData(locationInfo: LocationInfo(i)));
     }*/
-    if (!weatherPages.isEmpty) {
-      title = weatherPages.first.title;
+    if (weatherPages.value.isNotEmpty) {
+      title = weatherPages.value.first.title;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if(weatherPages.isEmpty){
+    if (weatherPages.value.isEmpty) {
       title = "Welcome to Shape Weather";
     }
     var pages = <Widget>[];
 
-    for (WeatherPageData weatherPageData in weatherPages) {
+    for (WeatherPageData weatherPageData in weatherPages.value) {
       pages.add(WeatherInterface(weatherPageData));
     }
 /*    if (weatherPages.isEmpty) {
       return const Welcome();
     }*/
     bool isLandscape = widget.orientation == Orientation.landscape;
-    if (weatherPages.length == 1) {
-      title = weatherPages.first.title;
+    if (weatherPages.value.length == 1) {
+      title = weatherPages.value.first.title;
     }
     var mainWidget = Scaffold(
 /*      drawer: Drawer(
@@ -162,7 +141,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: weatherPages.isEmpty
+        body: weatherPages.value.isEmpty
             ? Builder(builder: (context) {
                 return const Welcome();
               })
@@ -170,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                 controller: pageController,
                 onPageChanged: (int num) {
                   setState(() {
-                    title = weatherPages[num].title;
+                    title = weatherPages.value[num].title;
                   });
                 },
                 children: pages,

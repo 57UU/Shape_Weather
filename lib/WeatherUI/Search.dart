@@ -74,21 +74,21 @@ class _LocationChooseState extends State<LocationChoose> {
         );
       })
     ];
-    for (int i = 0; i < weatherPages.length; i++) {
+    for (int i = 0; i < weatherPages.value.length; i++) {
       children.add(commonCard(
           context: context,
-          title: weatherPages[i].title,
+          title: weatherPages.value[i].title,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ValueListenableBuilder<WeatherData?>(
                 builder: (context,value,child) {
-                  return weatherPages[i].weatherData.value == null
+                  return weatherPages.value[i].weatherData.value == null
                       ? const Text("Unknown")
                       : Text(
-                          "${weatherPages[i].weatherData.value!.temperature.currentTemperature}℃");
+                          "${weatherPages.value[i].weatherData.value!.temperature.currentTemperature}℃");
                 },
-                valueListenable:weatherPages[i].weatherData ,
+                valueListenable:weatherPages.value[i].weatherData ,
               ),
               isDelete
                   ? const Text(
@@ -97,23 +97,24 @@ class _LocationChooseState extends State<LocationChoose> {
                     )
                   : ValueListenableBuilder<WeatherData?>(
                       builder: (context, value, child) {
-                        return weatherPages[i].weatherData.value == null
+                        return weatherPages.value[i].weatherData.value == null
                             ? const Text("Weather")
-                            : Text(weatherPages[i]
+                            : Text(weatherPages.value[i]
                                 .weatherData
                                 .value!
                                 .details
                                 .first
                                 .weatherShortDescription);
                       },
-                      valueListenable: weatherPages[i].weatherData,
+                      valueListenable: weatherPages.value[i].weatherData,
                     ),
             ],
           ),
           onTap: (context) {
             if (isDelete) {
               setState(() {
-                deleteWeatherPageData(weatherPages[i]);
+                weatherPages.value.remove(weatherPages.value[i]);
+                weatherPages.notifyListeners();
               });
             } else {
               if (widget.orientation == Orientation.landscape) {
@@ -237,9 +238,10 @@ class _LocationSearchState extends State<LocationSearch> {
                             });
 
                         setState(() {
-                          updateWeatherPages(WeatherPageData(
+                          weatherPages.value.add(WeatherPageData(
                               locationInfo:
-                                  LocationInfo.formCityData(location)));
+                              LocationInfo.formCityData(location)));
+                          weatherPages.notifyListeners();
                         });
 
                         Navigator.of(context).pop();
@@ -282,9 +284,10 @@ class _LocationSearchState extends State<LocationSearch> {
                                 onTap: (BuildContext context,
                                     CityLocationData citiesData) {
                                   setState(() {
-                                    updateWeatherPages(WeatherPageData(
+                                    weatherPages.value.add(WeatherPageData(
                                         locationInfo: LocationInfo.formCityData(
                                             citiesData)));
+                                    weatherPages.notifyListeners();
                                   });
                                   Navigator.pop(context);
                                 },
