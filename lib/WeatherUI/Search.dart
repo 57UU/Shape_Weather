@@ -32,7 +32,13 @@ class _LocationChooseState extends State<LocationChoose> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void activate() {
+    super.activate();
+    isDelete = false;
+  }
+
+
+  Widget buildChild(BuildContext context) {
     var children = <Widget>[];
     var header = LayoutBuilder(builder: (context, constraints) {
       return Row(
@@ -64,6 +70,10 @@ class _LocationChooseState extends State<LocationChoose> {
             child: commonCard(
                 onTap: (context) {
                   setState(() {
+                    if(weatherPages.value.isEmpty){
+                      isDelete = false;
+                      return;
+                    }
                     isDelete = !isDelete;
                   });
                 },
@@ -132,6 +142,9 @@ class _LocationChooseState extends State<LocationChoose> {
                   Navigator.pop(context);
                 }
               }
+              if(weatherPages.value.isEmpty){
+                isDelete = false;
+              }
             }),
       ));
     }
@@ -153,6 +166,15 @@ class _LocationChooseState extends State<LocationChoose> {
             onReorder: _onReorder,
             children: children));
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+        valueListenable: weatherPages,
+        builder: (context, b, c) {
+          return buildChild(context);
+        });
+  }
 }
 //-----------------------------------------------------------
 
@@ -165,6 +187,15 @@ class LocationSearch extends StatefulWidget {
 
 class _LocationSearchState extends State<LocationSearch> {
   SearchController controller = SearchController();
+
+  void addLocation(LocationInfo locationInfo) {
+    var page = WeatherPageData(locationInfo: locationInfo);
+    if (weatherPages.value.contains(page)) {
+      return;
+    }
+    weatherPages.value.add(page);
+    weatherPages.notifyListeners();
+  }
 
   @override
   void initState() {
@@ -254,10 +285,7 @@ class _LocationSearchState extends State<LocationSearch> {
                             });
 
                         setState(() {
-                          weatherPages.value.add(WeatherPageData(
-                              locationInfo:
-                                  LocationInfo.formCityData(location)));
-                          weatherPages.notifyListeners();
+                          addLocation(LocationInfo.formCityData(location));
                         });
 
                         Navigator.of(context).pop();
@@ -300,10 +328,8 @@ class _LocationSearchState extends State<LocationSearch> {
                                 onTap: (BuildContext context,
                                     CityLocationData citiesData) {
                                   setState(() {
-                                    weatherPages.value.add(WeatherPageData(
-                                        locationInfo: LocationInfo.formCityData(
-                                            citiesData)));
-                                    weatherPages.notifyListeners();
+                                    addLocation(
+                                        LocationInfo.formCityData(citiesData));
                                   });
                                   Navigator.pop(context);
                                 },
