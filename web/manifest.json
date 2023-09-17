@@ -2,11 +2,11 @@
     "name": "Shape Weather",
     "short_name": "weather",
     "start_url": ".",
-    "display": "fullscreen",
+    "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "cross-platform weather app",
-    "orientation": "portrait-primary",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {
