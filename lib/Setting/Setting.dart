@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
+import 'package:shape_weather/WeatherUI/About.dart';
 import 'package:shape_weather/test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -40,6 +41,11 @@ class _SettingState extends State<Setting> {
                 weatherPages.notifyListeners();
               },
               child: const Text("Clear All Data")),
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (builder){
+              return const About();
+            }));
+          }, child: const Text("About")),
           ElevatedButton(
               onPressed: () {
                 Navigator.push(context, CupertinoPageRoute(builder: (builder) {
