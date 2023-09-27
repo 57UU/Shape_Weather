@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shape_weather/WeatherUI/Control.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class About extends StatelessWidget {
   const About({super.key});
 
@@ -22,6 +23,7 @@ class About extends StatelessWidget {
           ),onTap: (con){
             launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));
           }),
+          commonCard(context: context, title: "Limited", child: const Center(child: Text("Web version may can not locate due to CORS"),)),
           commonCard(context: context, title: "Weather Provider", child: const Center(child: Text("Open Weather"),)),
           commonCard(context: context, title: "IP Locating Provider", child: const Center(child: Text("Baidu Map"),)),
         ],
