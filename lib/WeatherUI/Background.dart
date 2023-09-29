@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_weather_client/models/weather_data.dart';
 
 class AnimatedGradient extends StatefulWidget {
   const AnimatedGradient({super.key});
@@ -59,3 +60,69 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
         );
   }
 }
+var _indexedBackground=<Widget>[];
+Widget autoBackground(WeatherData weatherData){
+
+  var id=weatherData.details.first.id;
+  var index=weatherData.details.first.id/100;
+  if(index==2){
+    return const WeatherThunderStorm();
+  }else if(index==3){//light rain
+    return const WeatherRain();
+  }else if(index==5){//rain
+    return const WeatherRain();
+  }else if(index==6){//snow
+    return const WeatherSnow();
+  }else if(index==7){//atmosphere
+
+  }else if(id==800){//clear
+    return const WeatherClear();
+  }else if(id/10==80){//clouds
+    return const WeatherClouds();
+  }
+  return const AnimatedGradient();
+}
+class WeatherClear extends StatelessWidget {
+  const WeatherClear({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+class WeatherRain extends StatelessWidget {
+  const WeatherRain({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+class WeatherClouds extends StatelessWidget {
+  const WeatherClouds({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+class WeatherThunderStorm extends StatelessWidget {
+  const WeatherThunderStorm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+class WeatherSnow extends StatelessWidget {
+  const WeatherSnow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+
+
+

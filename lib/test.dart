@@ -16,9 +16,9 @@ class Test extends StatelessWidget {
         children: [
           CupertinoButton(child: Text("Hello"), onPressed: () {}),
           CupertinoButton(
-              child: Text("Test Search api"),
+              child: const Text("Test open_weatherV3 api"),
               onPressed: () {
-                Weather.getCitiesByName("java");
+                Weather.getWeather_httpget(weatherPages.value[0].locationInfo);
               }),
           CupertinoButton(
               child: Text("Load config"),

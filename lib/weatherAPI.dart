@@ -69,6 +69,10 @@ class Weather {
 
     return (await http.read(Uri.parse(uri)));
   }
+  static Future<String> getWeather_httpget(LocationInfo info)async{
+    var result=await request("https://api.openweathermap.org/data/3.0/onecall?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
+    return result;
+  }
   static Future<CityLocationData> getCityByIP()async{
     var result=jsonDecode(await request("https://api.map.baidu.com/location/ip?coor=bd09ll&ak=$_key_baidu"));
     var content=result["content"];

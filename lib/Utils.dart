@@ -96,3 +96,13 @@ class NotCampatible extends StatelessWidget {
     );
   }
 }
+
+var weatherDescription2Icon=<String,IconData>{
+  "Clear":Icons.sunny,
+  "Clouds":Icons.cloud_sharp,
+
+};
+IconData getIconByString(String type){
+  var result=weatherDescription2Icon[type];
+  return result ?? Icons.question_mark;
+}
