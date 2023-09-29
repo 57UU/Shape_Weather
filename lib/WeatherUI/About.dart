@@ -16,7 +16,7 @@ class About extends StatelessWidget {
           commonCard(context: context, title: "About", child: const Center(
             child: Column(
               children: [
-                Text("This is a cross-platform software made by flutter"),
+                Text("This is a cross-platform software made with flutter"),
                 Text("Click to access github repo")
               ],
             ),
