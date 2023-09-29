@@ -76982,7 +76982,7 @@ A.oU.prototype={
 a8(){return new A.SS(B.i)}}
 A.SS.prototype={
 E(a){var s=null
-return A.ja(A.iu(s,s,!0,s,s,1,s,s,s,!1,s,!1,s,s,s,s,!0,s,s,s,s,s,B.Rh,s,s,s,1,s),A.x3(A.a([A.H2(B.Ri,new A.ak8()),A.H2(B.Rn,new A.ak9()),A.H2(B.xv,new A.aka(a)),A.H2(B.Rp,new A.akb(a))],t.p)))}}
+return A.ja(A.iu(s,s,!0,s,s,1,s,s,s,!1,s,!1,s,s,s,s,!0,s,s,s,s,s,B.Ri,s,s,s,1,s),A.x3(A.a([A.H2(B.Rj,new A.ak8()),A.H2(B.Rn,new A.ak9()),A.H2(B.xv,new A.aka(a)),A.H2(B.Rp,new A.akb(a))],t.p)))}}
 A.ak8.prototype={
 $0(){var s=0,r=A.Q(t.H)
 var $async$$0=A.R(function(a,b){if(a===1)return A.N(b,r)
@@ -77240,7 +77240,7 @@ s.cV()
 this.e5$=null}this.lC()}}
 A.pH.prototype={
 E(a){var s=null
-return A.ja(A.iu(s,s,!0,s,s,1,s,s,s,!1,s,!1,s,s,s,s,!0,s,s,s,s,s,B.xv,s,s,s,1,s),A.x3(A.a([A.hr(B.zG,a,s,new A.WC(),"About"),A.hr(B.zJ,a,s,s,"Limited"),A.hr(B.zH,a,s,s,"Weather Provider"),A.hr(B.zI,a,s,s,"IP Locating Provider")],t.p)))}}
+return A.ja(A.iu(s,s,!0,s,s,1,s,s,s,!1,s,!1,s,s,s,s,!0,s,s,s,s,s,B.xv,s,s,s,1,s),A.x3(A.a([A.hr(B.zI,a,s,new A.WC(),"About"),A.hr(B.zJ,a,s,s,"Limited"),A.hr(B.zG,a,s,s,"Weather Provider"),A.hr(B.zH,a,s,s,"IP Locating Provider")],t.p)))}}
 A.WC.prototype={
 $1(a){A.and(A.eN("https://github.com/57UU/Shape_Weather",0,null))},
 $S:41}
@@ -77388,7 +77388,7 @@ for(s=t.Jo,r=0;r<J.bs($.bM().a);++r){q=J.aY($.bM().a,r)
 p=J.aY($.bM().a,r).e
 p===$&&A.b()
 o=J.aY($.bM().a,r).b
-n=m.d?B.Rb:new A.ib(J.aY($.bM().a,r).b,new A.agB(r),l,s)
+n=m.d?B.Rc:new A.ib(J.aY($.bM().a,r).b,new A.agB(r),l,s)
 j.push(A.du(l,A.hr(A.e0(A.a([new A.ib(o,new A.agC(r),l,s),n],k),B.K,B.ca,B.A,l),a,l,new A.agD(m,r),p),B.q,l,l,l,l,l,new A.r8(q),l,l,l,l,l))}return A.ja(A.iu(l,l,!0,l,l,1,l,l,l,!1,l,!1,l,l,l,l,!0,l,l,l,l,l,B.R9,l,l,l,1,l),A.aFH(new A.agE(),j,B.a9,new A.kg(new A.agF(m),l),m.ga3J()))},
 E(a){return A.avv(new A.agG(this),$.bM(),t.Ab)}}
 A.agu.prototype={
@@ -77427,11 +77427,11 @@ s.d=!s.d},
 $S:0}
 A.agC.prototype={
 $3(a,b,c){var s=null,r=this.a
-return J.aY($.bM().a,r).b.a==null?B.Rj:A.b2(A.j(J.aY($.bM().a,r).b.a.c.a)+"\u2103",s,s,s,s,s,s,s,s)},
+return J.aY($.bM().a,r).b.a==null?B.Rk:A.b2(A.j(J.aY($.bM().a,r).b.a.c.a)+"\u2103",s,s,s,s,s,s,s,s)},
 $S:122}
 A.agB.prototype={
 $3(a,b,c){var s=null,r=this.a
-return J.aY($.bM().a,r).b.a==null?B.Rc:A.b2(B.b.gK(J.aY($.bM().a,r).b.a.a).b,s,s,s,s,s,s,s,s)},
+return J.aY($.bM().a,r).b.a==null?B.Rd:A.b2(B.b.gK(J.aY($.bM().a,r).b.a.a).b,s,s,s,s,s,s,s,s)},
 $S:122}
 A.agD.prototype={
 $1(a){var s,r,q,p=this.a
@@ -77572,7 +77572,7 @@ $0(){this.a.Mx(A.atw(this.b.aL()))},
 $S:0}
 A.agP.prototype={
 $2(a,b){var s,r,q,p,o,n,m,l,k,j,i=null
-if(b.a===B.df)if(b.c!=null)return B.Rf
+if(b.a===B.df)if(b.c!=null)return B.Rg
 else{s=t.Xv.a(b.b)
 r=t.p
 q=A.a([],r)
@@ -81619,22 +81619,22 @@ B.zz=new A.UK()
 B.zA=new A.FF(0,"pixel")
 B.zB=new A.FF(1,"viewport")
 B.zF=new A.pY(null,null,null,null,null,null,null)
+B.Rh=new A.bv("Open Weather",null,null,null,null,null,null,null,null,null)
+B.zG=new A.iy(B.x,null,null,B.Rh,null)
+B.Re=new A.bv("Baidu Map",null,null,null,null,null,null,null,null,null)
+B.zH=new A.iy(B.x,null,null,B.Re,null)
 B.y=new A.lX(0,"start")
 B.A=new A.IE(1,"max")
 B.K=new A.nh(2,"center")
 B.bh=new A.MB(1,"down")
 B.q=new A.q3(0,"none")
-B.Rk=new A.bv("This is a cross-platform software made by flutter",null,null,null,null,null,null,null,null,null)
-B.Ra=new A.bv("Click to access github repo",null,null,null,null,null,null,null,null,null)
-B.Fl=A.a(s([B.Rk,B.Ra]),t.p)
-B.Bp=new A.q9(B.X,B.y,B.A,B.K,null,B.bh,null,B.Fl,null)
-B.zG=new A.iy(B.x,null,null,B.Bp,null)
-B.Rg=new A.bv("Open Weather",null,null,null,null,null,null,null,null,null)
-B.zH=new A.iy(B.x,null,null,B.Rg,null)
-B.Rd=new A.bv("Baidu Map",null,null,null,null,null,null,null,null,null)
-B.zI=new A.iy(B.x,null,null,B.Rd,null)
-B.Re=new A.bv("Web version may can not locate due to CORS",null,null,null,null,null,null,null,null,null)
-B.zJ=new A.iy(B.x,null,null,B.Re,null)
+B.Ra=new A.bv("This is a cross-platform software made with flutter",null,null,null,null,null,null,null,null,null)
+B.Rb=new A.bv("Click to access github repo",null,null,null,null,null,null,null,null,null)
+B.Fu=A.a(s([B.Ra,B.Rb]),t.p)
+B.Bp=new A.q9(B.X,B.y,B.A,B.K,null,B.bh,null,B.Fu,null)
+B.zI=new A.iy(B.x,null,null,B.Bp,null)
+B.Rf=new A.bv("Web version may can not locate due to CORS",null,null,null,null,null,null,null,null,null)
+B.zJ=new A.iy(B.x,null,null,B.Rf,null)
 B.Ck=new A.aj(0,50,0,20)
 B.e1=new A.i7(2,"center")
 B.Rl=new A.bv("It seems that you haven't added a city yet",null,null,B.e1,null,null,null,null,null,null)
@@ -82168,7 +82168,7 @@ B.Gp=new A.lV("en","US")
 B.lU=A.a(s([B.Gp]),t.ss)
 B.eM=A.a(s([0,0,24576,1023,65534,34815,65534,18431]),t.t)
 B.lV=A.a(s([0,0,26624,1023,65534,2047,65534,2047]),t.t)
-B.Fu=A.a(s(["S","M","T","W","T","F","S"]),t.s)
+B.Ft=A.a(s(["S","M","T","W","T","F","S"]),t.s)
 B.SX=new A.kP(0,0)
 B.T1=new A.kP(1,0.05)
 B.T0=new A.kP(3,0.08)
@@ -83127,14 +83127,14 @@ B.Gc=A.a(s([B.qH,null,null,B.qW]),t.L)
 B.Gd=A.a(s([B.qI,null,null,B.qX]),t.L)
 B.Ge=A.a(s([B.qJ,null,null,B.ia]),t.L)
 B.Gf=A.a(s([B.qK,null,null,B.qY]),t.L)
-B.Fm=A.a(s([B.qL,null,null,B.ib]),t.L)
-B.Fn=A.a(s([B.qM,null,null,B.ic]),t.L)
-B.Fo=A.a(s([B.qN,null,null,B.id]),t.L)
-B.Fp=A.a(s([B.qO,null,null,B.ie]),t.L)
-B.Fq=A.a(s([B.qP,null,null,B.ig]),t.L)
-B.Fr=A.a(s([B.qQ,null,null,B.ih]),t.L)
-B.Fs=A.a(s([B.qR,null,null,B.ii]),t.L)
-B.Ft=A.a(s([B.qS,null,null,B.ij]),t.L)
+B.Fl=A.a(s([B.qL,null,null,B.ib]),t.L)
+B.Fm=A.a(s([B.qM,null,null,B.ic]),t.L)
+B.Fn=A.a(s([B.qN,null,null,B.id]),t.L)
+B.Fo=A.a(s([B.qO,null,null,B.ie]),t.L)
+B.Fp=A.a(s([B.qP,null,null,B.ig]),t.L)
+B.Fq=A.a(s([B.qQ,null,null,B.ih]),t.L)
+B.Fr=A.a(s([B.qR,null,null,B.ii]),t.L)
+B.Fs=A.a(s([B.qS,null,null,B.ij]),t.L)
 B.Gl=A.a(s([B.qT,null,null,B.ik]),t.L)
 B.Gm=A.a(s([B.qU,null,null,B.il]),t.L)
 B.G6=A.a(s([B.dz,B.dz,B.eV,null]),t.L)
@@ -83154,7 +83154,7 @@ B.G8=A.a(s([B.dA,B.dA,B.eW,null]),t.L)
 B.FE=A.a(s([B.dw,null,null,B.ie]),t.L)
 B.G4=A.a(s([B.dx,null,null,B.il]),t.L)
 B.G9=A.a(s([B.b1,B.b1,B.bf,null]),t.L)
-B.Im=new A.cu(["*",B.Gb,"+",B.Gc,"-",B.Gd,".",B.Ge,"/",B.Gf,"0",B.Fm,"1",B.Fn,"2",B.Fo,"3",B.Fp,"4",B.Fq,"5",B.Fr,"6",B.Fs,"7",B.Ft,"8",B.Gl,"9",B.Gm,"Alt",B.G6,"AltGraph",B.Gn,"ArrowDown",B.Fz,"ArrowLeft",B.FA,"ArrowRight",B.FB,"ArrowUp",B.FP,"Clear",B.G2,"Control",B.G7,"Delete",B.Fj,"End",B.FC,"Enter",B.Gg,"Home",B.FD,"Insert",B.G3,"Meta",B.G8,"PageDown",B.FE,"PageUp",B.G4,"Shift",B.G9],A.am("cu<r,C<h?>>"))
+B.Im=new A.cu(["*",B.Gb,"+",B.Gc,"-",B.Gd,".",B.Ge,"/",B.Gf,"0",B.Fl,"1",B.Fm,"2",B.Fn,"3",B.Fo,"4",B.Fp,"5",B.Fq,"6",B.Fr,"7",B.Fs,"8",B.Gl,"9",B.Gm,"Alt",B.G6,"AltGraph",B.Gn,"ArrowDown",B.Fz,"ArrowLeft",B.FA,"ArrowRight",B.FB,"ArrowUp",B.FP,"Clear",B.G2,"Control",B.G7,"Delete",B.Fj,"End",B.FC,"Enter",B.Gg,"Home",B.FD,"Insert",B.G3,"Meta",B.G8,"PageDown",B.FE,"PageUp",B.G4,"Shift",B.G9],A.am("cu<r,C<h?>>"))
 B.Io=new A.xf(null,null,null,null,null,null,null,null)
 B.Ay=new A.q(4284790262)
 B.Al=new A.q(4282557941)
@@ -83925,17 +83925,17 @@ B.PL=new A.o(!0,B.j,null,"Roboto",null,null,null,null,null,null,null,null,null,n
 B.R7=new A.cP(B.Pq,B.QM,B.Qt,B.NX,B.Ql,B.Pk,B.QQ,B.Os,B.P_,B.Qe,B.NO,B.Qu,B.Qi,B.Qa,B.PL)
 B.R9=new A.bv("Map",null,null,null,null,null,null,null,null,null)
 B.OE=new A.o(!0,B.f0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Rb=new A.bv("\u2716",null,B.OE,null,null,null,null,null,null,null)
+B.Rc=new A.bv("\u2716",null,B.OE,null,null,null,null,null,null,null)
 B.xp=new A.bv("\u2103",null,null,null,null,null,1.5,null,null,null)
-B.Rc=new A.bv("Weather",null,null,null,null,null,null,null,null,null)
-B.Rf=new A.bv("Can not fetch data",null,null,B.e1,null,null,null,null,null,null)
+B.Rd=new A.bv("Weather",null,null,null,null,null,null,null,null,null)
+B.Rg=new A.bv("Can not fetch data",null,null,B.e1,null,null,null,null,null,null)
 B.xr=new A.bv("Tap to Reload",null,null,null,null,null,null,null,null,null)
-B.Rh=new A.bv("Setting",null,null,null,null,null,null,null,null,null)
+B.Ri=new A.bv("Setting",null,null,null,null,null,null,null,null,null)
 B.xs=new A.bv("Forecasts",null,null,null,null,null,null,null,null,null)
 B.j8=new A.bv("",null,null,null,null,null,null,null,null,null)
 B.xt=new A.bv("",null,null,null,null,null,0,null,null,null)
-B.Ri=new A.bv("Open Github Repo",null,null,null,null,null,null,null,null,null)
-B.Rj=new A.bv("Unknown",null,null,null,null,null,null,null,null,null)
+B.Rj=new A.bv("Open Github Repo",null,null,null,null,null,null,null,null,null)
+B.Rk=new A.bv("Unknown",null,null,null,null,null,null,null,null,null)
 B.xu=new A.bv("Forecast",null,null,null,null,null,null,null,null,null)
 B.Rm=new A.bv("Search",null,null,null,null,null,null,null,null,null)
 B.Rn=new A.bv("Clear All Data",null,null,null,null,null,null,null,null,null)
@@ -84695,7 +84695,7 @@ s($,"aPO","aA_",()=>A.cb('"(?:[^"\\x00-\\x1F\\x7F]|\\\\.)*"',!0,!1))
 s($,"aPN","azZ",()=>A.cb("\\\\(.)",!0,!1))
 s($,"aQz","aAs",()=>A.cb('[()<>@,;:"\\\\/\\[\\]?={} \\t\\x00-\\x1F\\x7F]',!0,!1))
 s($,"aQL","aAy",()=>A.cb("(?:"+$.azY().a+")*",!0,!1))
-s($,"aQs","aAo",()=>new A.Z1("en_US",B.Fb,B.Gh,B.lT,B.lT,B.lS,B.lS,B.lQ,B.lQ,B.m_,B.m_,B.lX,B.lX,B.Fu,B.Fx,B.Fa,B.F7))
+s($,"aQs","aAo",()=>new A.Z1("en_US",B.Fb,B.Gh,B.lT,B.lT,B.lS,B.lS,B.lQ,B.lQ,B.m_,B.m_,B.lX,B.lX,B.Ft,B.Fx,B.Fa,B.F7))
 r($,"aP7","anT",()=>A.avp("initializeDateFormatting(<locale>)",$.aAo()))
 r($,"aQp","arw",()=>A.avp("initializeDateFormatting(<locale>)",B.Il))
 s($,"aQh","aAk",()=>48)
