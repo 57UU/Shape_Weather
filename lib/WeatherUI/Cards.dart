@@ -6,6 +6,7 @@ import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 
 import 'package:shape_weather/Utils.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'Control.dart';
 
 class Overview extends StatelessWidget {
@@ -224,5 +225,37 @@ class LocationDetail extends StatelessWidget {
       ],
     ));
   }
+}
+
+class ForecastGraphCard extends NullableCard<WeatherForecastData> {
+  static final DateFormat dateFormat = DateFormat("(M/d H:mm)");
+  ForecastGraphCard(super.parameter, {super.key, super.title = "Forecast Graph"}) {
+    icon=null;
+    onTap = (context, parameter) {
+      Navigator.push(context, MaterialPageRoute(builder: (builder) {
+        return Forecasts(parameter);
+      }));
+    };
+  }
+  @override
+  Widget child(BuildContext context, WeatherForecastData parameter) {
+    Widget child=SfCartesianChart(
+      primaryXAxis: CategoryAxis(),
+      series: <ChartSeries>[
+        // Renders spline chart
+        SplineSeries<WeatherData, String>(
+            dataSource: parameter.forecastData,
+            xValueMapper: (var data, _) => dateFormat.format(DateTime.fromMillisecondsSinceEpoch(data.date * 1000)),
+            yValueMapper: (var data, _) => data.temperature.currentTemperature
+        )
+      ],
+    );
+/*    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: child
+    );*/
+  return child;
+  }
+
 }
 

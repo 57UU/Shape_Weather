@@ -59,7 +59,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         children: [
           //LocationView(weatherData: weatherData!),
           Overview(widget.weatherPageData.weatherData.value!),
-
+          ForecastGraphCard(widget.weatherPageData.weatherForecastData.value),
           (widget.weatherPageData.weatherType == WeatherType.current)
               ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
               : const Text(
