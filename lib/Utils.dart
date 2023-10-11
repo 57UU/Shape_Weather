@@ -106,3 +106,23 @@ IconData getIconByString(String type){
   var result=weatherDescription2Icon[type];
   return result ?? Icons.question_mark;
 }
+
+T getMax<T>(List<T> source,int Function(T a,T b) f){//a>b->1
+  int index=0;
+  for(int i=1;i<source.length;i++){
+    if(f(source[i],source[index])>0){
+      index=i;
+    }
+  }
+  return source[index];
+}
+
+T getMin<T>(List<T> source,int Function(T a,T b) f){//a<b -> -1
+  int index=0;
+  for(int i=1;i<source.length;i++){
+    if(f(source[i],source[index])<0){
+      index=i;
+    }
+  }
+  return source[index];
+}

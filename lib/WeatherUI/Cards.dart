@@ -239,13 +239,26 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
   }
   @override
   Widget child(BuildContext context, WeatherForecastData parameter) {
+    var tempMax=getMax(parameter.forecastData, (a, b) => a.temperature.currentTemperature.compareTo(b.temperature.currentTemperature)).temperature.currentTemperature;
+    var tempMin=getMin(parameter.forecastData, (a, b) => a.temperature.currentTemperature.compareTo(b.temperature.currentTemperature)).temperature.currentTemperature;
     Widget child=SfCartesianChart(
-      primaryXAxis: CategoryAxis(),
+      primaryXAxis: DateTimeAxis(
+        //labelIntersectAction: AxisLabelIntersectAction.rotate45,
+        dateFormat: dateFormat,
+        majorGridLines: const MajorGridLines(width: 1),
+      ),
+      primaryYAxis: NumericAxis(
+          minimum: tempMin,
+          maximum: tempMax+1,
+          //axisLine: const AxisLine(width: 10),
+          edgeLabelPlacement: EdgeLabelPlacement.shift,
+          labelFormat: '{value}℃',
+          majorTickLines: const MajorTickLines(size: 0)),
       series: <ChartSeries>[
         // Renders spline chart
-        SplineSeries<WeatherData, String>(
+        SplineSeries<WeatherData, DateTime>(
             dataSource: parameter.forecastData,
-            xValueMapper: (var data, _) => dateFormat.format(DateTime.fromMillisecondsSinceEpoch(data.date * 1000)),
+            xValueMapper: (var data, _) => (DateTime.fromMillisecondsSinceEpoch(data.date * 1000)),
             yValueMapper: (var data, _) => data.temperature.currentTemperature
         )
       ],
