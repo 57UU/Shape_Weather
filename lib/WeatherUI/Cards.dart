@@ -243,7 +243,7 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
     var tempMin=getMin(parameter.forecastData, (a, b) => a.temperature.currentTemperature.compareTo(b.temperature.currentTemperature)).temperature.currentTemperature;
     Widget child=SfCartesianChart(
       primaryXAxis: DateTimeAxis(
-        //labelIntersectAction: AxisLabelIntersectAction.rotate45,
+        labelIntersectAction: AxisLabelIntersectAction.rotate45,
         dateFormat: dateFormat,
         majorGridLines: const MajorGridLines(width: 1),
       ),

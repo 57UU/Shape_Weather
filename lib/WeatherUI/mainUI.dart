@@ -55,11 +55,18 @@ class _WeatherInterfaceState extends State<WeatherInterface>
     if (widget.weatherPageData.weatherData.value == null) {
       return const Center(child: CircularProgressIndicator());
     } else {
+      //var children=<Widget>[];
       return ListView(
         children: [
           //LocationView(weatherData: weatherData!),
           Overview(widget.weatherPageData.weatherData.value!),
-          ForecastGraphCard(widget.weatherPageData.weatherForecastData.value),
+
+          (widget.weatherPageData.weatherType == WeatherType.current)
+              ? ForecastGraphCard(widget.weatherPageData.weatherForecastData.value)
+              : const Text(
+            "",
+            textScaleFactor: 0,
+          ),
           (widget.weatherPageData.weatherType == WeatherType.current)
               ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
               : const Text(
