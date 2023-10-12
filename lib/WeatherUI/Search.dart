@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
@@ -274,7 +275,12 @@ class _LocationSearchState extends State<LocationSearch> {
                         await showLoadingDialog(
                             context: context,
                             func: () async {
-                              location = await Weather.getCityByIP();
+                              if(kIsWeb){
+                                location = await Weather.getCityByIP_Alapi();
+                              }else{
+                                location = await Weather.getCityByIP_Baidu();
+                              }
+
                             },
                             onError: () {
                               showInfoDialog(

@@ -12,7 +12,8 @@ class Weather {
 
   static Languages language = Languages.ENGLISH;
   static const String _key_openweather = r"4712166053f9a5ae4cf514b908becdf0";
-  static const String _key_baidu=kIsWeb?r"6bWzQmIHDuO1Kvon1BxnWGwzm4xhA8Yy": r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
+  static const String _key_baidu= r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
+  static const String _Key_alapi=r"ocqZ7AsFpWBXE6WciY4X";
 
   static OpenWeather openWeather = OpenWeather(apiKey: _key_openweather);
 
@@ -75,7 +76,7 @@ class Weather {
     var result=await request("https://api.openweathermap.org/data/3.0/onecall?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
     return result;
   }
-  static Future<CityLocationData> getCityByIP()async{
+  static Future<CityLocationData> getCityByIP_Baidu()async{
     var result=jsonDecode(await request("https://api.map.baidu.com/location/ip?coor=bd09ll&ak=$_key_baidu"));
     var content=result["content"];
     var detail=content["address_detail"];
@@ -83,7 +84,17 @@ class Weather {
     cityLocationData.lat=double.parse(content["point"]["y"]);
     cityLocationData.lon=double.parse(content["point"]["x"]);
     return cityLocationData;
-
+  }
+  static Future<CityLocationData> getCityByIP_Alapi()async{
+    var result=jsonDecode(await request("https://v2.alapi.cn/api/ip?token=$_Key_alapi"));
+    var data=result["data"];
+    var detail=data["ad_info"];
+    CityLocationData cityLocationData=CityLocationData()
+      ..name=detail["district"]==""?detail["city"]:detail["district"]
+      ..state=detail["province"]..country=detail["nation"];
+    cityLocationData.lat=(data["location"]["lat"]);
+    cityLocationData.lon=(data["location"]["lng"]);
+    return cityLocationData;
   }
 
   static Future<List<CityLocationData>> getCitiesByName(String cityName) async {

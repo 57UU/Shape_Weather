@@ -33,6 +33,7 @@ Future showLoadingDialog(
     required Future Function() func,
     String button = "Cancel",
     void Function()? onError}) {
+
   ContextWarpper contextWarpper = ContextWarpper();
   func().then((v) {
     Future.delayed(const Duration(milliseconds: 100)).then((value) {
