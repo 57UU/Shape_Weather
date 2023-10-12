@@ -1,13 +1,10 @@
+import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
-import 'package:shape_weather/Setting/Setting.dart';
-import 'package:shape_weather/WeatherUI/Search.dart';
-import 'package:shape_weather/WeatherUI/Welcome.dart';
 
-import 'WeatherUI/Control.dart';
-import 'WeatherUI/mainUI.dart';
+import 'WeatherUI/Homepage.dart';
 
 void main() {
   //test();
@@ -15,9 +12,20 @@ void main() {
   weatherPages.addListener(() {
     saveConfig();
   });
+  if (Platform.isWindows) {
+    doWhenWindowReady(() {
+      final win = appWindow;
+      const initialSize = Size(800, 720);
+      win.minSize = const Size(400, 500);
+      win.size = initialSize;
+      win.alignment = Alignment.center;
+      win.title = "Shape Weather Desktop";
+      win.show();
+    });
+  }
 }
 
-GlobalKey<_HomePageState> _globalKey = GlobalKey<_HomePageState>();
+GlobalKey<HomePageState> _globalKey = GlobalKey<HomePageState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -32,155 +40,118 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
-      home: FutureBuilder<String>(
-        future: loadConfig(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          // 请求已结束
-          if (snapshot.connectionState == ConnectionState.done) {
-            return OrientationBuilder(
-              builder: (context, orientation) {
-                return ValueListenableBuilder(
-                  builder: (context, v, child) {
-                    return HomePage(
-                      orientation,
-                      key: _globalKey,
-                    );
-                  },
-                  valueListenable: weatherPages,
-                );
-              },
-            );
-          } else {
-            // 请求未结束，显示loading
-            return const CircularProgressIndicator();
-          }
-        },
-      ),
+      home: const StartUp(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  final Orientation orientation;
-
-  const HomePage(this.orientation, {super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String title = "Welcome to Shape Weather";
-
-
-  final PageController pageController = PageController();
-  late int currentPage;
-
-  @override
-  void initState() {
-    super.initState();
-    currentPage=pageController.initialPage;
-    if (weatherPages.value.isNotEmpty) {
-      title = weatherPages.value.first.title;
-    }
-  }
+class StartUp extends StatelessWidget {
+  const StartUp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (weatherPages.value.isEmpty) {
-      title = "Welcome to Shape Weather";
-    }else{
-      title=weatherPages.value[currentPage].title;
-
-    }
-
-    var pages = <Widget>[];
-
-    for (WeatherPageData weatherPageData in weatherPages.value) {
-      pages.add(WeatherInterface(weatherPageData));
-    }
-/*    if (weatherPages.isEmpty) {
-      return const Welcome();
-    }*/
-    bool isLandscape = widget.orientation == Orientation.landscape;
-    if (weatherPages.value.length == 1) {
-      title = weatherPages.value.first.title;
-    }
-    var mainWidget = Scaffold(
-/*      drawer: Drawer(
-        child: LocationChoose(widget.orientation,pageController),
-      ),*/
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              isLandscape
-                  ? const Icon(Icons.cloud_queue)
-                  : IconButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (builder) {
-                          return LocationChoose(
-                              widget.orientation, pageController);
-                        }));
-                      },
-                      icon: const Icon(Icons.map)),
-              AnimatedSwitcher(
-                  switchInCurve: Curves.easeIn,
-                  switchOutCurve: Curves.easeOut,
-                  duration: const Duration(milliseconds: 200),
-                  child: Text(
-                    title,
-                    key: ValueKey<String>(title),
-                  )),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        CupertinoPageRoute(builder: (builder) {
-                      return const Setting();
-                    }));
-                  },
-                  icon: const Icon(Icons.settings))
-            ],
-          ),
-        ),
-        body: weatherPages.value.isEmpty
-            ? Builder(builder: (context) {
-                return const Welcome();
-              })
-            : PageView(
-                controller: pageController,
-                onPageChanged: (int num) {
-                  currentPage=num;
-                  setState(() {
-
-                  });
+    var child = FutureBuilder<String>(
+      future: loadConfig(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        // 请求已结束
+        if (snapshot.connectionState == ConnectionState.done) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              return ValueListenableBuilder(
+                builder: (context, v, child) {
+                  if (MediaQuery.of(context).size.width < 400) {
+                    orientation = Orientation.portrait;
+                  }
+                  return HomePage(
+                    orientation,
+                    key: _globalKey,
+                  );
                 },
-                children: pages,
-              ));
-
-    var width = MediaQuery.of(context).size.width;
-
-    if (isLandscape) {
-      var locationChooseWidth = width * 2 / 5;
-      double widthMax = 350;
-      if (locationChooseWidth > widthMax) {
-        locationChooseWidth = widthMax;
-      }
-      return Row(
+                valueListenable: weatherPages,
+              );
+            },
+          );
+        } else {
+          // 请求未结束，显示loading
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+    if (Platform.isWindows) {
+      return Column(
         children: [
-          SizedBox(
-              width: locationChooseWidth,
-              child: Fragment(
-                child: LocationChoose(widget.orientation, pageController),
-              )),
-          SizedBox(width: width - locationChooseWidth, child: mainWidget)
+          Container(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.surface),
+            child: WindowTitleBarBox(
+              child: Row(
+                children: [
+                  const Material(child: Text("  Shape Weather")),
+                  Expanded(child: MoveWindow()),
+                  const WindowButtons()
+                ],
+              ),
+            ),
+          ),
+          Expanded(child: child)
         ],
       );
-    } else {
-      return mainWidget;
+      //return Window("Shape Weather", child);
     }
 
-    //return MyWidget();
+    return child;
+  }
+}
+
+class Window extends StatelessWidget {
+  final String title;
+  final Widget child;
+
+  const Window(this.title, this.child, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: Text(title),
+        flexibleSpace: Row(
+          children: [
+            const Text("Shape Weather"),
+            Expanded(child: MoveWindow()),
+            const WindowButtons()
+          ],
+        ),
+      ),
+      body: child,
+    );
+  }
+}
+
+final buttonColors = WindowButtonColors(
+  iconNormal: const Color(0xFF8C8C8C),
+  mouseOver: const Color(0x813B3B3C),
+  mouseDown: const Color(0xFF3B3B3C),
+  iconMouseOver: Colors.white,
+  //iconMouseDown: const Color(0xFFFFD500),
+);
+
+final closeButtonColors = WindowButtonColors(
+    mouseOver: const Color(0xFFD32F2F),
+    mouseDown: const Color(0xFFB71C1C),
+    iconNormal: const Color(0xFF8C8C8C),
+    iconMouseOver: Colors.white);
+
+class WindowButtons extends StatelessWidget {
+  const WindowButtons({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MinimizeWindowButton(colors: buttonColors),
+        MaximizeWindowButton(colors: buttonColors),
+        CloseWindowButton(colors: closeButtonColors),
+      ],
+    );
   }
 }
