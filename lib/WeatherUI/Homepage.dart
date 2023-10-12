@@ -38,8 +38,10 @@ class HomePageState extends State<HomePage> {
     if (weatherPages.value.isEmpty) {
       title = "Welcome to Shape Weather";
     }else{
+      if(currentPage>weatherPages.value.length-1){
+        currentPage=weatherPages.value.length-1;
+      }
       title=weatherPages.value[currentPage].title;
-
     }
 
     var pages = <Widget>[];
