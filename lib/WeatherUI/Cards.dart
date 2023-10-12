@@ -17,68 +17,67 @@ class Overview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return LayoutBuilder(
-      builder: (context,constrains) {
-        return Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 90),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 100, 0, 50),
-                    child: Stack(alignment: Alignment.center, children: [
-                      Text(data.temperature.currentTemperature.toString(),
-                          textScaleFactor: 4,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Positioned(
-                          right: constrains.maxWidth / 2 - 100,
-                          top: 10,
-                          child: const Text(
-                            "℃",
-                            textScaleFactor: 1.5,
-                          ))
-                    ]),
-                  ),
+    return LayoutBuilder(builder: (context, constrains) {
+      return Padding(
+          padding: const EdgeInsets.fromLTRB(0, 5, 0, 90),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 100, 0, 50),
+                  child: Stack(alignment: Alignment.center, children: [
+                    Text(data.temperature.currentTemperature.toString(),
+                        textScaleFactor: 4,
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Positioned(
+                        right: constrains.maxWidth / 2 - 100,
+                        top: 10,
+                        child: const Text(
+                          "℃",
+                          textScaleFactor: 1.5,
+                        ))
+                  ]),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Opacity(
-                      opacity: 0.8,
-                      child: OutlinedButton(
-                        child: Text(data.details.first.weatherShortDescription),
-                        onPressed: () {
-                          showInfoDialog(
-                              context: context,
-                              title: "Weather Description",
-                              content: data.details.first.weatherLongDescription);
-                        },
-                      ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Opacity(
+                    opacity: 0.8,
+                    child: OutlinedButton(
+                      child: Text(data.details.first.weatherShortDescription),
+                      onPressed: () {
+                        showInfoDialog(
+                            context: context,
+                            title: "Weather Description",
+                            content: data.details.first.weatherLongDescription);
+                      },
                     ),
-                    Text("  "),
-                    Opacity(
-                      opacity: 0.8,
-                      child: OutlinedButton(
-                        child: Text("Feels like ${data.temperature.feelsLike}°"),
-                        onPressed: () {
-                          showInfoDialog(
-                              context: context,
-                              title: "Temperature",
-                              content: "Feels like ${data.temperature.feelsLike}\n"
-                                  "Min ${data.temperature.tempMin}\n"
-                                  "Max ${data.temperature.tempMax}\n");
-                        },
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ));
-      }
-    );
+                  ),
+                  Text("  "),
+                  Opacity(
+                    opacity: 0.8,
+                    child: OutlinedButton(
+                      child: Text("Feels like ${data.temperature.feelsLike}°"),
+                      onPressed: () {
+                        showInfoDialog(
+                            context: context,
+                            title: "Temperature",
+                            content:
+                                "Feels like ${data.temperature.feelsLike}\n"
+                                "Min ${data.temperature.tempMin}\n"
+                                "Max ${data.temperature.tempMax}\n");
+                      },
+                    ),
+                  )
+                ],
+              )
+            ],
+          ));
+    });
   }
 }
 
@@ -108,10 +107,11 @@ class WindCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   titleText("Wind"),
+                  titleText("Wind"),
                   Text("Speed ${weatherData.wind.speed}m/s"),
                   Text("Direction ${weatherData.wind.deg}°"),
-                  Text("Gust ${weatherData.wind.gust == null ? " N/A " : weatherData.wind.gust}"),
+                  Text(
+                      "Gust ${weatherData.wind.gust == null ? " N/A " : weatherData.wind.gust}"),
                 ],
               ),
               Padding(
@@ -126,15 +126,15 @@ class WindCard extends StatelessWidget {
                 ),
               )
             ],
-          )), context: context,
+          )),
+      context: context,
     );
-    
   }
 }
 
 class ForecastCard extends NullableCard<WeatherForecastData> {
   ForecastCard(super.parameter, {super.key, super.title = "Forecast"}) {
-    icon=null;
+    icon = null;
     onTap = (context, parameter) {
       Navigator.push(context, MaterialPageRoute(builder: (builder) {
         return Forecasts(parameter);
@@ -159,8 +159,8 @@ class ForecastCard extends NullableCard<WeatherForecastData> {
 }
 
 class TimeCard extends NullableCard<WeatherData> {
-  TimeCard(super.parameter, {super.title = "Time"}){
-    icon=Icon(Icons.watch_later_outlined);
+  TimeCard(super.parameter, {super.title = "Time"}) {
+    icon = Icon(Icons.watch_later_outlined);
   }
 
   @override
@@ -179,7 +179,6 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return commonCard(
-
         context: context,
         title: "Details",
         child: Column(
@@ -212,63 +211,91 @@ class WeatherIcon extends StatelessWidget {
 
 class LocationDetail extends StatelessWidget {
   final WeatherData weatherData;
-  const LocationDetail(this.weatherData,{super.key});
+
+  const LocationDetail(this.weatherData, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return commonCard(context: context, title: "Location", child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Latitude ${weatherData.coordinates==null ? 'Unknown':weatherData.coordinates!.lat}"),
-        Text("Latitude ${weatherData.coordinates==null ? 'Unknown':weatherData.coordinates!.lon}"),
-      ],
-    ));
+    return commonCard(
+        context: context,
+        title: "Location",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+                "Latitude ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lat}"),
+            Text(
+                "Latitude ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lon}"),
+          ],
+        ));
   }
 }
 
 class ForecastGraphCard extends NullableCard<WeatherForecastData> {
-  static final DateFormat dateFormat = DateFormat("(M/d H:mm)");
-  ForecastGraphCard(super.parameter, {super.key, super.title = "Forecast Graph"}) {
-    icon=null;
+  static final DateFormat dateFormat_day = DateFormat("M/d");
+  static final DateFormat dateFormat_time = DateFormat("H:mm");
+
+  ForecastGraphCard(super.parameter,
+      {super.key, super.title = "Forecast Graph"}) {
+    icon = null;
     onTap = (context, parameter) {
       Navigator.push(context, MaterialPageRoute(builder: (builder) {
         return Forecasts(parameter);
       }));
     };
   }
+
   @override
   Widget child(BuildContext context, WeatherForecastData parameter) {
-    var tempMax=getMax(parameter.forecastData, (a, b) => a.temperature.currentTemperature.compareTo(b.temperature.currentTemperature)).temperature.currentTemperature;
-    var tempMin=getMin(parameter.forecastData, (a, b) => a.temperature.currentTemperature.compareTo(b.temperature.currentTemperature)).temperature.currentTemperature;
-    Widget child=SfCartesianChart(
-      primaryXAxis: DateTimeAxis(
+    final today = DateTime.now();
+
+    var tempMax = getMax(
+            parameter.forecastData,
+            (a, b) => a.temperature.currentTemperature
+                .compareTo(b.temperature.currentTemperature))
+        .temperature
+        .currentTemperature;
+    var tempMin = getMin(
+            parameter.forecastData,
+            (a, b) => a.temperature.currentTemperature
+                .compareTo(b.temperature.currentTemperature))
+        .temperature
+        .currentTemperature;
+    Widget child = SfCartesianChart(
+      primaryXAxis: CategoryAxis(
         labelIntersectAction: AxisLabelIntersectAction.rotate45,
-        dateFormat: dateFormat,
+        //dateFormat: dateFormat,
         majorGridLines: const MajorGridLines(width: 1),
       ),
       primaryYAxis: NumericAxis(
           minimum: tempMin,
-          maximum: tempMax+1,
+          maximum: tempMax + 1,
           //axisLine: const AxisLine(width: 10),
           edgeLabelPlacement: EdgeLabelPlacement.shift,
           labelFormat: '{value}℃',
           majorTickLines: const MajorTickLines(size: 0)),
       series: <ChartSeries>[
         // Renders spline chart
-        SplineSeries<WeatherData, DateTime>(
-            dataSource: parameter.forecastData,
-            xValueMapper: (var data, _) => (DateTime.fromMillisecondsSinceEpoch(data.date * 1000)),
-            yValueMapper: (var data, _) => data.temperature.currentTemperature
-        )
+        SplineSeries<WeatherData, String>(
+          dataSource: parameter.forecastData,
+          xValueMapper: (var data, _) {
+            var time = (DateTime.fromMillisecondsSinceEpoch(data.date * 1000));
+            if(time.month==today.month&&time.day==today.day){
+              return "Today-${dateFormat_time.format(time)}";
+            }
+            return "${dateFormat_day.format(time)}-${dateFormat_time.format(time)}";
+          },
+          yValueMapper: (var data, _) => data.temperature.currentTemperature,
+          name: "Expected",
+        ),
+
       ],
     );
 /*    return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: child
     );*/
-  return child;
+    return child;
   }
-
 }
-
