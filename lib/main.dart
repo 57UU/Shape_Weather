@@ -4,6 +4,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
+import 'package:shape_weather/WeatherUI/Control.dart';
 
 import 'WeatherUI/Homepage.dart';
 
@@ -13,7 +14,7 @@ void main() {
   weatherPages.addListener(() {
     saveConfig();
   });
-  if (Platform.isWindows) {
+  if ((!kIsWeb) && Platform.isWindows) {
     doWhenWindowReady(() {
       final win = appWindow;
       const initialSize = Size(800, 720);
@@ -78,30 +79,27 @@ class StartUp extends StatelessWidget {
         }
       },
     );
-    if(!kIsWeb){
-      if (Platform.isWindows) {
-        return Column(
-          children: [
-            Container(
-              decoration:
-              BoxDecoration(color: Theme.of(context).colorScheme.surface),
-              child: WindowTitleBarBox(
-                child: Row(
-                  children: [
-                    const Material(child: Text("  Shape Weather")),
-                    Expanded(child: MoveWindow()),
-                    const WindowButtons()
-                  ],
-                ),
+    if ((!kIsWeb)&&Platform.isWindows) {
+      return Column(
+        children: [
+          Container(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.surface),
+            child: WindowTitleBarBox(
+              child: Row(
+                children: [
+                  const Material(child: Text("  Shape Weather")),
+                  Expanded(child: MoveWindow()),
+                  const WindowButtons()
+                ],
               ),
             ),
-            Expanded(child: child)
-          ],
-        );
-        //return Window("Shape Weather", child);
-      }
+          ),
+           Expanded(child: Fragment(child: child))
+        ],
+      );
+      //return Window("Shape Weather", child);
     }
-
 
     return child;
   }
