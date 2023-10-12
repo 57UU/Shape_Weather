@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Languages.dart';
@@ -8,9 +9,10 @@ import 'package:open_weather_client/open_weather.dart';
 import 'package:http/http.dart' as http;
 
 class Weather {
+
   static Languages language = Languages.ENGLISH;
   static const String _key_openweather = r"4712166053f9a5ae4cf514b908becdf0";
-  static const String _key_baidu=r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
+  static const String _key_baidu=kIsWeb?r"6bWzQmIHDuO1Kvon1BxnWGwzm4xhA8Yy": r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
 
   static OpenWeather openWeather = OpenWeather(apiKey: _key_openweather);
 
