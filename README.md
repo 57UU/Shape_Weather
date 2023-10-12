@@ -8,18 +8,22 @@ This is a cross-platform weather app made with Flutter
 
 # 🖥 Supported OS
 
-|OS|Lowest|Test|
-|:---:|:--|:---|
-|Android|API 21(Android5.0)|✔️|
-|Web|Modern Browser|✔️|
-|Windows|Win 7 64-bit| ✔️|
+|OS|Lowest|Test|[Native Codes](#native-codes)|
+|:---:|:--|:---:|:---:|
+|Android|API 21(Android5.0)|✔️|✔️|
+|Web|Modern Browser|✔️|✔️|
+|Windows|Win 7 64-bit| ✔️|✔️|
 |IOS|iOS 11|❔|
 |macOS|	El Capitan (10.11)|❔|
 
 ### ⚠️ Warning
-This program does not be compiled on products form Apple
+This program have not be compiled on products form Apple
 
 And some Permissions may need be declared in the manifest
+### Native Codes
+Although flutter is a cross platform ui,softwares with native codes have better experience
+
+eg.splash screen,windows adapt
 
 # 🤔Known Issues 
 Due to `CORS`,locating is NOT available in web version.
