@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 
@@ -77,27 +78,30 @@ class StartUp extends StatelessWidget {
         }
       },
     );
-    if (Platform.isWindows) {
-      return Column(
-        children: [
-          Container(
-            decoration:
-                BoxDecoration(color: Theme.of(context).colorScheme.surface),
-            child: WindowTitleBarBox(
-              child: Row(
-                children: [
-                  const Material(child: Text("  Shape Weather")),
-                  Expanded(child: MoveWindow()),
-                  const WindowButtons()
-                ],
+    if(!kIsWeb){
+      if (Platform.isWindows) {
+        return Column(
+          children: [
+            Container(
+              decoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.surface),
+              child: WindowTitleBarBox(
+                child: Row(
+                  children: [
+                    const Material(child: Text("  Shape Weather")),
+                    Expanded(child: MoveWindow()),
+                    const WindowButtons()
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(child: child)
-        ],
-      );
-      //return Window("Shape Weather", child);
+            Expanded(child: child)
+          ],
+        );
+        //return Window("Shape Weather", child);
+      }
     }
+
 
     return child;
   }
