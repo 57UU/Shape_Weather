@@ -112,8 +112,6 @@ Widget loading() {
       ));
 }
 
-
-
 class ForecastDataGrid extends StatelessWidget {
   final WeatherData weatherData;
   static final DateFormat dateFormat = DateFormat("M-d H:mm");
@@ -256,7 +254,8 @@ class CommonCardWithVariableOnClick<T> extends StatelessWidget {
 class Fragment extends StatelessWidget {
   final Widget child;
   final String root;
-  const Fragment({required this.child,this.root="/",super.key});
+
+  const Fragment({required this.child, this.root = "/", super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -276,3 +275,44 @@ class Fragment extends StatelessWidget {
   }
 }
 
+class ButtonWithPadding extends StatelessWidget {
+  final Function() onPressed;
+  final Widget child;
+
+  const ButtonWithPadding(
+      {required this.child, required this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ElevatedButton(
+          onPressed: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: child,
+          )),
+    );
+  }
+}
+
+Widget textTitle(String text) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+    child: Text(
+      "——   $text   ——",
+      style: const TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 25, color: Colors.greenAccent),
+    ),
+  );
+}
+
+Widget textRow(String text, Widget child, String text2) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Text(text), child, Text(text2)],
+    ),
+  );
+}

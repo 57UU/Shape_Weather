@@ -22,6 +22,32 @@ Future showInfoDialog(
         );
       });
 }
+Future<bool?> showYesNoDialog(
+    {required BuildContext context,
+      String title = "",
+      String content = "",
+      }) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text("Yes")),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text("No"))
+          ],
+        );
+      });
+}
 
 class ContextWarpper {
   late BuildContext context;

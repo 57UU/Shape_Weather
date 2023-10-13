@@ -26,7 +26,7 @@ Although flutter is a cross platform ui,softwares with native codes have better 
 eg.splash screen,windows adapt
 
 # 🤔Known Issues 
-Due to `CORS`,locating is NOT available in web version.
+None
 
 # ⌨️Workload
 `Android Studio` with `Flutter` plugin

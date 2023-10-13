@@ -62,8 +62,9 @@ class WeatherPageData {
 
 ValueNotifier<List<WeatherPageData>> weatherPages = ValueNotifier([]);
 
+bool isFirstTime=true;
 
-
+const String _isFirstTime="is_1st_time";
 const String _key="config";
 Future saveConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -77,6 +78,7 @@ Future saveConfig()async{
 Future<String> loadConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   var list=prefs.getStringList(_key);
+  isFirstTime=prefs.getBool(_isFirstTime)??true;
   if(list==null){
     return "Error";
   }
@@ -92,3 +94,14 @@ Future<String> loadConfig()async{
   return "Done";
 
 }
+
+Future notFirstTime()async{
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  var list=<String>[];
+  for(var i in weatherPages.value){
+    list.add("${i.locationInfo.lon}/${i.locationInfo.lat}/${i.locationInfo.cityName}");
+  }
+  prefs.setStringList(_key, list);
+
+}
+
