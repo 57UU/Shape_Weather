@@ -307,12 +307,32 @@ Widget textTitle(String text) {
   );
 }
 
-Widget textRow(String text, Widget child, String text2) {
-  return Padding(
-    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text(text), child, Text(text2)],
-    ),
-  );
+class TextRow extends StatelessWidget {
+  final String text;
+  final Widget child;
+  final String text2;
+
+  const TextRow(this.text, this.child, this.text2, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var result = MediaQuery.of(context);
+    var isThin = result.size.width < 700 && (text2.length + text.length) > 30;
+    return isThin
+        ? Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(text), child, Text(text2)],
+            ),
+        )
+        : Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(text), child, Text(text2)],
+            ),
+          );
+  }
 }

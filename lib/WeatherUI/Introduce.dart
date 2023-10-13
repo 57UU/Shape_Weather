@@ -17,9 +17,9 @@ class Introduce extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             textTitle("Add a city"),
-            textRow(("In portrait mode, tap"), const Icon(Icons.map),
+            const TextRow(("In portrait mode, tap"), Icon(Icons.map),
                 ("to open map")),
-            textRow(
+            TextRow(
                 ("Then tap"),
                 SizedBox(
                   height: 110,
@@ -39,31 +39,31 @@ class Introduce extends StatelessWidget {
                   ),
                 ),
                 ("to open search page")),
-            textRow(
+            TextRow(
                 "1) tap the button",
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.gps_fixed_rounded)),
                 "to locate current city"),
-            textRow(
+            const TextRow(
                 "2) input the city name in the search bar",
-                const SizedBox(
+                SizedBox(
                     width: 120,
                     child: SearchBar(
                       leading: Icon(Icons.search),
                     )),
-                "to locate current city"),
+                "to search"),
             //----------------switch---------------
             textTitle("Switch cities"),
-            textRow("1)  You can swipe the view ", const Icon(Icons.web_asset),
+            const TextRow("1)  You can swipe the view ", Icon(Icons.web_asset),
                 " to switch"),
-            textRow("2)  In landscape mode,you can tap the card in the left",
+            TextRow("2)  In landscape mode,you can tap the card in the left",
                 cardShow(context), " to switch"),
-            textRow("3)  In portrait mode,you can tap ", const Icon(Icons.map),
+            const TextRow("3)  In portrait mode,you can tap ", Icon(Icons.map),
                 " to open map and switch"),
             //----------------delete-------------
             textTitle("Delete"),
-            textRow(
+            TextRow(
                 "Tap",
                 SizedBox(
                   height: 110,
@@ -83,7 +83,7 @@ class Introduce extends StatelessWidget {
                   ),
                 ),
                 "to enable deleting mode"),
-            textRow(
+            TextRow(
                 "Tap the city you want to delete",
                 SizedBox(
                     height: 110,
@@ -102,7 +102,7 @@ class Introduce extends StatelessWidget {
                           ],
                         ))),
                 "to delete"),
-            textRow(
+            TextRow(
                 "Tap again",
                 SizedBox(
                   height: 110,
@@ -123,14 +123,14 @@ class Introduce extends StatelessWidget {
                 ),
                 "to exit deleting mode"),
             textTitle("Reorder the List"),
-            textRow("Long press the card", cardShow(context),
+            TextRow("Long press the card", cardShow(context),
                 "to reorder the list"),
             textTitle("Setting"),
-            textRow(
+            TextRow(
                 "Tap the button in the right top ",
                 IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
                 " to open it"),
-            textRow(
+            TextRow(
                 "And you can tap",
                 ElevatedButton(
                     onPressed: () {}, child: const Text("Read Introduce")),
