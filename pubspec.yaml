@@ -105,11 +105,11 @@ flutter_launcher_icons:
   adaptive_icon_foreground: "assets/icon/3D-weather_f.png" # only available for Android 8.0 devices and above
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
-    generate: false
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
+    generate: true
+    image_path: "assets/icon/3D-weather_f_big.png"
   windows:
     generate: true
+    image_path: "assets/icon/3D-weather_f_big.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
