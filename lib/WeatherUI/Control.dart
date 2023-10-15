@@ -44,6 +44,16 @@ Widget basicCard(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusDirectional.circular(20)),
           color: Theme.of(context).colorScheme.secondaryContainer,
+          shadows:  [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1), //color of shadow
+              spreadRadius: 0.1, //spread radius
+              blurRadius: 10, // blur radius
+              //offset: Offset(0, 2), // changes position of shadow
+              //first paramerter of offset is left-right
+              //second parameter is top to down
+            )
+          ],
         ),
         width: double.infinity,
         child: realChild),
@@ -320,13 +330,13 @@ class TextRow extends StatelessWidget {
     var isThin = result.size.width < 700 && (text2.length + text.length) > 30;
     return isThin
         ? Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-          child: Column(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [Text(text), child, Text(text2)],
             ),
-        )
+          )
         : Padding(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Row(
