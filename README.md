@@ -6,6 +6,10 @@ This is a cross-platform weather app made with Flutter
 
 [Click here to access web version](https://57uu.github.io/Shape_Weather/)
 
+# 🚀 Download
+ - [Github Release](https://github.com/57UU/Shape_Weather/releases)
+ - [Web PWA](https://57uu.github.io/Shape_Weather/)
+
 # 🖥 Supported OS
 
 |OS|Lowest|Test|[Native Codes](#native-codes)|
