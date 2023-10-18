@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shape_weather/WeatherUI/Control.dart';
 import 'package:shape_weather/WeatherUI/Introduce.dart';
 
 
@@ -29,8 +31,14 @@ class Welcome extends StatelessWidget {
             }));
           }, child: const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("Read Introduce"),
-          ))
+            child: Text("User's Guide"),
+          )),
+          kIsWeb? commonCard(context: context, title: "Note", child: const Center(child: Column(
+            children: [
+              Text("Current Platform is Web"),
+              Text("Low Performance and Some Bugs"),
+            ],
+          ),)):Container(),
         ],
       ),
     );

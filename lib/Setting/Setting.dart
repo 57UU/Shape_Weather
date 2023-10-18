@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/Utils.dart';
@@ -46,7 +47,7 @@ class _SettingState extends State<Setting> {
               return const Introduce();
             }));
           },
-          child: const Text("Read Introduce")),
+          child: const Text("User's Guide")),
       ButtonWithPadding(
           onPressed: () async {
             var flag =
@@ -60,13 +61,21 @@ class _SettingState extends State<Setting> {
             "Clear All Data",
             style: TextStyle(color: Colors.red),
           )),
+
+      kIsWeb?
+      ButtonWithPadding(
+          onPressed: () async {
+            await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather/releases"));
+          },
+          child: const Text("Download Native Edition")):Container(),
+
       ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, CupertinoPageRoute(builder: (builder) {
               return const Test();
             }));
           },
-          child: const Text("Test"))
+          child: const Text("Test")),
     ];
     return Scaffold(
       appBar: AppBar(
