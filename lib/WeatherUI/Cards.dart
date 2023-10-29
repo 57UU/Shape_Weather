@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
+import 'package:shape_weather/Setting/Configuration.dart';
 
 import 'package:shape_weather/Utils.dart';
+import 'package:shape_weather/WeatherUI/EditPage.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'Control.dart';
 
@@ -281,7 +283,7 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
           dataSource: parameter.forecastData,
           xValueMapper: (var data, _) {
             var time = (DateTime.fromMillisecondsSinceEpoch(data.date * 1000));
-            if(time.month==today.month&&time.day==today.day){
+            if (time.month == today.month && time.day == today.day) {
               return "Today-${dateFormat_time.format(time)}";
             }
             return "${dateFormat_day.format(time)}-${dateFormat_time.format(time)}";
@@ -289,7 +291,6 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
           yValueMapper: (var data, _) => data.temperature.currentTemperature,
           name: "Expected",
         ),
-
       ],
     );
 /*    return SingleChildScrollView(
@@ -297,5 +298,28 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
       child: child
     );*/
     return child;
+  }
+}
+
+class EditCard extends StatelessWidget {
+  final WeatherPageData weatherPageData;
+
+  const EditCard(this.weatherPageData, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextButton(
+          child: const Text("Edit"),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
+              return EditPage(weatherPageData);
+            }));
+          },
+        ),
+      ),
+    );
   }
 }

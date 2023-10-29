@@ -36,7 +36,7 @@ class Welcome extends StatelessWidget {
           kIsWeb? commonCard(context: context, title: "Note", child: const Center(child: Column(
             children: [
               Text("Current Platform is Web"),
-              Text("Low Performance and Some Bugs"),
+              Text("With Low Performance and Some Bugs"),
             ],
           ),)):Container(),
         ],

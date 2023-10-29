@@ -20,14 +20,13 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   String title = "Welcome to Shape Weather";
 
-
   final PageController pageController = PageController();
   late int currentPage;
 
   @override
   void initState() {
     super.initState();
-    currentPage=pageController.initialPage;
+    currentPage = pageController.initialPage;
     if (weatherPages.value.isNotEmpty) {
       title = weatherPages.value.first.title;
     }
@@ -37,11 +36,11 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (weatherPages.value.isEmpty) {
       title = "Welcome to Shape Weather";
-    }else{
-      if(currentPage>weatherPages.value.length-1){
-        currentPage=weatherPages.value.length-1;
+    } else {
+      if (currentPage > weatherPages.value.length - 1) {
+        currentPage = weatherPages.value.length - 1;
       }
-      title=weatherPages.value[currentPage].title;
+      title = weatherPages.value[currentPage].title;
     }
 
     var pages = <Widget>[];
@@ -67,14 +66,14 @@ class HomePageState extends State<HomePage> {
               isLandscape
                   ? const Icon(Icons.cloud_queue)
                   : IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) {
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (builder) {
                           return LocationChoose(
                               widget.orientation, pageController);
                         }));
-                  },
-                  icon: const Icon(Icons.map)),
+                      },
+                      icon: const Icon(Icons.map)),
               AnimatedSwitcher(
                   switchInCurve: Curves.easeIn,
                   switchOutCurve: Curves.easeOut,
@@ -87,8 +86,8 @@ class HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(context,
                         CupertinoPageRoute(builder: (builder) {
-                          return const Setting();
-                        }));
+                      return const Setting();
+                    }));
                   },
                   icon: const Icon(Icons.settings))
             ],
@@ -96,18 +95,16 @@ class HomePageState extends State<HomePage> {
         ),
         body: weatherPages.value.isEmpty
             ? Builder(builder: (context) {
-          return const Welcome();
-        })
+                return const Welcome();
+              })
             : PageView(
-          controller: pageController,
-          onPageChanged: (int num) {
-            currentPage=num;
-            setState(() {
-
-            });
-          },
-          children: pages,
-        ));
+                controller: pageController,
+                onPageChanged: (int num) {
+                  currentPage = num;
+                  setState(() {});
+                },
+                children: pages,
+              ));
 
     var width = MediaQuery.of(context).size.width;
 

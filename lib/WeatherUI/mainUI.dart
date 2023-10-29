@@ -78,6 +78,8 @@ class _WeatherInterfaceState extends State<WeatherInterface>
           WeatherIcon(widget.weatherPageData.weatherData.value!),
           TimeCard(widget.weatherPageData.weatherData.value),
           LocationDetail(widget.weatherPageData.weatherData.value!),
+          EditCard(widget.weatherPageData),
+
 
           //AnimatedWeatherCard(),
         ],
