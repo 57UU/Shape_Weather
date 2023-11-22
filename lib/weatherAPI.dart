@@ -115,16 +115,16 @@ class Weather {
     var result = jsonDecode(response);
     var dict=result["list"][0];
     var components=dict["components"];
-    var cityAQIData=new WeatherAQIData()
+    var cityAQIData=WeatherAQIData()
       ..aqi=dict["main"]["aqi"]
-      ..co=components["co"]
-      ..no=components["no"]
-      ..no2=components["no2"]
+      ..co=components["co"].toDouble()
+      ..no=components["no"].toDouble()
+      ..no2=components["no2"].toDouble()
       ..o3=components["o3"].toDouble()
-      ..so2=components["so2"]
-      ..pm2_5=components["pm2_5"]
-      ..pm10=components["pm10"]
-      ..nh3=components["nh3"];
+      ..so2=components["so2"].toDouble()
+      ..pm2_5=components["pm2_5"].toDouble()
+      ..pm10=components["pm10"].toDouble()
+      ..nh3=components["nh3"].toDouble();
 
     return cityAQIData;
   }
