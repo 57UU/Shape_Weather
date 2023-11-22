@@ -44,7 +44,7 @@ Widget basicCard(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusDirectional.circular(20)),
           color: Theme.of(context).colorScheme.secondaryContainer,
-          shadows:  [
+          shadows: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1), //color of shadow
               spreadRadius: 0.1, //spread radius
@@ -344,5 +344,39 @@ class TextRow extends StatelessWidget {
               children: [Text(text), child, Text(text2)],
             ),
           );
+  }
+}
+
+
+class AqiGrid extends StatelessWidget {
+  final String title;
+  final Object data;
+
+  const AqiGrid(this.title, this.data, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: DecoratedBox(
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(20)),
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Text(
+                        title,
+                        textScaleFactor: 1.2,
+                      ),
+                      Text(data.toString()),
+                    ],
+                  )))),
+    );
   }
 }

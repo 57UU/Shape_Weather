@@ -36,7 +36,7 @@ dependencies:
   url_launcher:
   open_weather_client:
   reorderables:
-  intl: ^0.18.1
+  intl:
   flutter:
     sdk: flutter
 

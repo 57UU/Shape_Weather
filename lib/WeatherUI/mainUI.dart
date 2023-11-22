@@ -56,33 +56,37 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       return const Center(child: CircularProgressIndicator());
     } else {
       //var children=<Widget>[];
-      return ListView(
-        children: [
-          //LocationView(weatherData: weatherData!),
-          Overview(widget.weatherPageData.weatherData.value!),
+      return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            //LocationView(weatherData: weatherData!),
+            Overview(widget.weatherPageData.weatherData.value!),
 
-          (widget.weatherPageData.weatherType == WeatherType.current)
-              ? ForecastGraphCard(widget.weatherPageData.weatherForecastData.value)
-              : const Text(
-            "",
-            textScaleFactor: 0,
-          ),
-          (widget.weatherPageData.weatherType == WeatherType.current)
-              ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
-              : const Text(
-                  "",
-                  textScaleFactor: 0,
-                ),
-          WindCard(widget.weatherPageData.weatherData.value!),
-          Details(widget.weatherPageData.weatherData.value!),
-          WeatherIcon(widget.weatherPageData.weatherData.value!),
-          TimeCard(widget.weatherPageData.weatherData.value),
-          LocationDetail(widget.weatherPageData.weatherData.value!),
-          EditCard(widget.weatherPageData),
+            (widget.weatherPageData.weatherType == WeatherType.current)
+                ? ForecastGraphCard(widget.weatherPageData.weatherForecastData.value)
+                : const Text(
+              "",
+              textScaleFactor: 0,
+            ),
+            (widget.weatherPageData.weatherType == WeatherType.current)
+                ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
+                : const Text(
+                    "",
+                    textScaleFactor: 0,
+                  ),
+            AqiDetail(widget.weatherPageData.weatherAqiData.value),
+            WindCard(widget.weatherPageData.weatherData.value!),
+            Details(widget.weatherPageData.weatherData.value!),
+            WeatherIcon(widget.weatherPageData.weatherData.value!),
+            TimeCard(widget.weatherPageData.weatherData.value),
+            LocationDetail(widget.weatherPageData.weatherData.value!),
+            EditCard(widget.weatherPageData),
 
 
-          //AnimatedWeatherCard(),
-        ],
+            //AnimatedWeatherCard(),
+          ],
+        ),
       );
     }
   }
@@ -102,11 +106,14 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       if(widget.weatherPageData.weatherForecastData.value==null){
         list.add(getWeatherForecastData());
       }
+      if(widget.weatherPageData.weatherAqiData.value==null){
+        list.add(getWeatherAQIData());
+      }
       await Future.wait(list);
     }
   }
   Future getAllDataForce()async{
-    await Future.wait([getWeatherData(),getWeatherForecastData()]);
+    await Future.wait([getWeatherData(),getWeatherForecastData(),getWeatherAQIData()]);
   }
 
   Future getWeatherData() async {
@@ -134,6 +141,13 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         await Weather.getWeatherForecast(widget.weatherPageData.locationInfo);
     setState(() {
       widget.weatherPageData.weatherForecastData.value = data2;
+    });
+  }
+  Future getWeatherAQIData() async {
+    var data3 =
+    await Weather.getCityAIQ(widget.weatherPageData.locationInfo);
+    setState(() {
+      widget.weatherPageData.weatherAqiData.value = data3;
     });
   }
 

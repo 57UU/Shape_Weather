@@ -59,17 +59,6 @@ class Weather {
   }
 
   static Future<String> request(String uri) async {
-/*    HttpClient httpClient =HttpClient();
-    HttpClientRequest request = await httpClient.getUrl(Uri.parse(uri));
-    HttpClientResponse response = await request.close();
-    String responseBody = await response.transform(utf8.decoder).join();
-    httpClient.close();
-    return responseBody;*/
-/*    var response = await http.get((Uri.parse(uri)));
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
-    return response.body;*/
-
     return (await http.read(Uri.parse(uri)));
   }
   static Future<String> getWeather_httpget(LocationInfo info)async{
@@ -120,6 +109,37 @@ class Weather {
 
     return cities;
   }
+  static Future<WeatherAQIData> getCityAIQ(LocationInfo info)async{
+
+    var response=await request("http://api.openweathermap.org/data/2.5/air_pollution?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
+    var result = jsonDecode(response);
+    var dict=result["list"][0];
+    var components=dict["components"];
+    var cityAQIData=new WeatherAQIData()
+      ..aqi=dict["main"]["aqi"]
+      ..co=components["co"]
+      ..no=components["no"]
+      ..no2=components["no2"]
+      ..o3=components["o3"].toDouble()
+      ..so2=components["so2"]
+      ..pm2_5=components["pm2_5"]
+      ..pm10=components["pm10"]
+      ..nh3=components["nh3"];
+
+    return cityAQIData;
+  }
+}
+class WeatherAQIData{
+  int aqi=-1;
+  double co=-1;
+  double no=-1;
+  double no2=-1;
+  double o3=-1;
+  double so2=-1;
+  double pm2_5=-1;
+  double pm10=-1;
+  double nh3=-1;
+
 }
 
 class CityLocationData {

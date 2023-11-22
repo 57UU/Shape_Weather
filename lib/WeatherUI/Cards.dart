@@ -7,7 +7,9 @@ import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
 
 import 'package:shape_weather/Utils.dart';
+import 'package:shape_weather/WeatherUI/AqiDetailPage.dart';
 import 'package:shape_weather/WeatherUI/EditPage.dart';
+import 'package:shape_weather/weatherAPI.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'Control.dart';
 
@@ -233,6 +235,44 @@ class LocationDetail extends StatelessWidget {
         ));
   }
 }
+
+class AqiDetail extends NullableCard<WeatherAQIData> {
+  AqiDetail(super.parameter, {super.key, super.title = "AQI"}) {
+    icon = null;
+    onTap = (context,parameter){
+      Navigator.of(context).push(MaterialPageRoute(builder: (builder){
+        return AqiDetailPage(parameter);
+      }));
+    };
+  }
+
+  static var AQI_DETAIL = <String>[
+    "Good",
+    "Fair",
+    "Moderate",
+    "Poor",
+    "Very Poor"
+  ];
+
+  @override
+  Widget child(BuildContext context, WeatherAQIData parameter) {
+    var children = <Widget>[
+      AqiGrid("AQI", AQI_DETAIL[parameter.aqi - 1]),
+      AqiGrid("O₃", parameter.o3),
+      AqiGrid("SO₂", parameter.so2),
+      AqiGrid("PM₂.₅", parameter.pm2_5),
+      AqiGrid("PM₁₀", parameter.pm10),
+    ];
+
+    return Wrap(
+      spacing: 1,
+      runSpacing: 1,
+      children: children,
+    );
+  }
+}
+
+
 
 class ForecastGraphCard extends NullableCard<WeatherForecastData> {
   static final DateFormat dateFormat_day = DateFormat("M/d");

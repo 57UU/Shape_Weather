@@ -40,6 +40,7 @@ class WeatherPageData {
   WeatherType weatherType = WeatherType.current;
   ValueNotifier<WeatherData?> weatherData=ValueNotifier(null);
   ValueNotifier< WeatherForecastData?> weatherForecastData=ValueNotifier(null);
+  ValueNotifier< WeatherAQIData?> weatherAqiData=ValueNotifier(null);
   LocationInfo locationInfo;
   late String title;
 

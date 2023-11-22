@@ -134,7 +134,7 @@ class Introduce extends StatelessWidget {
                 "And you can tap",
                 ElevatedButton(
                     onPressed: () {}, child: const Text("Read Introduce")),
-                "to open the introduce again"),
+                "to open the User's Guide again"),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
               child: ElevatedButton(
