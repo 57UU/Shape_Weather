@@ -43,6 +43,11 @@ class AqiDetailPage extends StatelessWidget {
             Wrap(
               children: children,
             ),
+            commonCard(context: context, title: "Note", child: const Center(child: Column(
+              children: [
+                Text("All the data are based on unit μg/m³"),
+              ],
+            ),))
           ],
         ));
   }

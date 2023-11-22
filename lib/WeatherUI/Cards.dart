@@ -256,12 +256,23 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
 
   @override
   Widget child(BuildContext context, WeatherAQIData parameter) {
-    var children = <Widget>[
+    var orientation=MediaQuery.of(context).orientation;
+    var children =orientation==Orientation.portrait? <Widget>[
       AqiGrid("AQI", AQI_DETAIL[parameter.aqi - 1]),
       AqiGrid("O₃", parameter.o3),
       AqiGrid("SO₂", parameter.so2),
       AqiGrid("PM₂.₅", parameter.pm2_5),
       AqiGrid("PM₁₀", parameter.pm10),
+    ]: <Widget>[
+      AqiGrid("AQI", AQI_DETAIL[parameter.aqi - 1]),
+      AqiGrid("PM₂.₅", parameter.pm2_5),
+      AqiGrid("PM₁₀", parameter.pm10),
+      AqiGrid("CO", parameter.co),
+      AqiGrid("NO", parameter.no),
+      AqiGrid("NO₂", parameter.no2),
+      AqiGrid("O₃", parameter.o3),
+      AqiGrid("SO₂", parameter.so2),
+      AqiGrid("NH₃", parameter.nh3),
     ];
 
     return Wrap(
