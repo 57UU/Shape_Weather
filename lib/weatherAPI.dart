@@ -111,7 +111,7 @@ class Weather {
   }
   static Future<WeatherAQIData> getCityAIQ(LocationInfo info)async{
 
-    var response=await request("http://api.openweathermap.org/data/2.5/air_pollution?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
+    var response=await request("https://api.openweathermap.org/data/2.5/air_pollution?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
     var result = jsonDecode(response);
     var dict=result["list"][0];
     var components=dict["components"];
