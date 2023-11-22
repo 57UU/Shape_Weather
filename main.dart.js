@@ -25311,7 +25311,7 @@ while(true)switch(s){case 0:l=J
 k=J
 j=B.bx
 s=3
-return A.S(A.vC("http://api.openweathermap.org/data/2.5/air_pollution?lat="+A.j(a.c)+"&lon="+A.j(a.b)+"&appid=4712166053f9a5ae4cf514b908becdf0"),$async$Re)
+return A.S(A.vC("https://api.openweathermap.org/data/2.5/air_pollution?lat="+A.j(a.c)+"&lon="+A.j(a.b)+"&appid=4712166053f9a5ae4cf514b908becdf0"),$async$Re)
 case 3:p=l.a9(k.a9(j.yv(0,c,null),"list"),0)
 o=J.a8(p)
 n=o.h(p,"components")
