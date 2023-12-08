@@ -20,6 +20,11 @@ class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[
+      const SwitchRow(
+          text: "Enable Dynamic Background",
+          valueKey: enable_dynamic_backgorund,
+          title: "Dynamic Background",
+          content: "This feature improves visual effects\nbut also significantly reduce battery life"),
       ButtonWithPadding(
           onPressed: () async {
             await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));
@@ -50,8 +55,8 @@ class _SettingState extends State<Setting> {
           child: const Text("User's Guide")),
       ButtonWithPadding(
           onPressed: () async {
-            var flag =
-                await showYesNoDialog(context: context, content: "Are you sure?",title: "Warning");
+            var flag = await showYesNoDialog(
+                context: context, content: "Are you sure?", title: "Warning");
             if (flag == true) {
               weatherPages.value.clear();
               weatherPages.notifyListeners();
@@ -61,17 +66,17 @@ class _SettingState extends State<Setting> {
             "Clear All Data",
             style: TextStyle(color: Colors.red),
           )),
-
-      kIsWeb?
-      ButtonWithPadding(
-          onPressed: () async {
-            await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather/releases"));
-          },
-          child: const Text("Download Native Edition")):Container(),
-
+      kIsWeb
+          ? ButtonWithPadding(
+              onPressed: () async {
+                await launchUrl(Uri.parse(
+                    "https://github.com/57UU/Shape_Weather/releases"));
+              },
+              child: const Text("Download Native Edition"))
+          : Container(),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, CupertinoPageRoute(builder: (builder) {
+            Navigator.push(context, MaterialPageRoute(builder: (builder) {
               return const Test();
             }));
           },

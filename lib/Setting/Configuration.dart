@@ -62,11 +62,14 @@ class WeatherPageData {
 }
 
 ValueNotifier<List<WeatherPageData>> weatherPages = ValueNotifier([]);
+ValueNotifier<Map<String,bool>> appSetting = ValueNotifier({});
 
 bool isFirstTime=true;
 
 const String _isFirstTime="is_1st_time";
 const String _key="config";
+const String enable_dynamic_backgorund="enble_dynamic_background";
+
 Future saveConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   var list=<String>[];
@@ -74,7 +77,10 @@ Future saveConfig()async{
     list.add("${i.locationInfo.lon}/${i.locationInfo.lat}/${i.locationInfo.cityName}");
   }
   prefs.setStringList(_key, list);
-
+}
+Future saveAppSetting()async{
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool(enable_dynamic_backgorund, appSetting.value[enable_dynamic_backgorund]!);
 }
 Future<String> loadConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -92,6 +98,7 @@ Future<String> loadConfig()async{
     locationInfo.lat=double.parse(splited[1]);
     weatherPages.value.add(WeatherPageData(locationInfo: locationInfo));
   }
+  appSetting.value[enable_dynamic_backgorund]=prefs.getBool(enable_dynamic_backgorund)??true;
   return "Done";
 
 }

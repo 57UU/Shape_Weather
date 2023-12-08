@@ -23,11 +23,18 @@ class _WeatherInterfaceState extends State<WeatherInterface>
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshIndicator(
-      child: Stack(
-        children: [
-          background(),
-          foreground(),
-        ],
+      child: ListenableBuilder(
+        builder: (context, child) {
+          return appSetting.value[enable_dynamic_backgorund]!
+              ? Stack(
+                  children: [
+                    background(),
+                    foreground(),
+                  ],
+                )
+              : foreground();
+        },
+        listenable: appSetting,
       ),
       onRefresh: () async {
         await getAllDataForce();
@@ -64,11 +71,12 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             Overview(widget.weatherPageData.weatherData.value!),
 
             (widget.weatherPageData.weatherType == WeatherType.current)
-                ? ForecastGraphCard(widget.weatherPageData.weatherForecastData.value)
+                ? ForecastGraphCard(
+                    widget.weatherPageData.weatherForecastData.value)
                 : const Text(
-              "",
-              textScaleFactor: 0,
-            ),
+                    "",
+                    textScaleFactor: 0,
+                  ),
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
                 : const Text(
@@ -82,7 +90,6 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             TimeCard(widget.weatherPageData.weatherData.value),
             LocationDetail(widget.weatherPageData.weatherData.value!),
             EditCard(widget.weatherPageData),
-
 
             //AnimatedWeatherCard(),
           ],
@@ -99,21 +106,23 @@ class _WeatherInterfaceState extends State<WeatherInterface>
 
   Future getAllData() async {
     if (widget.weatherPageData.weatherType == WeatherType.current) {
-      var list=<Future<dynamic>>[];
-      if(widget.weatherPageData.weatherData.value==null){
+      var list = <Future<dynamic>>[];
+      if (widget.weatherPageData.weatherData.value == null) {
         list.add(getWeatherData());
       }
-      if(widget.weatherPageData.weatherForecastData.value==null){
+      if (widget.weatherPageData.weatherForecastData.value == null) {
         list.add(getWeatherForecastData());
       }
-      if(widget.weatherPageData.weatherAqiData.value==null){
+      if (widget.weatherPageData.weatherAqiData.value == null) {
         list.add(getWeatherAQIData());
       }
       await Future.wait(list);
     }
   }
-  Future getAllDataForce()async{
-    await Future.wait([getWeatherData(),getWeatherForecastData(),getWeatherAQIData()]);
+
+  Future getAllDataForce() async {
+    await Future.wait(
+        [getWeatherData(), getWeatherForecastData(), getWeatherAQIData()]);
   }
 
   Future getWeatherData() async {
@@ -143,9 +152,9 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       widget.weatherPageData.weatherForecastData.value = data2;
     });
   }
+
   Future getWeatherAQIData() async {
-    var data3 =
-    await Weather.getCityAIQ(widget.weatherPageData.locationInfo);
+    var data3 = await Weather.getCityAIQ(widget.weatherPageData.locationInfo);
     setState(() {
       widget.weatherPageData.weatherAqiData.value = data3;
     });

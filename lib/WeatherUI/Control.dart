@@ -5,6 +5,8 @@ import 'package:shape_weather/Setting/Configuration.dart';
 import 'package:shape_weather/WeatherUI//mainUI.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 
+import 'package:shape_weather/Utils.dart';
+
 Widget titleText(String text) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -347,7 +349,6 @@ class TextRow extends StatelessWidget {
   }
 }
 
-
 class AqiGrid extends StatelessWidget {
   final String title;
   final Object data;
@@ -377,6 +378,50 @@ class AqiGrid extends StatelessWidget {
                       Text(data.toString()),
                     ],
                   )))),
+    );
+  }
+}
+
+class SwitchRow extends StatefulWidget {
+  final String text;
+  final String valueKey;
+  final String title;
+  final String content;
+
+  const SwitchRow(
+      {super.key,
+      required this.text,
+      required this.valueKey,
+      required this.title,
+      required this.content});
+
+  @override
+  State<SwitchRow> createState() => _SwitchRowState();
+}
+
+class _SwitchRowState extends State<SwitchRow> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(widget.text),
+        Switch(
+            value: appSetting.value[widget.valueKey]!,
+            onChanged: (value) {
+              appSetting.value[widget.valueKey] = value;
+              appSetting.notifyListeners();
+              setState(() {});
+            }),
+        IconButton(
+            onPressed: () {
+              showInfoDialog(
+                  context: context,
+                  title: widget.title,
+                  content: widget.content);
+            },
+            icon: const Icon(Icons.question_mark_sharp))
+      ],
     );
   }
 }

@@ -14,6 +14,9 @@ void main() {
   weatherPages.addListener(() {
     saveConfig();
   });
+  appSetting.addListener(() {
+    saveAppSetting();
+  });
   if ((!kIsWeb) && Platform.isWindows) {
     doWhenWindowReady(() {
       final win = appWindow;
