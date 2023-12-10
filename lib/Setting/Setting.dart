@@ -74,13 +74,13 @@ class _SettingState extends State<Setting> {
               },
               child: const Text("Download Native Edition"))
           : Container(),
-      ButtonWithPadding(
+/*      ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {
               return const Test();
             }));
           },
-          child: const Text("Test")),
+          child: const Text("Test")),*/
     ];
     return Scaffold(
       appBar: AppBar(
