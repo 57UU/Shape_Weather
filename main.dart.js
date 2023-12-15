@@ -83265,7 +83265,7 @@ return A.O($async$j6,r)},
 gof(){return!0}}
 A.apL.prototype={
 $2(a,b){var s,r=J.aw($.ka().a,"enble_dynamic_background")
-r.toString
+if(r==null)r=!0
 s=this.a
 return r?A.fe(B.bj,A.b([s.Eu(),s.u4()],t.p),B.M,B.b2,null):s.u4()},
 $S:35}
@@ -83945,7 +83945,7 @@ return A.O($async$j6,r)},
 gof(){return!0}}
 A.apJ.prototype={
 $2(a,b){var s,r=J.aw($.ka().a,"enble_dynamic_background")
-r.toString
+if(r==null)r=!0
 s=this.a
 return r?A.fe(B.bj,A.b([s.Eu(),s.u4()],t.p),B.M,B.b2,null):s.u4()},
 $S:35}
