@@ -31070,7 +31070,7 @@ $1(a){var s=$.cE
 s=(s==null?$.cE=A.fD(self.window.flutterConfiguration):s).b
 if(s==null)s=null
 else{s=s.canvasKitBaseUrl
-if(s==null)s=null}return(s==null?"https://www.gstatic.com/flutter-canvaskit/54a7145303f0dd9d0f93424a2e124eb4abef5091/":s)+a},
+if(s==null)s=null}return(s==null?"https://www.gstatic.com/flutter-canvaskit/3f3e560236539b7e2702f5ac790b2a4691b32d49/":s)+a},
 $S:63}
 A.aqs.prototype={
 $1(a){this.a.remove()
@@ -83820,7 +83820,7 @@ return A.N(null,r)}})
 return A.O($async$$0,r)},
 $S:37}
 A.ali.prototype={
-$0(){A.qU("Can not locate\nPs:Web version is not supported now",this.a,"Error")},
+$0(){A.qU("Can not locate\nBad Internet Connection",this.a,"Error")},
 $S:0}
 A.alj.prototype={
 $0(){this.a.Qk(A.az2(this.b.aN()))},
