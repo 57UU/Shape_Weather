@@ -287,7 +287,7 @@ class _LocationSearchState extends State<LocationSearch> {
                                   context: context,
                                   title: "Error",
                                   content:
-                                      "Can not locate\nPs:Web version is not supported now");
+                                      "Can not locate\nBad Internet Connection");
                             });
 
                         setState(() {
