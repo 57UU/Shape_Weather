@@ -24270,33 +24270,32 @@ p.toString
 q.OC("Bool","enble_dynamic_background",p)
 return A.N(null,r)}})
 return A.O($async$ase,r)},
-arO(){var s=0,r=A.P(t.N),q,p,o,n,m,l,k,j,i,h
+arO(){var s=0,r=A.P(t.N),q,p,o,n,m,l,k,j,i
 var $async$arO=A.Q(function(a,b){if(a===1)return A.M(b,r)
 while(true)switch(s){case 0:s=3
 return A.R(A.B4(),$async$arO)
-case 3:i=b.a
-h=t.kc.a(i.h(0,"config"))
-if(h!=null&&!t.yp.b(h)){p=J.i3(h,t.N)
-h=p.fX(p)
-i.p(0,"config",h)}p=h==null?null:J.GY(h)
+case 3:j=b.a
+i=t.kc.a(j.h(0,"config"))
+if(i!=null&&!t.yp.b(i)){p=J.i3(i,t.N)
+i=p.fX(p)
+j.p(0,"config",i)}p=i==null?null:J.GY(i)
 t.Xb.a(p)
-A.lQ(i.h(0,"is_1st_time"))
-if(p==null){q="Error"
-s=1
-break}J.ax0($.bR().a)
-for(o=p.length,n=0;n<p.length;p.length===o||(0,A.L)(p),++n){m=J.wl(p[n],"/")
-l=A.be("locationInfo",new A.arP(m))
-k=l.b
-if(k===l)k=l.b=l.c.$0()
-k.b=A.f1(m[0])
-k=l.b
-if(k===l)k=l.b=l.c.$0()
-k.c=A.f1(m[1])
-k=$.bR().a
-j=l.b
-J.fr(k,A.ag3(j===l?l.b=l.c.$0():j))}p=$.ka().a
-i=A.lQ(i.h(0,"enble_dynamic_background"))
-J.o_(p,"enble_dynamic_background",i!==!1)
+A.lQ(j.h(0,"is_1st_time"))
+i=p==null?A.b([],t.s):p
+J.ax0($.bR().a)
+for(p=i.length,o=0;o<i.length;i.length===p||(0,A.L)(i),++o){n=J.wl(i[o],"/")
+m=A.be("locationInfo",new A.arP(n))
+l=m.b
+if(l===m)l=m.b=m.c.$0()
+l.b=A.f1(n[0])
+l=m.b
+if(l===m)l=m.b=m.c.$0()
+l.c=A.f1(n[1])
+l=$.bR().a
+k=m.b
+J.fr(l,A.ag3(k===m?m.b=m.c.$0():k))}p=$.ka().a
+j=A.lQ(j.h(0,"enble_dynamic_background"))
+J.o_(p,"enble_dynamic_background",j!==!1)
 q="Done"
 s=1
 break
