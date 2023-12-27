@@ -86,9 +86,7 @@ Future<String> loadConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   var list=prefs.getStringList(_key);
   isFirstTime=prefs.getBool(_isFirstTime)??true;
-  if(list==null){
-    return "Error";
-  }
+  list ??= [];
   weatherPages.value.clear();
 
   for(String i in list){
