@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:shape_weather/Setting/Configuration.dart';
@@ -75,7 +73,7 @@ class _ChangeThemeColorPageState extends State<ChangeThemeColorPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check),
+        child: const Icon(Icons.check),
         onPressed: () {
           appSetting.value[theme_color] = pickerColor;
           appSetting.notifyListeners();
