@@ -11,8 +11,10 @@ import 'WeatherUI/Homepage.dart';
 
 void main() {
   //test();
-  WidgetsFlutterBinding.ensureInitialized();
-  DartPluginRegistrant.ensureInitialized();
+  if(!kIsWeb){
+    WidgetsFlutterBinding.ensureInitialized();
+    DartPluginRegistrant.ensureInitialized();
+  }
   loadConfig().then((value) {
     startGUI();
   });
