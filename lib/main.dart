@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
@@ -10,6 +11,8 @@ import 'WeatherUI/Homepage.dart';
 
 void main() {
   //test();
+  WidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
   loadConfig().then((value) {
     startGUI();
   });
@@ -91,7 +94,9 @@ class StartUp extends StatelessWidget {
     );
 
     if ((!kIsWeb) && Platform.isWindows) {
-      Color backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
+      Color backgroundColor = Theme.of(context).brightness == Brightness.light
+          ? Theme.of(context).colorScheme.secondaryContainer
+          : Theme.of(context).colorScheme.background;
       return Column(
         children: [
           Container(
