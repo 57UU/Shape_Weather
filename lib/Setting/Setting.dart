@@ -34,13 +34,8 @@ class _SettingState extends State<Setting> {
               return const ChangeThemeColorPage();
             }));
           },
-          child: const Text("Change Theme Color")
-      ),
-      ButtonWithPadding(
-          onPressed: () async {
-            await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));
-          },
-          child: const Text("Open Github Repo")),
+          child: const Text("Change Theme Color")),
+
 /*          ElevatedButton(
               onPressed: () {
                 Navigator.of(context)
@@ -50,13 +45,6 @@ class _SettingState extends State<Setting> {
               },
               child: const Text("Change Order")),*/
 
-      ButtonWithPadding(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
-              return const About();
-            }));
-          },
-          child: const Text("About")),
       ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {
@@ -85,6 +73,18 @@ class _SettingState extends State<Setting> {
               },
               child: const Text("Download Native Edition"))
           : Container(),
+      ButtonWithPadding(
+          onPressed: () async {
+            await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));
+          },
+          child: const Text("Open Github Repo")),
+      ButtonWithPadding(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+              return const About();
+            }));
+          },
+          child: const Text("About")),
 /*      ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {

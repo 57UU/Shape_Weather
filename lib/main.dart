@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData(
             useMaterial3: true,
             brightness: Brightness.dark,
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: appSetting.value[theme_color],
+                brightness: Brightness.dark),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: const StartUp(),
