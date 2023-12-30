@@ -91,15 +91,20 @@ class StartUp extends StatelessWidget {
     );
 
     if ((!kIsWeb) && Platform.isWindows) {
+      Color backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
       return Column(
         children: [
           Container(
-            decoration:
-                BoxDecoration(color: Theme.of(context).colorScheme.surface),
+            decoration: BoxDecoration(color: backgroundColor),
             child: WindowTitleBarBox(
               child: Row(
                 children: [
-                  const Material(child: Text("  Shape Weather")),
+                  Material(
+                    color: backgroundColor,
+                    child: const Text(
+                      "  Shape Weather",
+                    ),
+                  ),
                   Expanded(child: MoveWindow()),
                   const WindowButtons()
                 ],
