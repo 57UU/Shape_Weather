@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/weatherAPI.dart';
@@ -62,13 +63,14 @@ class WeatherPageData {
 }
 
 ValueNotifier<List<WeatherPageData>> weatherPages = ValueNotifier([]);
-ValueNotifier<Map<String,bool>> appSetting = ValueNotifier({});
+ValueNotifier<Map<String,dynamic>> appSetting = ValueNotifier({});
 
 bool isFirstTime=true;
 
 const String _isFirstTime="is_1st_time";
 const String _key="config";
 const String enable_dynamic_backgorund="enble_dynamic_background";
+const String theme_color="theme_color";
 
 Future saveConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -81,6 +83,7 @@ Future saveConfig()async{
 Future saveAppSetting()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool(enable_dynamic_backgorund, appSetting.value[enable_dynamic_backgorund]!);
+  prefs.setInt(theme_color, appSetting.value[theme_color]!.value);
 }
 Future<String> loadConfig()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -97,6 +100,13 @@ Future<String> loadConfig()async{
     weatherPages.value.add(WeatherPageData(locationInfo: locationInfo));
   }
   appSetting.value[enable_dynamic_backgorund]=prefs.getBool(enable_dynamic_backgorund)??true;
+  int? color=prefs.getInt(theme_color);
+  if(color==null){
+    appSetting.value[theme_color]= Colors.deepPurple;
+  }else{
+    appSetting.value[theme_color]= Color(color);
+  }
+  
   return "Done";
 
 }

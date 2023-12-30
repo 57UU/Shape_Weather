@@ -10,6 +10,12 @@ import 'WeatherUI/Homepage.dart';
 
 void main() {
   //test();
+  loadConfig().then((value) {
+    startGUI();
+  });
+}
+
+void startGUI() {
   runApp(const MyApp());
   weatherPages.addListener(() {
     saveConfig();
@@ -38,14 +44,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Shape Weather',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
-      home: const StartUp(),
+    return ListenableBuilder(
+      builder: (context, widget) {
+        return MaterialApp(
+          title: 'Shape Weather',
+          theme: ThemeData(
+            brightness: Brightness.light,
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: appSetting.value[theme_color]),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            brightness: Brightness.dark,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: const StartUp(),
+        );
+      },
+      listenable: appSetting,
     );
   }
 }
@@ -55,34 +73,24 @@ class StartUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var child = FutureBuilder<String>(
-      future: loadConfig(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        // 请求已结束
-        if (snapshot.connectionState == ConnectionState.done) {
-          return OrientationBuilder(
-            builder: (context, orientation) {
-              return ValueListenableBuilder(
-                builder: (context, v, child) {
-                  if (MediaQuery.of(context).size.width < 400) {
-                    orientation = Orientation.portrait;
-                  }
-                  return HomePage(
-                    orientation,
-                    key: _globalKey,
-                  );
-                },
-                valueListenable: weatherPages,
-              );
-            },
-          );
-        } else {
-          // 请求未结束，显示loading
-          return const CircularProgressIndicator();
-        }
+    var child = OrientationBuilder(
+      builder: (context, orientation) {
+        return ValueListenableBuilder(
+          builder: (context, v, child) {
+            if (MediaQuery.of(context).size.width < 400) {
+              orientation = Orientation.portrait;
+            }
+            return HomePage(
+              orientation,
+              key: _globalKey,
+            );
+          },
+          valueListenable: weatherPages,
+        );
       },
     );
-    if ((!kIsWeb)&&Platform.isWindows) {
+
+    if ((!kIsWeb) && Platform.isWindows) {
       return Column(
         children: [
           Container(
@@ -98,7 +106,7 @@ class StartUp extends StatelessWidget {
               ),
             ),
           ),
-           Expanded(child: Fragment(child: child))
+          Expanded(child: Fragment(child: child))
         ],
       );
       //return Window("Shape Weather", child);

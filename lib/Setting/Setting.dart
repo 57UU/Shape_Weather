@@ -9,6 +9,8 @@ import 'package:shape_weather/WeatherUI/Introduce.dart';
 import 'package:shape_weather/test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../WeatherUI/ThemeColorPage.dart';
+
 class Setting extends StatefulWidget {
   const Setting({super.key});
 
@@ -24,7 +26,16 @@ class _SettingState extends State<Setting> {
           text: "Enable Dynamic Background",
           valueKey: enable_dynamic_backgorund,
           title: "Dynamic Background",
-          content: "This feature improves visual effects\nbut also significantly reduce battery life"),
+          content:
+              "This feature improves visual effects\nbut also significantly reduce battery life"),
+      ButtonWithPadding(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+              return const ChangeThemeColorPage();
+            }));
+          },
+          child: const Text("Change Theme Color")
+      ),
       ButtonWithPadding(
           onPressed: () async {
             await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));

@@ -37,6 +37,7 @@ dependencies:
   open_weather_client:
   reorderables:
   intl:
+  flutter_colorpicker:
   flutter:
     sdk: flutter
 
