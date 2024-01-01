@@ -15,10 +15,11 @@ This is a cross-platform weather app made with Flutter
 |OS|Lowest|Test|[Native Codes](#native-codes)|
 |:---:|:--|:---:|:---:|
 |Android|API 21(Android5.0)|✔️|✔️|
-|Web|Modern Browser|✔️|✔️|
+|Web|Modern Browser(WASM)|✔️|✔️|
 |Windows|Win 7 64-bit| ✔️|✔️|
-|IOS|iOS 11|❔|
-|macOS|	El Capitan (10.11)|❔|
+|Linux|libgtk-3-0 libblkid1 liblzma5|✔️|No|
+|IOS|iOS 11|❔|No|
+|macOS|	El Capitan (10.11)|❔|No|
 
 ### ⚠️ Warning
 This program have not be compiled on products form Apple
