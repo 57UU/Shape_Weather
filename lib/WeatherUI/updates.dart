@@ -38,19 +38,20 @@ class _CheckUpdatesState extends State<CheckUpdates> {
       ),
       body: kIsWeb
           ? Column(
-            children: [
-              commonCard(
-                  context: context,
-                  title: "Current Version",
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Current Version $CURRENT_VERSION"),
-                      Text("With Github Action, Web version is always the latest")
-                    ],
-                  )),
-            ],
-          )
+              children: [
+                commonCard(
+                    context: context,
+                    title: "Current Version",
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Current Version $CURRENT_VERSION"),
+                        Text(
+                            "With Github Action, Web version is always the latest")
+                      ],
+                    )),
+              ],
+            )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -61,7 +62,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                 commonCard(
                     context: context,
                     title: "Latest Version",
-                    icon: isNewVersion
+                    icon: isNewVersion && latestVersion != null
                         ? const Icon(Icons.arrow_circle_up_rounded)
                         : Container(),
                     onTap: (c) {
