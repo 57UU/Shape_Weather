@@ -76,22 +76,13 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? ForecastGraphCard(
                     widget.weatherPageData.weatherForecastData.value)
-                : const Text(
-                    "",
-                    textScaleFactor: 0,
-                  ),
+                : Container(),
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
-                : const Text(
-                    "",
-                    textScaleFactor: 0,
-                  ),
+                : Container(),
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? AqiDetail(widget.weatherPageData.weatherAqiData.value)
-                : const Text(
-                    "",
-                    textScaleFactor: 0,
-                  ),
+                : Container(),
             
             WindCard(widget.weatherPageData.weatherData.value!),
             Details(widget.weatherPageData.weatherData.value!),
