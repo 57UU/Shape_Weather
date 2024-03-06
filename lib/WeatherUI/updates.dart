@@ -37,16 +37,20 @@ class _CheckUpdatesState extends State<CheckUpdates> {
         title: const Text("Check Update"),
       ),
       body: kIsWeb
-          ? commonCard(
-              context: context,
-              title: "Current Version",
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(CURRENT_VERSION),
-                  Text("With Github Action\nWeb version is always the latest")
-                ],
-              ))
+          ? Column(
+            children: [
+              commonCard(
+                  context: context,
+                  title: "Current Version",
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Current Version $CURRENT_VERSION"),
+                      Text("With Github Action, Web version is always the latest")
+                    ],
+                  )),
+            ],
+          )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
