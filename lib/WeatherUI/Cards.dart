@@ -328,7 +328,7 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
           edgeLabelPlacement: EdgeLabelPlacement.shift,
           labelFormat: '{value}℃',
           majorTickLines: const MajorTickLines(size: 0)),
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         // Renders spline chart
         SplineSeries<WeatherData, String>(
           dataSource: parameter.forecastData,
