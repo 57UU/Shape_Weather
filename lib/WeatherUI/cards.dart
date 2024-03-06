@@ -316,10 +316,10 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
         .temperature
         .currentTemperature;
     Widget child = SfCartesianChart(
-      primaryXAxis: CategoryAxis(
+      primaryXAxis: const CategoryAxis(
         labelIntersectAction: AxisLabelIntersectAction.rotate45,
         //dateFormat: dateFormat,
-        majorGridLines: const MajorGridLines(width: 1),
+        majorGridLines: MajorGridLines(width: 1),
       ),
       primaryYAxis: NumericAxis(
           minimum: tempMin,

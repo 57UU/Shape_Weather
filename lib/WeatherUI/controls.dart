@@ -168,12 +168,13 @@ void pushForecastPage(BuildContext context, WeatherData weatherData,DateTime dat
         WeatherPageData(locationInfo: LocationInfo.empty)..title = "Forecast";
     weatherPageData.weatherData.value = weatherData;
     weatherPageData.weatherType = WeatherType.forecast;
-    var deltaTime=DateTime.now().difference(dateTime);
+    var deltaTime=dateTime.difference(DateTime.now());
+    var hours=deltaTime.inHours;
 
     return Scaffold(
       body: WeatherInterface(weatherPageData),
       appBar: AppBar(
-        title: Text("${deltaTime.inHours} Hours Later"),
+        title: Text("${hours==0?"${deltaTime.inMinutes}":"$hours Hours"} Later"),
       ),
     );
   }));
