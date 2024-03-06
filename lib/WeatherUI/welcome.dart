@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shape_weather/WeatherUI/Control.dart';
-import 'package:shape_weather/WeatherUI/Introduce.dart';
+import 'package:shape_weather/WeatherUI/controls.dart';
+import 'package:shape_weather/WeatherUI/introduce.dart';
 
 
 class Welcome extends StatelessWidget {

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:shape_weather/WeatherUI/Control.dart';
+import 'package:shape_weather/WeatherUI/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 

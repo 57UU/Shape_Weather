@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Setting/Configuration.dart';
-import '../Setting/Setting.dart';
-import 'Control.dart';
-import 'Search.dart';
-import 'Welcome.dart';
-import 'mainUI.dart';
+import '../Setting/configuration.dart';
+import '../Setting/setting.dart';
+import 'controls.dart';
+import 'search.dart';
+import 'welcome.dart';
+import 'main_ui.dart';
 
 class HomePage extends StatefulWidget {
   final Orientation orientation;

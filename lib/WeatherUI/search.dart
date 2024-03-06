@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:shape_weather/Utils.dart';
-import 'package:shape_weather/WeatherUI/Control.dart';
+import 'package:shape_weather/utils.dart';
+import 'package:shape_weather/WeatherUI/controls.dart';
 import 'package:shape_weather/main.dart';
-import 'package:shape_weather/weatherAPI.dart';
+import 'package:shape_weather/weather_api.dart';
 
-import '../Setting/Configuration.dart';
+import '../Setting/configuration.dart';
 
 class LocationChoose extends StatefulWidget {
   final PageController pageController;

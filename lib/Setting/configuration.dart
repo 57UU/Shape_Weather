@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
-import 'package:shape_weather/weatherAPI.dart';
+import 'package:shape_weather/weather_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationInfo {
@@ -69,7 +69,7 @@ bool isFirstTime=true;
 
 const String _isFirstTime="is_1st_time";
 const String _key="config";
-const String enable_dynamic_backgorund="enble_dynamic_background";
+const String enable_dynamic_backgorund="enable_dynamic_background";
 const String theme_color="theme_color";
 
 Future saveConfig()async{
@@ -120,4 +120,6 @@ Future notFirstTime()async{
   prefs.setStringList(_key, list);
 
 }
+
+
 

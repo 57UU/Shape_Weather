@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Control.dart';
+import 'controls.dart';
 
 class Introduce extends StatelessWidget {
   const Introduce({super.key});

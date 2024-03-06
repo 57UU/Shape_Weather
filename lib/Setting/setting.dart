@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shape_weather/Setting/Configuration.dart';
-import 'package:shape_weather/Utils.dart';
-import 'package:shape_weather/WeatherUI/About.dart';
-import 'package:shape_weather/WeatherUI/Control.dart';
-import 'package:shape_weather/WeatherUI/Introduce.dart';
+import 'package:shape_weather/Setting/configuration.dart';
+import 'package:shape_weather/WeatherUI/updates.dart';
+import 'package:shape_weather/utils.dart';
+import 'package:shape_weather/WeatherUI/about.dart';
+import 'package:shape_weather/WeatherUI/controls.dart';
+import 'package:shape_weather/WeatherUI/introduce.dart';
 import 'package:shape_weather/test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../WeatherUI/ThemeColorPage.dart';
+import '../WeatherUI/theme_color_page.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -58,7 +59,9 @@ class _SettingState extends State<Setting> {
                 context: context, content: "Are you sure?", title: "Warning");
             if (flag == true) {
               weatherPages.value.clear();
+              appSetting.value.clear();
               weatherPages.notifyListeners();
+              appSetting.notifyListeners();
             }
           },
           child: const Text(
@@ -81,10 +84,18 @@ class _SettingState extends State<Setting> {
       ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {
+              return const CheckUpdates();
+            }));
+          },
+          child: const Text("Check Update")),
+      ButtonWithPadding(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (builder) {
               return const About();
             }));
           },
           child: const Text("About")),
+
 /*      ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {

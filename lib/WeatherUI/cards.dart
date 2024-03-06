@@ -1,17 +1,19 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
-import 'package:shape_weather/Setting/Configuration.dart';
+import 'package:shape_weather/Setting/configuration.dart';
 
-import 'package:shape_weather/Utils.dart';
-import 'package:shape_weather/WeatherUI/AqiDetailPage.dart';
-import 'package:shape_weather/WeatherUI/EditPage.dart';
-import 'package:shape_weather/weatherAPI.dart';
+import 'package:shape_weather/utils.dart';
+import 'package:shape_weather/WeatherUI/aqi_detail_page.dart';
+import 'package:shape_weather/WeatherUI/edit_page.dart';
+import 'package:shape_weather/weather_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'Control.dart';
+import 'controls.dart';
 
 class Overview extends StatelessWidget {
   final WeatherData data;
@@ -20,27 +22,26 @@ class Overview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return LayoutBuilder(builder: (context, constrains) {
       return Padding(
           padding: const EdgeInsets.fromLTRB(0, 5, 0, 90),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 100, 0, 50),
+                  padding: const EdgeInsets.fromLTRB(0, 100, 0, 50),
                   child: Stack(alignment: Alignment.center, children: [
                     Text(data.temperature.currentTemperature.toString(),
-                        textScaleFactor: 4,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                        textScaler: const TextScaler.linear(4),
+                        style: const TextStyle(fontWeight: FontWeight.bold,)),
                     Positioned(
                         right: constrains.maxWidth / 2 - 100,
                         top: 10,
                         child: const Text(
                           "℃",
-                          textScaleFactor: 1.5,
+                          textScaler: TextScaler.linear(1.5),
                         ))
                   ]),
                 ),
@@ -61,7 +62,7 @@ class Overview extends StatelessWidget {
                       },
                     ),
                   ),
-                  Text("  "),
+                  const Text("  "),
                   Opacity(
                     opacity: 0.8,
                     child: OutlinedButton(
@@ -114,8 +115,7 @@ class WindCard extends StatelessWidget {
                   titleText("Wind"),
                   Text("Speed ${weatherData.wind.speed}m/s"),
                   Text("Direction ${weatherData.wind.deg}°"),
-                  Text(
-                      "Gust ${weatherData.wind.gust == null ? " N/A " : weatherData.wind.gust}"),
+                  Text("Gust ${weatherData.wind.gust ?? " N/A "}"),
                 ],
               ),
               Padding(
@@ -124,7 +124,7 @@ class WindCard extends StatelessWidget {
                   angle: weatherData.wind.deg / 180 * pi,
                   child: const Text(
                     "↑",
-                    textScaleFactor: 2.3,
+                    textScaler: TextScaler.linear(2.3),
                     style: TextStyle(fontWeight: FontWeight.w800),
                   ),
                 ),
@@ -163,8 +163,8 @@ class ForecastCard extends NullableCard<WeatherForecastData> {
 }
 
 class TimeCard extends NullableCard<WeatherData> {
-  TimeCard(super.parameter, {super.title = "Time"}) {
-    icon = Icon(Icons.watch_later_outlined);
+  TimeCard(super.parameter, {super.key, super.title = "Time"}) {
+    icon = const Icon(Icons.watch_later_outlined);
   }
 
   @override
@@ -286,8 +286,8 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
 
 
 class ForecastGraphCard extends NullableCard<WeatherForecastData> {
-  static final DateFormat dateFormat_day = DateFormat("M/d");
-  static final DateFormat dateFormat_time = DateFormat("H:mm");
+  static final DateFormat dateFormatDay = DateFormat("M/d");
+  static final DateFormat dateFormatTime = DateFormat("H:mm");
 
   ForecastGraphCard(super.parameter,
       {super.key, super.title = "Forecast Graph"}) {
@@ -335,9 +335,9 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
           xValueMapper: (var data, _) {
             var time = (DateTime.fromMillisecondsSinceEpoch(data.date * 1000));
             if (time.month == today.month && time.day == today.day) {
-              return "Today-${dateFormat_time.format(time)}";
+              return "Today-${dateFormatTime.format(time)}";
             }
-            return "${dateFormat_day.format(time)}-${dateFormat_time.format(time)}";
+            return "${dateFormatDay.format(time)}-${dateFormatTime.format(time)}";
           },
           yValueMapper: (var data, _) => data.temperature.currentTemperature,
           name: "Expected",

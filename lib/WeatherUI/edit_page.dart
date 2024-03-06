@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../Setting/Configuration.dart';
-import 'Control.dart';
+import '../Setting/configuration.dart';
+import 'controls.dart';
 
 class EditPage extends StatefulWidget {
   final WeatherPageData weatherPageData;

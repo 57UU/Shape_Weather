@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
-import 'package:shape_weather/Setting/Configuration.dart';
-import 'package:shape_weather/WeatherUI//mainUI.dart';
+import 'package:shape_weather/Setting/configuration.dart';
+import 'package:shape_weather/WeatherUI//main_ui.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 
-import 'package:shape_weather/Utils.dart';
+import 'package:shape_weather/utils.dart';
 
 Widget titleText(String text) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
     child: Text(
       text,
-      textScaleFactor: 1.3,
+      textScaler: const TextScaler.linear(1.3),
       style: const TextStyle(fontWeight: FontWeight.w800),
     ),
   );
@@ -52,7 +52,7 @@ Widget basicCard(
               spreadRadius: 0.1, //spread radius
               blurRadius: 10, // blur radius
               //offset: Offset(0, 2), // changes position of shadow
-              //first paramerter of offset is left-right
+              //first parameter of offset is left-right
               //second parameter is top to down
             )
           ],
@@ -144,7 +144,7 @@ class ForecastDataGrid extends StatelessWidget {
             ),
             child: InkWell(
                 onTap: () {
-                  pushForecastPage(context, weatherData);
+                  pushForecastPage(context, weatherData,time);
                 },
                 child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -153,7 +153,7 @@ class ForecastDataGrid extends StatelessWidget {
                         Text(dateFormat.format(time)),
                         Text(
                           "${weatherData.temperature.currentTemperature}℃",
-                          textScaleFactor: 1.2,
+                          textScaler: const TextScaler.linear(1.2),
                         ),
                         Text(weatherData.details.first.weatherShortDescription),
                         //Text("${weatherData.temperature.tempMin}°~${weatherData.temperature.tempMax}°"),
@@ -162,16 +162,18 @@ class ForecastDataGrid extends StatelessWidget {
   }
 }
 
-void pushForecastPage(BuildContext context, WeatherData weatherData) {
+void pushForecastPage(BuildContext context, WeatherData weatherData,DateTime dateTime) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     WeatherPageData weatherPageData =
         WeatherPageData(locationInfo: LocationInfo.empty)..title = "Forecast";
     weatherPageData.weatherData.value = weatherData;
     weatherPageData.weatherType = WeatherType.forecast;
+    var deltaTime=DateTime.now().difference(dateTime);
+
     return Scaffold(
       body: WeatherInterface(weatherPageData),
       appBar: AppBar(
-        title: const Text("Forecast"),
+        title: Text("${deltaTime.inHours} Hours Later"),
       ),
     );
   }));
@@ -194,7 +196,7 @@ class ForecastDataList extends StatelessWidget {
       splashColor: Colors.transparent,
       focusColor: Colors.transparent,
       onTap: () {
-        pushForecastPage(context, weatherData);
+        pushForecastPage(context, weatherData,dateTime);
       },
       child: commonCard(
           context: context,
@@ -203,7 +205,7 @@ class ForecastDataList extends StatelessWidget {
             children: [
               Text(
                 "${weatherData.temperature.currentTemperature}℃",
-                textScaleFactor: 1.2,
+                textScaler: const TextScaler.linear(1.2),
               ),
               const Spacer(),
               Text(weatherData.details.first.weatherShortDescription),
@@ -220,6 +222,7 @@ class Forecasts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     var children = <Widget>[];
     for (var element in weatherForecastData.forecastData) {
       children.add(ForecastDataList(element));
@@ -373,7 +376,7 @@ class AqiGrid extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        textScaleFactor: 1.2,
+                        textScaler: const TextScaler.linear(1.2),
                       ),
                       Text(data.toString()),
                     ],

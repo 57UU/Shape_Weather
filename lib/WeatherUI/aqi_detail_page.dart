@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shape_weather/weatherAPI.dart';
+import 'package:shape_weather/weather_api.dart';
 
-import 'Control.dart';
+import 'controls.dart';
 
 class AqiDetailPage extends StatelessWidget {
   final WeatherAQIData weatherAQIData;
@@ -78,7 +78,7 @@ class AqiGridBig extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      textScaleFactor: 1.2,
+                      textScaler: const TextScaler.linear(1.2),
                     ),
                     Text(data.toString()),
                   ],

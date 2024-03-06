@@ -5,7 +5,7 @@ class AnimatedGradient extends StatefulWidget {
   const AnimatedGradient({super.key});
 
   @override
-  _AnimatedGradientState createState() => _AnimatedGradientState();
+  State<AnimatedGradient> createState() => _AnimatedGradientState();
 }
 
 class _AnimatedGradientState extends State<AnimatedGradient> {
