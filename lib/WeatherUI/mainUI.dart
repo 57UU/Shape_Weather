@@ -37,7 +37,10 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         listenable: appSetting,
       ),
       onRefresh: () async {
-        await getAllDataForce();
+        if(widget.weatherPageData.weatherType == WeatherType.current){
+          await getAllDataForce();
+        }
+        
       },
     );
   }
@@ -83,7 +86,13 @@ class _WeatherInterfaceState extends State<WeatherInterface>
                     "",
                     textScaleFactor: 0,
                   ),
-            AqiDetail(widget.weatherPageData.weatherAqiData.value),
+            (widget.weatherPageData.weatherType == WeatherType.current)
+                ? AqiDetail(widget.weatherPageData.weatherAqiData.value)
+                : const Text(
+                    "",
+                    textScaleFactor: 0,
+                  ),
+            
             WindCard(widget.weatherPageData.weatherData.value!),
             Details(widget.weatherPageData.weatherData.value!),
             WeatherIcon(widget.weatherPageData.weatherData.value!),
