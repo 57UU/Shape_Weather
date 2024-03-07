@@ -164,6 +164,5 @@ class _WeatherInterfaceState extends State<WeatherInterface>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

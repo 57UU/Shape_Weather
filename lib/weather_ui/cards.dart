@@ -167,7 +167,6 @@ class TimeCard extends NullableCard<WeatherData> {
   const TimeCard(super.parameter, {super.key, super.title = "Time"});
   @override
   Widget? getIcon() {
-    // TODO: implement getIcon
     return const Icon(Icons.watch_later_outlined);
   }
 

@@ -54,7 +54,6 @@ class _RowInputState extends State<RowInput> {
   late TextEditingController controller;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = TextEditingController(text: widget.defaultText);
   }
