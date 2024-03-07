@@ -139,13 +139,12 @@ class WindCard extends StatelessWidget {
 }
 
 class ForecastCard extends NullableCard<WeatherForecastData> {
-  ForecastCard(super.parameter, {super.key, super.title = "Forecast"}) {
-    icon = null;
-    onTap = (context, parameter) {
-      Navigator.push(context, MaterialPageRoute(builder: (builder) {
-        return Forecasts(parameter);
-      }));
-    };
+  ForecastCard(super.parameter, {super.key, super.title = "Forecast"});
+  @override
+  void onTap(BuildContext context, WeatherForecastData parameter) {
+    Navigator.push(context, MaterialPageRoute(builder: (builder) {
+      return Forecasts(parameter);
+    }));
   }
 
   @override
@@ -165,8 +164,11 @@ class ForecastCard extends NullableCard<WeatherForecastData> {
 }
 
 class TimeCard extends NullableCard<WeatherData> {
-  TimeCard(super.parameter, {super.key, super.title = "Time"}) {
-    icon = const Icon(Icons.watch_later_outlined);
+  const TimeCard(super.parameter, {super.key, super.title = "Time"});
+  @override
+  Widget? getIcon() {
+    // TODO: implement getIcon
+    return const Icon(Icons.watch_later_outlined);
   }
 
   @override
@@ -239,15 +241,14 @@ class LocationDetail extends StatelessWidget {
 }
 
 class AqiDetail extends NullableCard<WeatherAQIData> {
-  AqiDetail(
+  const AqiDetail(
     super.parameter, {
     super.key,
     super.title = "AQI",
-  }) {
-    onTap=onTap;
-  }
+  });
 
-  void onTapDefault(BuildContext context, WeatherAQIData parameter) {
+  @override
+  void onTap(BuildContext context, WeatherAQIData parameter) {
     Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
       return AqiDetailPage(parameter);
     }));
@@ -298,12 +299,12 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
 
   ForecastGraphCard(super.parameter,
       {super.key, super.title = "Forecast Graph"}) {
-    icon = null;
-    onTap = (context, parameter) {
-      Navigator.push(context, MaterialPageRoute(builder: (builder) {
-        return Forecasts(parameter);
-      }));
-    };
+  }
+  @override
+  void onTap(BuildContext context, WeatherForecastData parameter) {
+    Navigator.push(context, MaterialPageRoute(builder: (builder) {
+      return Forecasts(parameter);
+    }));
   }
 
   @override

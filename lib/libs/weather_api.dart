@@ -49,7 +49,11 @@ class Weather {
               cityName: info.cityName,
               weatherUnits: WeatherUnits.METRIC,
               language: Languages.ENGLISH)
-          .catchError((err) => print(err));
+          .catchError((err) {
+        if (kDebugMode) {
+          print(err);
+        }
+      });
     }
     return await openWeather
         .fiveDaysWeatherForecastByLocation(
@@ -57,7 +61,11 @@ class Weather {
             language: Languages.ENGLISH,
             latitude: info.lat,
             longitude: info.lon)
-        .catchError((err) => print(err));
+        .catchError((err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    });
   }
 
   static Future<String> request(String uri) async {

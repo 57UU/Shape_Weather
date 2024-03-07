@@ -91,10 +91,15 @@ Widget commonCard(
 abstract class NullableCard<T> extends StatelessWidget {
   final T? parameter;
   final String title;
-  Widget? icon;
-  void Function(BuildContext context, T parameter)? onTap;
 
-  NullableCard(
+  void onTap(BuildContext context, T parameter){
+
+  }
+  Widget? getIcon(){
+    return null;
+  }
+
+  const NullableCard(
     this.parameter, {
     super.key,
     required this.title,
@@ -103,17 +108,18 @@ abstract class NullableCard<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return commonCard(
-        icon: icon,
+        icon: getIcon(),
         context: context,
         title: title,
         child: parameter == null ? loading() : child(context, parameter as T),
         onTap: (context) {
-          if (onTap == null || parameter == null) {
+          if ( parameter == null) {
             return;
           }
-          onTap!(context, parameter as T);
+          onTap(context, parameter as T);
         });
   }
+
 
   Widget child(BuildContext context, T parameter);
 }
