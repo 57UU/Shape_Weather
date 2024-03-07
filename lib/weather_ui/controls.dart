@@ -176,7 +176,7 @@ void pushForecastPage(BuildContext context, WeatherData weatherData,DateTime dat
     return Scaffold(
       body: WeatherInterface(weatherPageData),
       appBar: AppBar(
-        title: Text("${hours==0?"${deltaTime.inMinutes}":"$hours Hours"} Later"),
+        title: Text("${hours==0?"${deltaTime.inMinutes} Minutes":"$hours Hours"} Later"),
       ),
     );
   }));
