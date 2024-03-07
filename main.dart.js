@@ -84413,7 +84413,7 @@ p.b.sl(this.a)
 p.a=B.a23
 s=A.cf(0,0,0,this.b.a-Date.now(),0,0).a
 r=B.f.eb(s,36e8)
-return A.ir(A.iS(q,q,A.bo((r===0?""+B.f.eb(s,6e7):""+r+" Hours")+" Later",q,q,q,q,q,q,q,q,q)),new A.uN(p,q),q)},
+return A.ir(A.iS(q,q,A.bo((r===0?""+B.f.eb(s,6e7)+" Minutes":""+r+" Hours")+" Later",q,q,q,q,q,q,q,q,q)),new A.uN(p,q),q)},
 $S:203}
 A.Kb.prototype={
 F(a){var s=null,r=$.aEQ(),q=this.d
