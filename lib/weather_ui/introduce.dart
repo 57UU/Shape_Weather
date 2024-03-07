@@ -145,7 +145,7 @@ class Introduce extends StatelessWidget {
                     padding: EdgeInsets.all(20),
                     child: Text(
                       "I'm fully understand",
-                      textScaleFactor: 1.2,
+                      textScaler: TextScaler.linear(1.2),
                     ),
                   )),
             )

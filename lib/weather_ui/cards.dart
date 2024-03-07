@@ -139,7 +139,7 @@ class WindCard extends StatelessWidget {
 }
 
 class ForecastCard extends NullableCard<WeatherForecastData> {
-  ForecastCard(super.parameter, {super.key, super.title = "Forecast"});
+  const ForecastCard(super.parameter, {super.key, super.title = "Forecast"});
   @override
   void onTap(BuildContext context, WeatherForecastData parameter) {
     Navigator.push(context, MaterialPageRoute(builder: (builder) {
@@ -296,9 +296,8 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
   static final DateFormat dateFormatDay = DateFormat("M/d");
   static final DateFormat dateFormatTime = DateFormat("H:mm");
 
-  ForecastGraphCard(super.parameter,
-      {super.key, super.title = "Forecast Graph"}) {
-  }
+  const ForecastGraphCard(super.parameter,
+      {super.key, super.title = "Forecast Graph"});
   @override
   void onTap(BuildContext context, WeatherForecastData parameter) {
     Navigator.push(context, MaterialPageRoute(builder: (builder) {

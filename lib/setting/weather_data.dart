@@ -34,6 +34,8 @@ class LocationInfo {
 
 
 
+
+
 }
 
 enum WeatherType { current, forecast }

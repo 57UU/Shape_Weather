@@ -26,6 +26,7 @@ class Weather {
         if (kDebugMode) {
           print(err);
         }
+        throw err;
       });
     }
     return await openWeather
@@ -38,6 +39,7 @@ class Weather {
       if (kDebugMode) {
         print(err);
       }
+      throw err;
     });
   }
 
@@ -53,6 +55,7 @@ class Weather {
         if (kDebugMode) {
           print(err);
         }
+        throw err;
       });
     }
     return await openWeather
@@ -65,6 +68,7 @@ class Weather {
       if (kDebugMode) {
         print(err);
       }
+      throw err;
     });
   }
 

@@ -8,7 +8,7 @@ class AqiDetailPage extends StatelessWidget {
 
   const AqiDetailPage(this.weatherAQIData, {super.key});
 
-  static var AQI_DETAIL = <String>[
+  static var aqiDetailRank = <String>[
     "Good",
     "Fair",
     "Moderate",
@@ -38,7 +38,7 @@ class AqiDetailPage extends StatelessWidget {
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: AqiGridBig("AQI", AQI_DETAIL[weatherAQIData.aqi - 1]),
+                  child: AqiGridBig("AQI", aqiDetailRank[weatherAQIData.aqi - 1]),
                 )),
             Wrap(
               children: children,
