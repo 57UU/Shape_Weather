@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/Libs/weather_api.dart';
-import 'package:shape_weather/Libs/utils.dart';
+import 'package:shape_weather/setting/configuration.dart';
+import 'package:shape_weather/libs/weather_api.dart';
+import 'package:shape_weather/libs/utils.dart';
+
 
 import 'package:shape_weather/weather_ui/background.dart';
+
+import '../setting/weather_data.dart';
 import 'cards.dart';
 
 class WeatherInterface extends StatefulWidget {

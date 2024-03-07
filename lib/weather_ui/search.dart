@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
-import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:shape_weather/Libs/utils.dart';
+import 'package:shape_weather/libs/utils.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
-import 'package:shape_weather/main.dart';
-import 'package:shape_weather/Libs/weather_api.dart';
+import 'package:shape_weather/libs/weather_api.dart';
 
-import '../Setting/configuration.dart';
+import '../setting/configuration.dart';
+import '../setting/weather_data.dart';
 
 class LocationChoose extends StatefulWidget {
   final PageController pageController;
@@ -349,7 +348,7 @@ class _LocationSearchState extends State<LocationSearch> {
                                       child: Text(
                                         text,
                                         textAlign: TextAlign.start,
-                                        textScaleFactor: 1.1,
+                                        textScaler: const TextScaler.linear(1.1),
                                       ),
                                     ),
                                     Text(

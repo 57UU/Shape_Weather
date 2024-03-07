@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:shape_weather/Setting/configuration.dart';
+import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
 
 class ChangeThemeColorPage extends StatefulWidget {

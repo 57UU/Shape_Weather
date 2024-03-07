@@ -38,7 +38,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
         Stack(
           children: [
             AnimatedContainer(
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               onEnd: () {
                 setState(() {
                   index = index + 1;
@@ -60,7 +60,6 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
         );
   }
 }
-var _indexedBackground=<Widget>[];
 Widget autoBackground(WeatherData weatherData){
 
   var id=weatherData.details.first.id;

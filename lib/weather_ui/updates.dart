@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shape_weather/Setting/configuration.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../Setting/version.dart';
+import '../version.dart';
+
+
 
 class CheckUpdates extends StatefulWidget {
   const CheckUpdates({super.key});
@@ -30,7 +31,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
 
   @override
   Widget build(BuildContext context) {
-    bool isNewVersion = CURRENT_VERSION != latestVersion;
+    bool isNewVersion = currentVersion != latestVersion;
     //isNewVersion=false;
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +46,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                     child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Current Version $CURRENT_VERSION"),
+                        Text("Current Version $currentVersion"),
                         Text(
                             "With Github Action, Web version is always the latest")
                       ],
@@ -58,7 +59,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                 commonCard(
                     context: context,
                     title: "Current Version",
-                    child: const Text(CURRENT_VERSION)),
+                    child: const Text(currentVersion)),
                 commonCard(
                     context: context,
                     title: "Latest Version",

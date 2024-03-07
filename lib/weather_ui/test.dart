@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/Libs/weather_api.dart';
+import 'package:shape_weather/setting/configuration.dart';
+import 'package:shape_weather/libs/weather_api.dart';
 
 import 'controls.dart';
 
@@ -14,14 +14,14 @@ class Test extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          CupertinoButton(child: Text("Hello"), onPressed: () {}),
+          CupertinoButton(child: const Text("Hello"), onPressed: () {}),
           CupertinoButton(
               child: const Text("Test open_weatherV3 api"),
               onPressed: () {
-                Weather.getWeather_httpget(weatherPages.value[0].locationInfo);
+                Weather.getWeatherHttpGet(weatherPages.value[0].locationInfo);
               }),
           CupertinoButton(
-              child: Text("Load config"),
+              child: const Text("Load config"),
               onPressed: () {
                 loadConfig();
               }),
@@ -52,7 +52,7 @@ class _AnimatedWeatherCardState extends State<AnimatedWeatherCard> {
   Widget build(BuildContext context) {
     countdown();
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: AnimatedContainer(
           alignment: Alignment.topLeft,
           decoration: ShapeDecoration(
@@ -61,16 +61,16 @@ class _AnimatedWeatherCardState extends State<AnimatedWeatherCard> {
             color: Theme.of(context).colorScheme.secondaryContainer,
           ),
           width: double.infinity,
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           curve: Curves.ease,
           child: Padding(
-              padding: EdgeInsetsDirectional.all(20),
+              padding: const EdgeInsetsDirectional.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   titleText("title"),
-                  isTimeOut ? Text("data") : loading(),
+                  isTimeOut ? const Text("data") : loading(),
                 ],
               ))),
     );
@@ -101,13 +101,13 @@ class _DragListState extends State<DragList> {
 
   @override
   Widget build(BuildContext context) {
-    void _onReorder(int oldIndex, int newIndex) {
+    void onReorder(int oldIndex, int newIndex) {
       setState(() {
         Widget row = _tiles.removeAt(oldIndex);
         _tiles.insert(newIndex, row);
       });
     }
-    ScrollController scrollController = PrimaryScrollController.of(context) ?? ScrollController();
+    ScrollController scrollController = PrimaryScrollController.of(context);
     return CustomScrollView(
       controller: scrollController,
       slivers: <Widget>[
@@ -119,7 +119,7 @@ class _DragListState extends State<DragList> {
         ),
         ReorderableSliverList(
           delegate: ReorderableSliverChildListDelegate(_tiles),
-          onReorder: _onReorder,
+          onReorder: onReorder,
         )
       ],
     );

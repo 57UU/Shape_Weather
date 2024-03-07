@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 
-import '../Libs/weather_api.dart';
+import '../libs/weather_api.dart';
+
+
 
 class LocationInfo {
   static final LocationInfo empty = LocationInfo("null");

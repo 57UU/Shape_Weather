@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:open_weather_client/models/weather_data.dart';
-import 'package:open_weather_client/models/weather_forecast_data.dart';
-import 'package:shape_weather/Libs/weather_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'weather_data.dart';
@@ -40,10 +36,10 @@ Future<String> loadConfig()async{
   weatherPages.value.clear();
 
   for(String i in list){
-    var splited=i.split("/");
-    late LocationInfo locationInfo=LocationInfo(splited[2]);
-    locationInfo.lon=double.parse(splited[0]) ;
-    locationInfo.lat=double.parse(splited[1]);
+    var split=i.split("/");
+    late LocationInfo locationInfo=LocationInfo(split[2]);
+    locationInfo.lon=double.parse(split[0]) ;
+    locationInfo.lat=double.parse(split[1]);
     weatherPages.value.add(WeatherPageData(locationInfo: locationInfo));
   }
   appSetting.value[enable_dynamic_backgorund]=prefs.getBool(enable_dynamic_backgorund)??true;

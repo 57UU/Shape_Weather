@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Setting/configuration.dart';
+import '../setting/configuration.dart';
+import '../setting/weather_data.dart';
 import 'setting.dart';
 import 'controls.dart';
 import 'search.dart';

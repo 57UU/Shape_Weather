@@ -1,16 +1,18 @@
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
-import 'package:shape_weather/Setting/configuration.dart';
 
-import 'package:shape_weather/Libs/utils.dart';
+import 'package:shape_weather/libs/utils.dart';
+import 'package:shape_weather/setting/weather_data.dart';
 import 'package:shape_weather/weather_ui/aqi_detail_page.dart';
 import 'package:shape_weather/weather_ui/edit_page.dart';
-import 'package:shape_weather/Libs/weather_api.dart';
+import 'package:shape_weather/libs/weather_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
 import 'controls.dart';
 
 class Overview extends StatelessWidget {
@@ -33,7 +35,9 @@ class Overview extends StatelessWidget {
                   child: Stack(alignment: Alignment.center, children: [
                     Text(data.temperature.currentTemperature.toString(),
                         textScaler: const TextScaler.linear(4),
-                        style: const TextStyle(fontWeight: FontWeight.bold,)),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
                     Positioned(
                         right: constrains.maxWidth / 2 - 100,
                         top: 10,
@@ -235,16 +239,21 @@ class LocationDetail extends StatelessWidget {
 }
 
 class AqiDetail extends NullableCard<WeatherAQIData> {
-  AqiDetail(super.parameter, {super.key, super.title = "AQI"}) {
-    icon = null;
-    onTap = (context,parameter){
-      Navigator.of(context).push(MaterialPageRoute(builder: (builder){
-        return AqiDetailPage(parameter);
-      }));
-    };
+  AqiDetail(
+    super.parameter, {
+    super.key,
+    super.title = "AQI",
+  }) {
+    onTap=onTap;
   }
 
-  static var AQI_DETAIL = <String>[
+  void onTapDefault(BuildContext context, WeatherAQIData parameter) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
+      return AqiDetailPage(parameter);
+    }));
+  }
+
+  static var aqiDetailRank = <String>[
     "Good",
     "Fair",
     "Moderate",
@@ -254,24 +263,26 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
 
   @override
   Widget child(BuildContext context, WeatherAQIData parameter) {
-    var orientation=MediaQuery.of(context).orientation;
-    var children =orientation==Orientation.portrait? <Widget>[
-      AqiGrid("AQI", AQI_DETAIL[parameter.aqi - 1]),
-      AqiGrid("O₃", parameter.o3),
-      AqiGrid("SO₂", parameter.so2),
-      AqiGrid("PM₂.₅", parameter.pm2_5),
-      AqiGrid("PM₁₀", parameter.pm10),
-    ]: <Widget>[
-      AqiGrid("AQI", AQI_DETAIL[parameter.aqi - 1]),
-      AqiGrid("PM₂.₅", parameter.pm2_5),
-      AqiGrid("PM₁₀", parameter.pm10),
-      AqiGrid("CO", parameter.co),
-      AqiGrid("NO", parameter.no),
-      AqiGrid("NO₂", parameter.no2),
-      AqiGrid("O₃", parameter.o3),
-      AqiGrid("SO₂", parameter.so2),
-      AqiGrid("NH₃", parameter.nh3),
-    ];
+    var orientation = MediaQuery.of(context).orientation;
+    var children = orientation == Orientation.portrait
+        ? <Widget>[
+            AqiGrid("AQI", aqiDetailRank[parameter.aqi - 1]),
+            AqiGrid("O₃", parameter.o3),
+            AqiGrid("SO₂", parameter.so2),
+            AqiGrid("PM₂.₅", parameter.pm2_5),
+            AqiGrid("PM₁₀", parameter.pm10),
+          ]
+        : <Widget>[
+            AqiGrid("AQI", aqiDetailRank[parameter.aqi - 1]),
+            AqiGrid("PM₂.₅", parameter.pm2_5),
+            AqiGrid("PM₁₀", parameter.pm10),
+            AqiGrid("CO", parameter.co),
+            AqiGrid("NO", parameter.no),
+            AqiGrid("NO₂", parameter.no2),
+            AqiGrid("O₃", parameter.o3),
+            AqiGrid("SO₂", parameter.so2),
+            AqiGrid("NH₃", parameter.nh3),
+          ];
 
     return Wrap(
       spacing: 1,
@@ -280,8 +291,6 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
     );
   }
 }
-
-
 
 class ForecastGraphCard extends NullableCard<WeatherForecastData> {
   static final DateFormat dateFormatDay = DateFormat("M/d");

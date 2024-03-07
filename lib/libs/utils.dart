@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:shape_weather/weather_ui//controls.dart';
 
 Future showInfoDialog(
     {required BuildContext context,

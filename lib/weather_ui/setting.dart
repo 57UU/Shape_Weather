@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shape_weather/Setting/configuration.dart';
+import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/updates.dart';
-import 'package:shape_weather/Libs/utils.dart';
+import 'package:shape_weather/libs/utils.dart';
 import 'package:shape_weather/weather_ui/about.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
 import 'package:shape_weather/weather_ui/introduce.dart';
-import 'package:shape_weather/weather_ui/test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'theme_color_page.dart';
@@ -61,6 +60,7 @@ class _SettingState extends State<Setting> {
               appSetting.value.clear();
               weatherPages.notifyListeners();
               appSetting.notifyListeners();
+              loadConfig();
             }
           },
           child: const Text(
