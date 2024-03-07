@@ -91,8 +91,8 @@ Widget commonCard(
 abstract class NullableCard<T> extends StatelessWidget {
   final T? parameter;
   final String title;
-  late final Widget? icon;
-  late final void Function(BuildContext context, T parameter)? onTap;
+  Widget? icon;
+  void Function(BuildContext context, T parameter)? onTap;
 
   NullableCard(
     this.parameter, {
