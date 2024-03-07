@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/WeatherUI/updates.dart';
-import 'package:shape_weather/utils.dart';
-import 'package:shape_weather/WeatherUI/about.dart';
-import 'package:shape_weather/WeatherUI/controls.dart';
-import 'package:shape_weather/WeatherUI/introduce.dart';
-import 'package:shape_weather/test.dart';
+import 'package:shape_weather/weather_ui/updates.dart';
+import 'package:shape_weather/Libs/utils.dart';
+import 'package:shape_weather/weather_ui/about.dart';
+import 'package:shape_weather/weather_ui/controls.dart';
+import 'package:shape_weather/weather_ui/introduce.dart';
+import 'package:shape_weather/weather_ui/test.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../WeatherUI/theme_color_page.dart';
+import 'theme_color_page.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -106,7 +105,7 @@ class _SettingState extends State<Setting> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Setting"),
+        title: const Text("setting"),
       ),
       body: ListView.builder(
           itemCount: children.length,

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Setting/configuration.dart';
-import '../Setting/setting.dart';
+import 'setting.dart';
 import 'controls.dart';
 import 'search.dart';
 import 'welcome.dart';

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/weather_api.dart';
+import 'package:shape_weather/Libs/weather_api.dart';
 
-import 'WeatherUI/controls.dart';
+import 'controls.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});

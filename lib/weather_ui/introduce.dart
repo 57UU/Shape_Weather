@@ -125,7 +125,7 @@ class Introduce extends StatelessWidget {
             textTitle("Reorder the List"),
             TextRow("Long press the card", cardShow(context),
                 "to reorder the list"),
-            textTitle("Setting"),
+            textTitle("setting"),
             TextRow(
                 "Tap the button in the right top ",
                 IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),

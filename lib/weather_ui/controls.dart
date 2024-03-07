@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/WeatherUI//main_ui.dart';
+import 'package:shape_weather/weather_ui//main_ui.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 
-import 'package:shape_weather/utils.dart';
+import 'package:shape_weather/Libs/utils.dart';
 
 Widget titleText(String text) {
   return Padding(

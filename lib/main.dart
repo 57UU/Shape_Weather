@@ -5,9 +5,9 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/WeatherUI/controls.dart';
+import 'package:shape_weather/weather_ui/controls.dart';
 
-import 'WeatherUI/home_page.dart';
+import 'weather_ui/home_page.dart';
 
 void main() {
   //test();

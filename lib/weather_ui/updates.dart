@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shape_weather/Setting/configuration.dart';
-import 'package:shape_weather/WeatherUI/controls.dart';
+import 'package:shape_weather/weather_ui/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Setting/version.dart';
@@ -21,6 +20,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
   static const String uri =
       "https://api.github.com/repos/57UU/Shape_Weather/releases/latest";
   String? latestVersion;
+  bool isError = false;
 
   @override
   void initState() {
@@ -71,21 +71,24 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                             "https://github.com/57UU/Shape_Weather/releases"));
                       }
                     },
-                    child: latestVersion == null
-                        ? loading()
-                        : isNewVersion
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "New Version Available!",
-                                    textScaler: TextScaler.linear(1.1),
-                                  ),
-                                  Text("Latest Version $latestVersion"),
-                                  const Text("Click Here to Download")
-                                ],
-                              )
-                            : const Text("Current Version Is Up to Date")),
+                    child: isError
+                        ? const Text("Failed to Load")
+                        : latestVersion == null
+                            ? loading()
+                            : isNewVersion
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "New Version Available!",
+                                        textScaler: TextScaler.linear(1.1),
+                                      ),
+                                      Text("Latest Version $latestVersion"),
+                                      const Text("Click Here to Download")
+                                    ],
+                                  )
+                                : const Text("Current Version Is Up to Date")),
                 ElevatedButton(
                     onPressed: () {
                       fetch();
@@ -98,11 +101,19 @@ class _CheckUpdatesState extends State<CheckUpdates> {
 
   void fetch() async {
     setState(() {
+      isError=false;
       latestVersion = null;
     });
-    var request = json.decode(await http.read(Uri.parse(uri)));
-    setState(() {
-      latestVersion = request["tag_name"];
-    });
+    try{
+      var request = json.decode(await http.read(Uri.parse(uri)));
+      setState(() {
+        latestVersion = request["tag_name"];
+      });
+    }catch(e){
+      setState(() {
+        isError=true;
+      });
+    }
+
   }
 }

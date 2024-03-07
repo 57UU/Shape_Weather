@@ -1,17 +1,15 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/Setting/configuration.dart';
 
-import 'package:shape_weather/utils.dart';
-import 'package:shape_weather/WeatherUI/aqi_detail_page.dart';
-import 'package:shape_weather/WeatherUI/edit_page.dart';
-import 'package:shape_weather/weather_api.dart';
+import 'package:shape_weather/Libs/utils.dart';
+import 'package:shape_weather/weather_ui/aqi_detail_page.dart';
+import 'package:shape_weather/weather_ui/edit_page.dart';
+import 'package:shape_weather/Libs/weather_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'controls.dart';
 
