@@ -74,7 +74,6 @@ Future showLoadingDialog(
   });
   var myCancelableFuture = CancelableOperation.fromFuture(
     future,
-    onCancel: () => 'Future has been canceld',
   );
 
   return showDialog(
