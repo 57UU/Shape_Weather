@@ -142,6 +142,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       });
     } catch (e) {
       showInfoDialog(context: context, title: "Error", content: e.toString());
+
       setState(() {
         onError = true;
       });

@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/ensure_initialize.dart';
 import 'package:shape_weather/setting/configuration.dart';
-import 'package:shape_weather/libs/version.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
 
 import 'weather_ui/home_page.dart';

@@ -9,11 +9,11 @@ import '../setting/weather_data.dart';
 
 class Weather {
   static Languages language = Languages.ENGLISH;
-  static const String _key_openweather = r"4712166053f9a5ae4cf514b908becdf0";
-  static const String _key_baidu = r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
-  static const String _Key_alapi = r"ocqZ7AsFpWBXE6WciY4X";
+  static const String _keyOpenweather = r"4712166053f9a5ae4cf514b908becdf0";
+  static const String _keyBaidu = r"7cXDqK09x3CPtwYPFA8982VGzAknbNxe";
+  static const String _keyAlapi = r"ocqZ7AsFpWBXE6WciY4X";
 
-  static OpenWeather openWeather = OpenWeather(apiKey: _key_openweather);
+  static OpenWeather openWeather = OpenWeather(apiKey: _keyOpenweather);
 
   static Future<WeatherData> getWeather(LocationInfo info) async {
     if (info.lat < -200 && info.lon < -200) {
@@ -78,13 +78,13 @@ class Weather {
 
   static Future<String> getWeatherHttpGet(LocationInfo info) async {
     var result = await request(
-        "https://api.openweathermap.org/data/3.0/onecall?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
+        "https://api.openweathermap.org/data/3.0/onecall?lat=${info.lat}&lon=${info.lon}&appid=$_keyOpenweather");
     return result;
   }
 
   static Future<CityLocationData> getCityByIP_Baidu() async {
     var result = jsonDecode(await request(
-        "https://api.map.baidu.com/location/ip?coor=bd09ll&ak=$_key_baidu"));
+        "https://api.map.baidu.com/location/ip?coor=bd09ll&ak=$_keyBaidu"));
     var content = result["content"];
     var detail = content["address_detail"];
     CityLocationData cityLocationData = CityLocationData()
@@ -98,7 +98,7 @@ class Weather {
 
   static Future<CityLocationData> getCityByIP_Alapi() async {
     var result = jsonDecode(
-        await request("https://v2.alapi.cn/api/ip?token=$_Key_alapi"));
+        await request("https://v2.alapi.cn/api/ip?token=$_keyAlapi"));
     var data = result["data"];
     var detail = data["ad_info"];
     CityLocationData cityLocationData = CityLocationData()
@@ -112,7 +112,7 @@ class Weather {
 
   static Future<List<CityLocationData>> getCitiesByName(String cityName) async {
     var response = await request(
-        "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_key_openweather");
+        "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_keyOpenweather");
     var result = jsonDecode(response);
     var cities = <CityLocationData>[];
 
@@ -135,7 +135,7 @@ class Weather {
 
   static Future<WeatherAQIData> getCityAIQ(LocationInfo info) async {
     var response = await request(
-        "https://api.openweathermap.org/data/2.5/air_pollution?lat=${info.lat}&lon=${info.lon}&appid=$_key_openweather");
+        "https://api.openweathermap.org/data/2.5/air_pollution?lat=${info.lat}&lon=${info.lon}&appid=$_keyOpenweather");
     var result = jsonDecode(response);
     var dict = result["list"][0];
     var components = dict["components"];

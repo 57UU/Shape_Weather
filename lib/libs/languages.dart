@@ -1,6 +1,6 @@
 class Language{
   String appName="Shape Weather";
-  void zn_ch(){
+  void chinese(){
     appName="形色天气";
   }
 }

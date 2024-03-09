@@ -111,6 +111,9 @@ class _CheckUpdatesState extends State<CheckUpdates> {
         latestVersion = request["tag_name"];
       });
     }catch(e){
+      if (kDebugMode) {
+        print(e);
+      }
       setState(() {
         isError=true;
       });

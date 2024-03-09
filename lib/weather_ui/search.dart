@@ -292,8 +292,9 @@ class _LocationSearchState extends State<LocationSearch> {
                         setState(() {
                           addLocation(LocationInfo.formCityData(location));
                         });
-
-                        Navigator.of(context).pop();
+                        if(context.mounted){
+                          Navigator.of(context).pop();
+                        }
                       },
                       icon: const Icon(Icons.gps_fixed_rounded),
                     )
