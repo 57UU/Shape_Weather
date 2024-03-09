@@ -4,7 +4,7 @@ import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/updates.dart';
 import 'package:shape_weather/libs/utils.dart';
 import 'package:shape_weather/weather_ui/about.dart';
-import 'package:shape_weather/weather_ui/controls.dart';
+import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/weather_ui/introduce.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/index.dart';
 
-import 'controls.dart';
+import 'widgets/controls.dart';
 
 class AqiDetailPage extends StatelessWidget {
   final WeatherAQIData weatherAQIData;

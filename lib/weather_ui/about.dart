@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shape_weather/weather_ui/controls.dart';
+import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../libs/version.dart';

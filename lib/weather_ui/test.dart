@@ -4,7 +4,7 @@ import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 
-import 'controls.dart';
+import 'widgets/controls.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});

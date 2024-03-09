@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/libs/utils.dart';
-import 'package:shape_weather/weather_ui/controls.dart';
+import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 
 import '../setting/configuration.dart';

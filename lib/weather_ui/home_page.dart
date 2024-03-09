@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shape_weather/weather_ui/widgets/page_route.dart';
 
 import '../setting/configuration.dart';
 import '../setting/weather_data.dart';
 import 'setting.dart';
-import 'controls.dart';
+import 'widgets/controls.dart';
 import 'search.dart';
 import 'welcome.dart';
 import 'main_ui.dart';
@@ -69,7 +70,7 @@ class HomePageState extends State<HomePage> {
                   : IconButton(
                       onPressed: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (builder) {
+                            LTRCupertinoPageRoute(builder: (builder) {
                           return LocationChoose(
                               widget.orientation, pageController);
                         }));
