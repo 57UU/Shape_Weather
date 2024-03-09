@@ -31,7 +31,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
 
   @override
   Widget build(BuildContext context) {
-    bool isNewVersion = currentVersion != latestVersion;
+    bool isNewVersion = currentVersion != latestVersion && currentVersion!="$latestVersion.0";
     //isNewVersion=false;
     return Scaffold(
       appBar: AppBar(
