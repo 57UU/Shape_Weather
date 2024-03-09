@@ -12,21 +12,21 @@ This is a cross-platform weather app made with Flutter
 
 # 🖥 Supported OS
 
-|OS|Lowest|Test|[Native Codes](#native-codes)|
-|:---:|:--|:---:|:---:|
-|Android|API 21(Android5.0)|✔️|✔️|
-|Web|Modern Browser(WASM)|✔️|✔️|
-|Windows|Win 7 64-bit| ✔️|✔️|
-|Linux|libgtk-3-0 libblkid1 liblzma5|✔️|No|
-|IOS|iOS 11|❔|No|
-|macOS|	El Capitan (10.11)|❔|No|
+|   OS    | Lowest                        | Test | [Native Codes](#native-codes) |
+|:-------:|:------------------------------|:----:|:-----------------------------:|
+| Android | API 21(Android5.0)            |  ✔️  |              ✔️               |
+|   Web   | Modern Browser(WASM)          |  ✔️  |              ✔️               |
+| Windows | Win 7 64-bit                  |  ✔️  |              ✔️               |
+|  Linux  | libgtk-3-0 libblkid1 liblzma5 |  ✔️  |              No               |
+|   IOS   | iOS 11                        |  ❔   |              No               |
+|  macOS  | El Capitan (10.11)            |  ❔   |              No               |
 
 ### ⚠️ Warning
 This program have not be compiled on products form Apple
 
 And some Permissions may need be declared in the manifest
 ### Native Codes
-Although flutter is a cross platform ui,softwares with native codes have better experience
+Although flutter is a cross platform ui, software with native codes have better experience
 
 eg.splash screen,windows adapt
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../version.dart';
+import '../libs/version.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -45,7 +45,7 @@ class About extends StatelessWidget {
           commonCard(
             context: context,
             title: "Current Version",
-            child: const Center(child: Text("Current Version $currentVersion")),
+            child: Center(child: Text("Current Version $currentVersion")),
           ),
         ],
       ),

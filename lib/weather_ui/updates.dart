@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shape_weather/weather_ui/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../version.dart';
+import '../libs/version.dart';
 
 
 
@@ -43,11 +43,11 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                 commonCard(
                     context: context,
                     title: "Current Version",
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Current Version $currentVersion"),
-                        Text(
+                        const Text(
                             "With Github Action, Web version is always the latest")
                       ],
                     )),
@@ -59,7 +59,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                 commonCard(
                     context: context,
                     title: "Current Version",
-                    child: const Text(currentVersion)),
+                    child: Text(currentVersion)),
                 commonCard(
                     context: context,
                     title: "Latest Version",

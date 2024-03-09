@@ -4,7 +4,9 @@ import 'dart:ui';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shape_weather/libs/ensure_initialize.dart';
 import 'package:shape_weather/setting/configuration.dart';
+import 'package:shape_weather/libs/version.dart';
 import 'package:shape_weather/weather_ui/controls.dart';
 
 import 'weather_ui/home_page.dart';
@@ -22,6 +24,8 @@ void main() {
 
 void startGUI() {
   runApp(const MyApp());
+  //call init
+  ensureInitialize();
   weatherPages.addListener(() {
     saveConfig();
   });
