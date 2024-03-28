@@ -17,7 +17,7 @@
       <base href="https://57uu.github.io/Shape_Weather/">
 
     -->
-    <base href="https://57uu.github.io/Shape_Weather/">
+    <base href="/">
 
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -38,7 +38,7 @@
 
     <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "510211786";
+    const serviceWorkerVersion = "4033875105";
 
     </script>
     <!-- This script adds the flutter initialization JS code -->
@@ -194,19 +194,34 @@
         <input class="button" style="font-weight:bold;"  type="button" value="Download Native Edition"> </a>
 </p>
 <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
+    let enable_wasm=false;
+
+    function load_with_js(){
+      window.addEventListener('load', function(ev) {
+        // Download main.dart.js
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: function(engineInitializer) {
+            engineInitializer.initializeEngine().then(function(appRunner) {
+              appRunner.runApp();
+            });
+          }
+        });
       });
-    });
+    }
+    function load_with_wasm(){
+      {{flutter_build_config}}
+      _flutter.loader.load();
+    }
+
+    if(enable_wasm){
+      load_with_wasm();
+    }else{
+      load_with_js();
+    }
+
 
 </script>
 </body>
