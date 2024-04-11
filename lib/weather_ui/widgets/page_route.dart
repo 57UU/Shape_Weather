@@ -45,7 +45,6 @@ final Animatable<Offset> _kMiddleLeftTween = Tween<Offset>(
 
 class _MyCupertinoPageTransition extends StatelessWidget {
   _MyCupertinoPageTransition({
-    super.key,
     required Animation<double> primaryRouteAnimation,
     required Animation<double> secondaryRouteAnimation,
     required this.child,
