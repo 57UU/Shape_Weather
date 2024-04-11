@@ -12,7 +12,7 @@ This is a cross-platform weather app made with Flutter
 
 # 🖥 Supported OS
 
-|   OS    | Lowest                        | Test | [Native Codes](#native-codes) |
+|   OS    | Lowest                        | Test | [Native Optimize](#native-optimize) |
 |:-------:|:------------------------------|:----:|:-----------------------------:|
 | Android | API 21(Android5.0)            |  ✔️  |              ✔️               |
 |   Web   | Modern Browser(WASM)          |  ✔️  |              ✔️               |
@@ -25,7 +25,7 @@ This is a cross-platform weather app made with Flutter
 This program have not be compiled on products form Apple
 
 And some Permissions may need be declared in the manifest
-### Native Codes
+### Native Optimize
 Although flutter is a cross platform ui, software with native codes have better experience
 
 eg.splash screen,windows adapt
