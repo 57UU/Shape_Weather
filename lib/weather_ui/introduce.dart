@@ -17,8 +17,8 @@ class Introduce extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             textTitle("Add a city"),
-            const TextRow(("In portrait mode, tap"), Icon(Icons.map),
-                ("to open map")),
+            const TextRow(
+                ("In portrait mode, tap"), Icon(Icons.map), ("to open map")),
             TextRow(
                 ("Then tap"),
                 SizedBox(

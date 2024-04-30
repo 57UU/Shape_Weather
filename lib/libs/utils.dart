@@ -65,7 +65,7 @@ Future showLoadingDialog(
     Future.delayed(const Duration(milliseconds: 100)).then((value) {
       Navigator.pop(contextWrapper.context);
     });
-  }).onError((error, stackTrace){
+  }).onError((error, stackTrace) {
     //await Future.delayed(const Duration(microseconds: 5000));
     Navigator.pop(contextWrapper.context);
     if (onError != null) {

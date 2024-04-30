@@ -39,7 +39,6 @@ class _LocationChooseState extends State<LocationChoose> {
     isDelete = false;
   }
 
-
   Widget buildChild(BuildContext context) {
     var children = <Widget>[];
     var header = LayoutBuilder(builder: (context, constraints) {
@@ -72,7 +71,7 @@ class _LocationChooseState extends State<LocationChoose> {
             child: commonCard(
                 onTap: (context) {
                   setState(() {
-                    if(weatherPages.value.isEmpty){
+                    if (weatherPages.value.isEmpty) {
                       isDelete = false;
                       return;
                     }
@@ -144,7 +143,7 @@ class _LocationChooseState extends State<LocationChoose> {
                   Navigator.pop(context);
                 }
               }
-              if(weatherPages.value.isEmpty){
+              if (weatherPages.value.isEmpty) {
                 isDelete = false;
               }
             }),
@@ -276,12 +275,11 @@ class _LocationSearchState extends State<LocationSearch> {
                         await showLoadingDialog(
                             context: context,
                             func: () async {
-                              if(kIsWeb){
+                              if (kIsWeb) {
                                 location = await Weather.getCityByIP_Alapi();
-                              }else{
+                              } else {
                                 location = await Weather.getCityByIP_Baidu();
                               }
-
                             },
                             onError: () {
                               showInfoDialog(
@@ -294,7 +292,7 @@ class _LocationSearchState extends State<LocationSearch> {
                         setState(() {
                           addLocation(LocationInfo.formCityData(location));
                         });
-                        if(context.mounted){
+                        if (context.mounted) {
                           Navigator.of(context).pop();
                         }
                       },
@@ -351,7 +349,8 @@ class _LocationSearchState extends State<LocationSearch> {
                                       child: Text(
                                         text,
                                         textAlign: TextAlign.start,
-                                        textScaler: const TextScaler.linear(1.1),
+                                        textScaler:
+                                            const TextScaler.linear(1.1),
                                       ),
                                     ),
                                     Text(

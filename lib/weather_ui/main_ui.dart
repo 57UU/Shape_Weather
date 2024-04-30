@@ -3,7 +3,6 @@ import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 import 'package:shape_weather/libs/utils.dart';
 
-
 import 'package:shape_weather/weather_ui/widgets/background.dart';
 
 import '../setting/weather_data.dart';
@@ -28,7 +27,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
     return RefreshIndicator(
       child: ListenableBuilder(
         builder: (context, child) {
-          return appSetting.value[enable_dynamic_backgorund]??true
+          return appSetting.value[enable_dynamic_backgorund] ?? true
               ? Stack(
                   children: [
                     background(),
@@ -40,10 +39,9 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         listenable: appSetting,
       ),
       onRefresh: () async {
-        if(widget.weatherPageData.weatherType == WeatherType.current){
+        if (widget.weatherPageData.weatherType == WeatherType.current) {
           await getAllDataForce();
         }
-        
       },
     );
   }
@@ -86,7 +84,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? AqiDetail(widget.weatherPageData.weatherAqiData.value)
                 : Container(),
-            
+
             WindCard(widget.weatherPageData.weatherData.value!),
             Details(widget.weatherPageData.weatherData.value!),
             WeatherIcon(widget.weatherPageData.weatherData.value!),
