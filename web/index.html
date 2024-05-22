@@ -1,21 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <!--
-      If you are serving your web app in a path other than the root, change the
-      href value below to reflect the base path you are serving from.
-
-      The path provided below has to start and end with a slash "/" in order for
-      it to work correctly.
-
-      For more details:
-      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-      This is a placeholder for base href that will be replaced by the value of
-      the `--base-href` argument provided to `flutter build`.
-
       <base href="https://57uu.github.io/Shape_Weather/">
-
     -->
     <base href="https://57uu.github.io/Shape_Weather/">
 
@@ -194,9 +181,9 @@
         <input class="button" style="font-weight:bold;"  type="button" value="Download Native Edition"> </a>
 </p>
 <script>
-    let enable_wasm=false;
+    let use_deprecated=false;
 
-    function load_with_js(){
+    function load_deprecated(){
       window.addEventListener('load', function(ev) {
         // Download main.dart.js
         _flutter.loader.loadEntrypoint({
@@ -204,22 +191,24 @@
             serviceWorkerVersion: serviceWorkerVersion,
           },
           onEntrypointLoaded: function(engineInitializer) {
-            engineInitializer.initializeEngine().then(function(appRunner) {
-              appRunner.runApp();
-            });
+              engineInitializer.initializeEngine().then(function(appRunner) {
+                  appRunner.runApp();
+              });
           }
         });
       });
     }
-    function load_with_wasm(){
-      {{flutter_build_config}}
-      _flutter.loader.load();
+    function load(){
+        {{flutter_js}}
+        {{flutter_build_config}}
+
+        _flutter.loader.load();
     }
 
-    if(enable_wasm){
-      load_with_wasm();
+    if(use_deprecated){
+      load();
     }else{
-      load_with_js();
+      load_deprecated();
     }
 
 
