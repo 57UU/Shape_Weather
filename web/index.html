@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <!--
-      <base href="https://57uu.github.io/Shape_Weather/">
-    -->
-    <base href="https://57uu.github.io/Shape_Weather/">
+  This is a placeholder for base href that will be replaced by the value of
+  the `--base-href` argument provided to `flutter build`.
+
+  <base href="https://57uu.github.io/Shape_Weather/">
+-->
+    <base href="$FLUTTER_BASE_HREF">
 
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -22,25 +25,8 @@
 
     <title>Loading</title>
     <link rel="manifest" href="manifest.json">
-
-    <script>
-    // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = null;
-
-    </script>
-    <!-- This script adds the flutter initialization JS code -->
-    <script src="flutter.js" defer></script>
 </head>
 <body>
-<style>
-  @media (prefers-color-scheme: dark) {
-  body {
-    background: #222;
-    color: #eee;
-  }
-}
-
-</style>
 <h3 style="text-align:center;">
       <span style="font-size:18px;"><br/>
   </span>
@@ -50,23 +36,23 @@
 
 </h2>
 <p>
-      <span style="font-size:18px;"><br/>
-  </span>
-</p>
-<div class="showbox">
+    <span style="font-size:18px;"><br/></span></p>
+    <div class="showbox">
     <div class="loader">
         <svg class="circular" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4"
                     stroke-miterlimit="10"/>
         </svg>
     </div>
-</div><p>
-      <span style="font-size:18px;"><br/>
-  </span>
+</div><p><span style="font-size:18px;"><br/></span>
 </p>
-
-
 <style>
+    @media (prefers-color-scheme: dark) {
+        body {
+            background: #222;
+            color: #eee;
+        }
+    }
     .loader {
       position: relative;
       margin: 0 auto;
@@ -128,52 +114,40 @@
         stroke: #ffa700;
       }
     }
-
     .showbox {
-
       padding: 5%;
     }
+    .button {
+        display: inline-block;
+        border-radius: 20px;
+        background-color: #f4511e;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 18px;
+        padding: 20px;
 
-
-
-    </style>
-
-
-
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+    }
+</style>
 <p style="text-align:center;">
     <span style="font-size:18px;">If you're in China's mainland,this may take significant time.</span>
 </p>
 <p style="text-align:center;">
-      <span style="font-size:18px;"><br/>
+  <span style="font-size:18px;"><br/>
   </span>
 </p>
 <p style="text-align:center;">
     <span style="font-size:18px;">However, thanks to PWA, the second time it will not take so long</span>
 </p>
 <p style="text-align:center;">
-  <span style="font-size:18px;"><br/>
-</span>
+    <span style="font-size:18px;"><br/>
+    </span>
 </p>
-<style>
-  .button {
-  display: inline-block;
-  border-radius: 20px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 18px;
-  padding: 20px;
-
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
-
-</style>
 <p style="text-align:center;">
     <span style="font-size:18px;">Or, click button below to get native application</span>
-
 </p>
 <br>
 <p style="text-align:center;">
@@ -181,37 +155,15 @@
         <input class="button" style="font-weight:bold;"  type="button" value="Download Native Edition"> </a>
 </p>
 <script>
-    let use_deprecated=false;
+    {{flutter_js}}
+    {{flutter_build_config}}
 
-    function load_deprecated(){
-      window.addEventListener('load', function(ev) {
-        // Download main.dart.js
-        _flutter.loader.loadEntrypoint({
-          serviceWorker: {
-            serviceWorkerVersion: serviceWorkerVersion,
-          },
-          onEntrypointLoaded: function(engineInitializer) {
-              engineInitializer.initializeEngine().then(function(appRunner) {
-                  appRunner.runApp();
-              });
-          }
-        });
-      });
-    }
-    function load(){
-        {{flutter_js}}
-        {{flutter_build_config}}
-
-        _flutter.loader.load();
-    }
-
-    if(use_deprecated){
-      load();
-    }else{
-      load_deprecated();
-    }
-
-
+    _flutter.loader.load({
+        config: {'renderer': 'canvaskit'},
+        serviceWorkerSettings: {
+            serviceWorkerVersion: {{flutter_service_worker_version}},
+    },
+    });
 </script>
 </body>
 </html>
