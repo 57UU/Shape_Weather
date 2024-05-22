@@ -155,15 +155,7 @@
         <input class="button" style="font-weight:bold;"  type="button" value="Download Native Edition"> </a>
 </p>
 <script>
-    {{flutter_js}}
-    {{flutter_build_config}}
-
-    _flutter.loader.load({
-        config: {'renderer': 'canvaskit'},
-        serviceWorkerSettings: {
-            serviceWorkerVersion: {{flutter_service_worker_version}},
-    },
-    });
+    {{flutter_bootstrap_js}}
 </script>
 </body>
 </html>
