@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+import   'package:bitsdojo_window/bitsdojo_window.dart' if(dart.library.js_interop)"package:shape_weather/libs/bitsdojo_unimplemented.dart";
+
+
+//import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/ensure_initialize.dart';
