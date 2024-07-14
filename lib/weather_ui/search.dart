@@ -8,7 +8,7 @@ import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/libs/utils.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/libs/weather_api.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../setting/configuration.dart';
 import '../setting/weather_data.dart';
 
@@ -48,7 +48,7 @@ class _LocationChooseState extends State<LocationChoose> {
             width: constraints.maxWidth / 2,
             child: commonCard(
                 context: context,
-                title: "ADD",
+                title: AppLocalizations.of(context)!.add_upper,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -79,7 +79,7 @@ class _LocationChooseState extends State<LocationChoose> {
                   });
                 },
                 context: context,
-                title: isDelete ? "Cancel" : "Delete",
+                title: isDelete ? AppLocalizations.of(context)!.cancel : AppLocalizations.of(context)!.delete,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -105,7 +105,7 @@ class _LocationChooseState extends State<LocationChoose> {
                 ValueListenableBuilder<WeatherData?>(
                   builder: (context, value, child) {
                     return weatherPages.value[i].weatherData.value == null
-                        ? const Text("Unknown")
+                        ? Text(AppLocalizations.of(context)!.unknown)
                         : Text(
                             "${weatherPages.value[i].weatherData.value!.temperature.currentTemperature}℃");
                   },
@@ -119,7 +119,7 @@ class _LocationChooseState extends State<LocationChoose> {
                     : ValueListenableBuilder<WeatherData?>(
                         builder: (context, value, child) {
                           return weatherPages.value[i].weatherData.value == null
-                              ? const Text("Weather")
+                              ? Text(AppLocalizations.of(context)!.weather)
                               : Text(weatherPages.value[i].weatherData.value!
                                   .details.first.weatherShortDescription);
                         },
@@ -151,7 +151,7 @@ class _LocationChooseState extends State<LocationChoose> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Map"),
+          title: Text(AppLocalizations.of(context)!.map),
         ),
         body: ReorderableColumn(
             buildDraggableFeedback: (context, constraints, child) {
@@ -255,7 +255,7 @@ class _LocationSearchState extends State<LocationSearch> {
     });
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Search"),
+        title: Text(AppLocalizations.of(context)!.search),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -266,38 +266,40 @@ class _LocationSearchState extends State<LocationSearch> {
                 width: MediaQuery.of(context).size.width,
                 child: SearchBar(
                   controller: controller,
-                  padding: const MaterialStatePropertyAll<EdgeInsets>(
+                  padding: const WidgetStatePropertyAll<EdgeInsets>(
                       EdgeInsets.symmetric(horizontal: 16.0)),
                   leading: const Icon(Icons.search),
                   trailing: [
-                    IconButton(
-                      onPressed: () async {
-                        late CityLocationData location;
-                        await showLoadingDialog(
-                            context: context,
-                            func: () async {
-                              if (kIsWeb) {
-                                location = await Weather.getCityByIP_Alapi();
-                              } else {
-                                location = await Weather.getCityByIP_Baidu();
-                              }
-                            },
-                            onError: () {
-                              showInfoDialog(
-                                  context: context,
-                                  title: "Error",
-                                  content:
-                                      "Can not locate\nBad Internet Connection");
-                            });
-
-                        setState(() {
-                          addLocation(LocationInfo.formCityData(location));
-                        });
-                        if (context.mounted) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      icon: const Icon(Icons.gps_fixed_rounded),
+                    Tooltip(
+                      message:AppLocalizations.of(context)!.locate,
+                      child: IconButton(
+                        onPressed: () async {
+                          late CityLocationData location;
+                          await showLoadingDialog(
+                              context: context,
+                              func: () async {
+                                if (kIsWeb) {
+                                  location = await Weather.getCityByIP_Alapi();
+                                } else {
+                                  location = await Weather.getCityByIP_Baidu();
+                                }
+                              },
+                              onError: () {
+                                showInfoDialog(
+                                    context: context,
+                                    title: AppLocalizations.of(context)!.error,
+                                    content:AppLocalizations.of(context)!.cannotLocateBadInternet);
+                              });
+                      
+                          setState(() {
+                            addLocation(LocationInfo.formCityData(location));
+                          });
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        icon: const Icon(Icons.gps_fixed_rounded),
+                      ),
                     )
                   ], //const Icon(Icons.gps_fixed_rounded)
                 ),
@@ -312,8 +314,8 @@ class _LocationSearchState extends State<LocationSearch> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasError) {
                           // 请求失败，显示错误
-                          return const Text(
-                            "Can not fetch data",
+                          return Text(
+                            AppLocalizations.of(context)!.cannotFetchData,
                             textAlign: TextAlign.center,
                           );
                         } else {
@@ -324,7 +326,7 @@ class _LocationSearchState extends State<LocationSearch> {
                           for (var i in cities) {
                             late String text;
                             if (i.state == "") {
-                              text = "Country : ${i.country}";
+                              text = "${AppLocalizations.of(context)!.country} : ${i.country}";
                             } else {
                               text = "${i.country},${i.state}";
                             }
@@ -355,7 +357,8 @@ class _LocationSearchState extends State<LocationSearch> {
                                       ),
                                     ),
                                     Text(
-                                        "Latitude ${i.lat.toStringAsFixed(2)} & Longitude ${i.lon.toStringAsFixed(2)}"),
+                                        "${AppLocalizations.of(context)!.latitude} ${i.lat.toStringAsFixed(2)} & "
+                                            "${AppLocalizations.of(context)!.longitude} ${i.lon.toStringAsFixed(2)}"),
                                   ],
                                 )));
                           }

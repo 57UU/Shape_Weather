@@ -231,9 +231,9 @@ class LocationDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                "${AppLocalizations.of(context)!.latitude} ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lat}"),
+                "${AppLocalizations.of(context)!.latitude} ${weatherData.coordinates == null ? AppLocalizations.of(context)!.unknown : weatherData.coordinates!.lat}"),
             Text(
-                "${AppLocalizations.of(context)!.longitude} ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lon}"),
+                "${AppLocalizations.of(context)!.longitude} ${weatherData.coordinates == null ? AppLocalizations.of(context)!.unknown : weatherData.coordinates!.lon}"),
           ],
         ));
   }

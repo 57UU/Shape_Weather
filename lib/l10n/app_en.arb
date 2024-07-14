@@ -97,7 +97,16 @@
   "longitude": "Longitude",
   "unknown":"Unknown",
   "forecastGraph": "Forecast Graph",
-  "today": "Today"
+  "today": "Today",
+  "map": "Map",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "weather": "Weather",
+  "search": "Search",
+  "cannotLocateBadInternet": "Can not locate\nBad Internet Connection",
+  "cannotFetchData": "Can not fetch data",
+  "country": "Country",
+  "locate": "locate"
 
 
 
