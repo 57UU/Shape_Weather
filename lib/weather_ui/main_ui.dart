@@ -4,7 +4,7 @@ import 'package:shape_weather/libs/weather_api.dart';
 import 'package:shape_weather/libs/utils.dart';
 
 import 'package:shape_weather/weather_ui/widgets/background.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../setting/weather_data.dart';
 import 'widgets/cards.dart';
 
@@ -58,7 +58,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
       return Center(
         child: TextButton(
           onPressed: getWeatherData,
-          child: const Text("Tap to Reload"),
+          child: Text(AppLocalizations.of(context)!.tap2Reload),
         ),
       );
     }
@@ -76,10 +76,10 @@ class _WeatherInterfaceState extends State<WeatherInterface>
 
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? ForecastGraphCard(
-                    widget.weatherPageData.weatherForecastData.value)
+                    widget.weatherPageData.weatherForecastData.value,title: AppLocalizations.of(context)!.forecastGraph,)
                 : Container(),
             (widget.weatherPageData.weatherType == WeatherType.current)
-                ? ForecastCard(widget.weatherPageData.weatherForecastData.value)
+                ? ForecastCard(widget.weatherPageData.weatherForecastData.value,title: AppLocalizations.of(context)!.forecasts,)
                 : Container(),
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? AqiDetail(widget.weatherPageData.weatherAqiData.value)
@@ -88,7 +88,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             WindCard(widget.weatherPageData.weatherData.value!),
             Details(widget.weatherPageData.weatherData.value!),
             WeatherIcon(widget.weatherPageData.weatherData.value!),
-            TimeCard(widget.weatherPageData.weatherData.value),
+            TimeCard(widget.weatherPageData.weatherData.value,title: AppLocalizations.of(context)!.time,),
             LocationDetail(widget.weatherPageData.weatherData.value!),
             EditCard(widget.weatherPageData),
 
@@ -139,7 +139,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         onError = false;
       });
     } catch (e) {
-      showInfoDialog(context: context, title: "Error", content: e.toString());
+      showInfoDialog(context: context, title: AppLocalizations.of(context)!.error, content: e.toString());
 
       setState(() {
         onError = true;

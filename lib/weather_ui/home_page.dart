@@ -6,6 +6,7 @@ import '../setting/configuration.dart';
 import '../setting/weather_data.dart';
 import 'setting.dart';
 import 'widgets/controls.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'search.dart';
 import 'welcome.dart';
 import 'main_ui.dart';
@@ -37,7 +38,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     if (weatherPages.value.isEmpty) {
-      title = "Welcome to Shape Weather";
+      title = AppLocalizations.of(context)!.welcome2ShapeWeather;
     } else {
       if (currentPage > weatherPages.value.length - 1) {
         currentPage = weatherPages.value.length - 1;

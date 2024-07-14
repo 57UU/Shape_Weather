@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/weather_ui/introduce.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -12,30 +12,30 @@ class Welcome extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 20),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
             child: Text(
-              "It seems that you haven't added a city yet",
+              AppLocalizations.of(context)!.noCityYet,
               textAlign: TextAlign.center,
             ),
           ),
-          const Text("Click the top left button to add one"),
-          const Padding(
-            padding: EdgeInsets.all(20),
-            child: Text("Or, read the introduce"),
+          Text(AppLocalizations.of(context)!.clickTopLeftButtonToAdd),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(AppLocalizations.of(context)!.orReadIntroduce),
           ),
           OutlinedButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (builder){
               return const Introduce();
             }));
-          }, child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("User's Guide"),
+          }, child:  Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(AppLocalizations.of(context)!.userGuidance),
           )),
-          kIsWeb? commonCard(context: context, title: "Note", child: const Center(child: Column(
+          kIsWeb? commonCard(context: context, title: AppLocalizations.of(context)!.note, child: Center(child: Column(
             children: [
-              Text("Current Platform is Web"),
-              Text("With Low Performance and Some Bugs"),
+              Text(AppLocalizations.of(context)!.currentPlatformIsWeb),
+              Text(AppLocalizations.of(context)!.lowPerformanceAndBugs),
             ],
           ),)):Container(),
         ],

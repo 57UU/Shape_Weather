@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/index.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/controls.dart';
 
 class AqiDetailPage extends StatelessWidget {
@@ -8,16 +8,18 @@ class AqiDetailPage extends StatelessWidget {
 
   const AqiDetailPage(this.weatherAQIData, {super.key});
 
-  static var aqiDetailRank = <String>[
-    "Good",
-    "Fair",
-    "Moderate",
-    "Poor",
-    "Very Poor"
-  ];
+  static List<String>? aqiDetailRank;
 
   @override
   Widget build(BuildContext context) {
+    aqiDetailRank ??= <String>[
+      AppLocalizations.of(context)!.good,
+      AppLocalizations.of(context)!.fair,
+      AppLocalizations.of(context)!.moderate,
+      AppLocalizations.of(context)!.poor,
+      AppLocalizations.of(context)!.veryPoor
+    ];
+
     var children = <Widget>[
       AqiGridBig("CO", weatherAQIData.co),
       AqiGridBig("NO", weatherAQIData.no),
@@ -30,7 +32,7 @@ class AqiDetailPage extends StatelessWidget {
     ];
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Air Quality Index"),
+          title: Text(AppLocalizations.of(context)!.airQualityIndex),
         ),
         body: Column(
           children: [
@@ -38,14 +40,14 @@ class AqiDetailPage extends StatelessWidget {
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: AqiGridBig("AQI", aqiDetailRank[weatherAQIData.aqi - 1]),
+                  child: AqiGridBig("AQI", aqiDetailRank![weatherAQIData.aqi - 1]),
                 )),
             Wrap(
               children: children,
             ),
-            commonCard(context: context, title: "Note", child: const Center(child: Column(
+            commonCard(context: context, title: AppLocalizations.of(context)!.note, child: Center(child: Column(
               children: [
-                Text("All the data are based on unit μg/m³"),
+                Text(AppLocalizations.of(context)!.dataUnitHint),
               ],
             ),))
           ],

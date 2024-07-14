@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/ensure_initialize.dart';
 import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'weather_ui/home_page.dart';
 
 void main() {
@@ -55,6 +55,9 @@ class MyApp extends StatelessWidget {
     return ListenableBuilder(
       builder: (context, widget) {
         return MaterialApp(
+          onGenerateTitle: (context) => AppLocalizations.of(context)!.shapeWeather,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           title: 'Shape Weather',
           theme: ThemeData(
             brightness: Brightness.light,
@@ -104,7 +107,7 @@ class StartUp extends StatelessWidget {
     if ((!kIsWeb) && Platform.isWindows) {
       Color backgroundColor = Theme.of(context).brightness == Brightness.light
           ? Theme.of(context).colorScheme.secondaryContainer
-          : Theme.of(context).colorScheme.background;
+          : Theme.of(context).colorScheme.surface;
       return Column(
         children: [
           Container(
@@ -114,8 +117,8 @@ class StartUp extends StatelessWidget {
                 children: [
                   Material(
                     color: backgroundColor,
-                    child: const Text(
-                      "  Shape Weather",
+                    child: Text(
+                      "  ${AppLocalizations.of(context)!.shapeWeather}",
                     ),
                   ),
                   Expanded(child: MoveWindow()),
@@ -147,7 +150,7 @@ class Window extends StatelessWidget {
         leading: Text(title),
         flexibleSpace: Row(
           children: [
-            const Text("Shape Weather"),
+            Text(AppLocalizations.of(context)!.shapeWeather),
             Expanded(child: MoveWindow()),
             const WindowButtons()
           ],

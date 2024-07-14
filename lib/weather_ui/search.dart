@@ -195,6 +195,7 @@ class _LocationSearchState extends State<LocationSearch> {
       return;
     }
     weatherPages.value.add(page);
+
     weatherPages.notifyListeners();
   }
 

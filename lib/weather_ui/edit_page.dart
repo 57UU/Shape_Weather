@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../setting/configuration.dart';
 import '../setting/weather_data.dart';
 import 'widgets/controls.dart';
@@ -20,17 +20,17 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit"),
+        title: Text(AppLocalizations.of(context)!.edit),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         child: ListView(
           children: [
-            RowInput("City Name", (s) {
+            RowInput(AppLocalizations.of(context)!.cityName, (s) {
               widget.weatherPageData.locationInfo.cityName = s;
               weatherPages.notifyListeners();
             },widget.weatherPageData.locationInfo.cityName),
-            commonCard(context: context,title:"Note" ,child: const Text("Some changes may need restarting to apply")),
+            commonCard(context: context,title:AppLocalizations.of(context)!.note ,child: const Text("Some changes may need restarting to apply")),
           ],
 
 
@@ -54,11 +54,13 @@ class RowInput extends StatefulWidget {
 class _RowInputState extends State<RowInput> {
 
   late TextEditingController controller;
+
   @override
   void initState() {
     super.initState();
     controller = TextEditingController(text: widget.defaultText);
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/controls.dart';
 
 class Introduce extends StatelessWidget {
@@ -9,24 +9,24 @@ class Introduce extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Introduce to Shape Weather"),
+        title: Text(AppLocalizations.of(context)!.introduce2ShapeWeather),
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            textTitle("Add a city"),
-            const TextRow(
-                ("In portrait mode, tap"), Icon(Icons.map), ("to open map")),
+            textTitle(AppLocalizations.of(context)!.addCity),
             TextRow(
-                ("Then tap"),
+                (AppLocalizations.of(context)!.inPortraitModeTap), Icon(Icons.map), (AppLocalizations.of(context)!.toOpenMap)),
+            TextRow(
+                (AppLocalizations.of(context)!.thenTap),
                 SizedBox(
                   height: 110,
                   width: 150,
                   child: commonCard(
                     context: context,
-                    title: "ADD",
+                    title: AppLocalizations.of(context)!.add_upper,
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -38,7 +38,7 @@ class Introduce extends StatelessWidget {
                     ),
                   ),
                 ),
-                ("to open search page")),
+                (AppLocalizations.of(context)!.toOpenSearchPage)),
             TextRow(
                 "1) tap the button",
                 IconButton(

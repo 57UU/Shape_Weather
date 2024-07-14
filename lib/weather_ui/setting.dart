@@ -9,7 +9,7 @@ import 'package:shape_weather/weather_ui/about.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/weather_ui/introduce.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'theme_color_page.dart';
 
 class Setting extends StatefulWidget {
@@ -23,19 +23,18 @@ class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[
-      const SwitchRow(
-          text: "Enable Dynamic Background",
+       SwitchRow(
+          text: AppLocalizations.of(context)!.enableDynamicBackground,
           valueKey: enable_dynamic_backgorund,
-          title: "Dynamic Background",
-          content:
-              "This feature improves visual effects\nbut also significantly reduce battery life"),
+          title: AppLocalizations.of(context)!.dynamicBackground,
+          content:AppLocalizations.of(context)!.dynamicBackgroundIntroduce),
       ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {
               return const ChangeThemeColorPage();
             }));
           },
-          child: const Text("Change Theme Color")),
+          child: Text(AppLocalizations.of(context)!.changeThemeColor)),
 
 /*          ElevatedButton(
               onPressed: () {
@@ -52,11 +51,11 @@ class _SettingState extends State<Setting> {
               return const Introduce();
             }));
           },
-          child: const Text("User's Guide")),
+          child: Text(AppLocalizations.of(context)!.userGuidance)),
       ButtonWithPadding(
           onPressed: () async {
             var flag = await showYesNoDialog(
-                context: context, content: "Are you sure?", title: "Warning");
+                context: context, content: AppLocalizations.of(context)!.areYouSure, title:AppLocalizations.of(context)!.warning);
             if (flag == true) {
               weatherPages.value.clear();
               appSetting.value.clear();
@@ -65,9 +64,9 @@ class _SettingState extends State<Setting> {
               loadConfig();
             }
           },
-          child: const Text(
-            "Clear All Data",
-            style: TextStyle(color: Colors.red),
+          child: Text(
+            AppLocalizations.of(context)!.clearAllData,
+            style: const TextStyle(color: Colors.red),
           )),
       kIsWeb
           ? ButtonWithPadding(
@@ -75,27 +74,27 @@ class _SettingState extends State<Setting> {
                 await launchUrl(Uri.parse(
                     "https://github.com/57UU/Shape_Weather/releases"));
               },
-              child: const Text("Download Native Edition"))
+              child: Text(AppLocalizations.of(context)!.downloadNativeEdition))
           : Container(),
       ButtonWithPadding(
           onPressed: () async {
             await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));
           },
-          child: const Text("Open Github Repo")),
+          child: Text(AppLocalizations.of(context)!.openGithubRepo)),
       ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {
               return const CheckUpdates();
             }));
           },
-          child: const Text("Check Update")),
+          child: Text(AppLocalizations.of(context)!.checkUpdate)),
       ButtonWithPadding(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (builder) {
               return const About();
             }));
           },
-          child: const Text("About")),
+          child:  Text(AppLocalizations.of(context)!.about)),
 
 /*      ButtonWithPadding(
           onPressed: () {

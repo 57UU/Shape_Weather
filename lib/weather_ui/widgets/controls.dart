@@ -4,10 +4,11 @@ import 'package:open_weather_client/models/weather_forecast_data.dart';
 import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/main_ui.dart';
 import 'package:open_weather_client/models/weather_data.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shape_weather/libs/utils.dart';
 
-import 'package:shape_weather/setting/weather_data.dart';
+import '../../setting/weather_data.dart';
+
 
 Widget titleText(String text) {
   return Padding(
@@ -173,7 +174,7 @@ class ForecastDataGrid extends StatelessWidget {
 void pushForecastPage(BuildContext context, WeatherData weatherData,DateTime dateTime) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     WeatherPageData weatherPageData =
-        WeatherPageData(locationInfo: LocationInfo.empty)..title = "Forecast";
+        WeatherPageData(locationInfo: LocationInfo.empty)..title = AppLocalizations.of(context)!.forecast;
     weatherPageData.weatherData.value = weatherData;
     weatherPageData.weatherType = WeatherType.forecast;
     var deltaTime=dateTime.difference(DateTime.now());
@@ -182,7 +183,7 @@ void pushForecastPage(BuildContext context, WeatherData weatherData,DateTime dat
     return Scaffold(
       body: WeatherInterface(weatherPageData),
       appBar: AppBar(
-        title: Text("${hours==0?"${deltaTime.inMinutes} Minutes":"$hours Hours"} Later"),
+        title: Text("${hours==0?AppLocalizations.of(context)!.minutes(deltaTime.inMinutes):AppLocalizations.of(context)!.hours(hours)} ${AppLocalizations.of(context)!.later}"),
       ),
     );
   }));
@@ -238,7 +239,7 @@ class Forecasts extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Forecasts"),
+        title: Text(AppLocalizations.of(context)!.forecasts),
       ),
       body: ListView(
         children: children,

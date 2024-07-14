@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../libs/version.dart';
 
 
@@ -35,20 +35,19 @@ class _CheckUpdatesState extends State<CheckUpdates> {
     //isNewVersion=false;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Check Update"),
+        title: Text(AppLocalizations.of(context)!.checkUpdate),
       ),
       body: kIsWeb
           ? Column(
               children: [
                 commonCard(
                     context: context,
-                    title: "Current Version",
+                    title: AppLocalizations.of(context)!.currentVersion,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Current Version $currentVersion"),
-                        const Text(
-                            "With Github Action, Web version is always the latest")
+                        Text("${AppLocalizations.of(context)!.currentVersion} $currentVersion"),
+                        Text(AppLocalizations.of(context)!.webIsLatest)
                       ],
                     )),
               ],
@@ -58,11 +57,11 @@ class _CheckUpdatesState extends State<CheckUpdates> {
               children: [
                 commonCard(
                     context: context,
-                    title: "Current Version",
+                    title: AppLocalizations.of(context)!.currentVersion,
                     child: Text(currentVersion)),
                 commonCard(
                     context: context,
-                    title: "Latest Version",
+                    title: AppLocalizations.of(context)!.latestVersion,
                     icon: isNewVersion && latestVersion != null
                         ? const Icon(Icons.arrow_circle_up_rounded)
                         : Container(),
@@ -73,7 +72,7 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                       }
                     },
                     child: isError
-                        ? const Text("Failed to Load")
+                        ? Text(AppLocalizations.of(context)!.failedToLoad)
                         : latestVersion == null
                             ? loading()
                             : isNewVersion
@@ -81,20 +80,20 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
-                                        "New Version Available!",
-                                        textScaler: TextScaler.linear(1.1),
+                                      Text(
+                                        AppLocalizations.of(context)!.newVersionAvailable,
+                                        textScaler: const TextScaler.linear(1.1),
                                       ),
-                                      Text("Latest Version $latestVersion"),
-                                      const Text("Click Here to Download")
+                                      Text("${AppLocalizations.of(context)!.latestVersion} $latestVersion"),
+                                      Text(AppLocalizations.of(context)!.clickHere2Download)
                                     ],
                                   )
-                                : const Text("Current Version Is Up to Date")),
+                                : Text(AppLocalizations.of(context)!.currentVersionIsUpToDate)),
                 ElevatedButton(
                     onPressed: () {
                       fetch();
                     },
-                    child: const Text("Check Update"))
+                    child: Text(AppLocalizations.of(context)!.checkUpdate))
               ],
             ),
     );

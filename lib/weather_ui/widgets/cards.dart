@@ -12,7 +12,7 @@ import 'package:shape_weather/weather_ui/aqi_detail_page.dart';
 import 'package:shape_weather/weather_ui/edit_page.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'controls.dart';
 
 class Overview extends StatelessWidget {
@@ -59,7 +59,7 @@ class Overview extends StatelessWidget {
                       onPressed: () {
                         showInfoDialog(
                             context: context,
-                            title: "Weather Description",
+                            title: AppLocalizations.of(context)!.weatherDescription,
                             content: data.details.first.weatherLongDescription);
                       },
                     ),
@@ -68,15 +68,15 @@ class Overview extends StatelessWidget {
                   Opacity(
                     opacity: 0.8,
                     child: OutlinedButton(
-                      child: Text("Feels like ${data.temperature.feelsLike}°"),
+                      child: Text("${AppLocalizations.of(context)!.feelsLike} ${data.temperature.feelsLike}°"),
                       onPressed: () {
                         showInfoDialog(
                             context: context,
-                            title: "Temperature",
+                            title: AppLocalizations.of(context)!.temperature,
                             content:
-                                "Feels like ${data.temperature.feelsLike}\n"
-                                "Min ${data.temperature.tempMin}\n"
-                                "Max ${data.temperature.tempMax}\n");
+                                "${AppLocalizations.of(context)!.feelsLike} ${data.temperature.feelsLike}\n"
+                                "${AppLocalizations.of(context)!.min} ${data.temperature.tempMin}\n"
+                                "${AppLocalizations.of(context)!.max} ${data.temperature.tempMax}\n");
                       },
                     ),
                   )
@@ -114,10 +114,10 @@ class WindCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  titleText("Wind"),
-                  Text("Speed ${weatherData.wind.speed}m/s"),
-                  Text("Direction ${weatherData.wind.deg}°"),
-                  Text("Gust ${weatherData.wind.gust ?? " N/A "}"),
+                  titleText(AppLocalizations.of(context)!.wind),
+                  Text("${AppLocalizations.of(context)!.windSpeed} ${weatherData.wind.speed}m/s"),
+                  Text("${AppLocalizations.of(context)!.direction} ${weatherData.wind.deg}°"),
+                  Text("${AppLocalizations.of(context)!.gust} ${weatherData.wind.gust ?? " N/A "}"),
                 ],
               ),
               Padding(
@@ -174,7 +174,7 @@ class TimeCard extends NullableCard<WeatherData> {
   Widget child(BuildContext context, WeatherData parameter) {
     var time = DateTime.fromMillisecondsSinceEpoch(parameter.date * 1000);
     DateFormat formatter = DateFormat('y-M-d H:m:s');
-    return Text("Time at ${formatter.format(time)}");
+    return Text("${AppLocalizations.of(context)!.timeAt} ${formatter.format(time)}");
   }
 }
 
@@ -187,13 +187,13 @@ class Details extends StatelessWidget {
   Widget build(BuildContext context) {
     return commonCard(
         context: context,
-        title: "Details",
+        title: AppLocalizations.of(context)!.details,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Pressure ${weatherData.temperature.pressure}hPa"),
-            Text("Humidity ${weatherData.temperature.humidity}%"),
+            Text("${AppLocalizations.of(context)!.pressure} ${weatherData.temperature.pressure}hPa"),
+            Text("${AppLocalizations.of(context)!.humidity} ${weatherData.temperature.humidity}%"),
           ],
         ));
   }
@@ -208,7 +208,7 @@ class WeatherIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return commonCard(
       context: context,
-      title: "Icon",
+      title: AppLocalizations.of(context)!.icon,
       child: null,
       icon: Image.network(
           "https://openweathermap.org/img/wn/${weatherData.details.first.icon}.png"),
@@ -225,15 +225,15 @@ class LocationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return commonCard(
         context: context,
-        title: "Location",
+        title: AppLocalizations.of(context)!.location,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                "Latitude ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lat}"),
+                "${AppLocalizations.of(context)!.latitude} ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lat}"),
             Text(
-                "Latitude ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lon}"),
+                "${AppLocalizations.of(context)!.longitude} ${weatherData.coordinates == null ? 'Unknown' : weatherData.coordinates!.lon}"),
           ],
         ));
   }
@@ -253,27 +253,28 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
     }));
   }
 
-  static var aqiDetailRank = <String>[
-    "Good",
-    "Fair",
-    "Moderate",
-    "Poor",
-    "Very Poor"
-  ];
+  static List<String>? aqiDetailRank;
 
   @override
   Widget child(BuildContext context, WeatherAQIData parameter) {
+    aqiDetailRank ??= <String>[
+      AppLocalizations.of(context)!.good,
+      AppLocalizations.of(context)!.fair,
+      AppLocalizations.of(context)!.moderate,
+      AppLocalizations.of(context)!.poor,
+      AppLocalizations.of(context)!.veryPoor
+    ];
     var orientation = MediaQuery.of(context).orientation;
     var children = orientation == Orientation.portrait
         ? <Widget>[
-            AqiGrid("AQI", aqiDetailRank[parameter.aqi - 1]),
+            AqiGrid("AQI", aqiDetailRank![parameter.aqi - 1]),
             AqiGrid("O₃", parameter.o3),
             AqiGrid("SO₂", parameter.so2),
             AqiGrid("PM₂.₅", parameter.pm2_5),
             AqiGrid("PM₁₀", parameter.pm10),
           ]
         : <Widget>[
-            AqiGrid("AQI", aqiDetailRank[parameter.aqi - 1]),
+            AqiGrid("AQI", aqiDetailRank![parameter.aqi - 1]),
             AqiGrid("PM₂.₅", parameter.pm2_5),
             AqiGrid("PM₁₀", parameter.pm10),
             AqiGrid("CO", parameter.co),
@@ -341,7 +342,7 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
           xValueMapper: (var data, _) {
             var time = (DateTime.fromMillisecondsSinceEpoch(data.date * 1000));
             if (time.month == today.month && time.day == today.day) {
-              return "Today-${dateFormatTime.format(time)}";
+              return "${AppLocalizations.of(context)!.today}-${dateFormatTime.format(time)}";
             }
             return "${dateFormatDay.format(time)}-${dateFormatTime.format(time)}";
           },
@@ -369,7 +370,7 @@ class EditCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextButton(
-          child: const Text("Edit"),
+          child: Text(AppLocalizations.of(context)!.edit),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
               return EditPage(weatherPageData);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../libs/version.dart';
 
 class About extends StatelessWidget {
@@ -11,18 +11,18 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About"),
+        title: Text(AppLocalizations.of(context)!.about),
       ),
       body: ListView(
         children: [
           commonCard(
               context: context,
-              title: "About",
-              child: const Center(
+              title: AppLocalizations.of(context)!.about,
+              child: Center(
                 child: Column(
                   children: [
-                    Text("This is a cross-platform software made with flutter"),
-                    Text("Click to access github repo")
+                    Text(AppLocalizations.of(context)!.selfIntroduce),
+                    Text(AppLocalizations.of(context)!.click2AccessGithubRepo)
                   ],
                 ),
               ),
@@ -32,20 +32,20 @@ class About extends StatelessWidget {
           //commonCard(context: context, title: "Limited", child: const Center(child: Text("Web version may can not locate due to CORS"),)),
           commonCard(
               context: context,
-              title: "Weather Provider",
+              title: AppLocalizations.of(context)!.weatherProvider,
               child: const Center(
                 child: Text("Open Weather"),
               )),
           commonCard(
               context: context,
-              title: "IP Locating Provider",
+              title: AppLocalizations.of(context)!.ipLocateProvider,
               child: const Center(
                 child: Text("Alapi(Web)\nBaidu Map(other platform)"),
               )),
           commonCard(
             context: context,
-            title: "Current Version",
-            child: Center(child: Text("Current Version $currentVersion")),
+            title: AppLocalizations.of(context)!.currentVersion,
+            child: Center(child: Text("${AppLocalizations.of(context)!.currentVersion} $currentVersion")),
           ),
         ],
       ),
