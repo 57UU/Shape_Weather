@@ -105,5 +105,10 @@
   "search": "搜索",
   "cannotLocateBadInternet": "无法定位\n网络连接不佳",
   "cannotFetchData": "无法获取数据",
-  "country": "国家/地区"
+  "country": "国家/地区",
+  "modifyLanguage": "更改语言/language",
+  "followSystem": "跟随系统",
+  "switchCities": "切换城市",
+  "reorderTheList": "城市自定义排序",
+  "iUnderstand": "我明白了"
 }

@@ -54,7 +54,7 @@ class Introduce extends StatelessWidget {
                     )),
                 "to search"),
             //----------------switch---------------
-            textTitle("Switch cities"),
+            textTitle(AppLocalizations.of(context)!.switchCities),
             const TextRow("1)  You can swipe the view ", Icon(Icons.web_asset),
                 " to switch"),
             TextRow("2)  In landscape mode,you can tap the card in the left",
@@ -62,7 +62,7 @@ class Introduce extends StatelessWidget {
             const TextRow("3)  In portrait mode,you can tap ", Icon(Icons.map),
                 " to open map and switch"),
             //----------------delete-------------
-            textTitle("Delete"),
+            textTitle(AppLocalizations.of(context)!.delete),
             TextRow(
                 "Tap",
                 SizedBox(
@@ -70,7 +70,7 @@ class Introduce extends StatelessWidget {
                   width: 150,
                   child: commonCard(
                     context: context,
-                    title: "Delete",
+                    title: AppLocalizations.of(context)!.delete,
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -109,7 +109,7 @@ class Introduce extends StatelessWidget {
                   width: 150,
                   child: commonCard(
                     context: context,
-                    title: "Cancel",
+                    title: AppLocalizations.of(context)!.cancel,
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -122,10 +122,10 @@ class Introduce extends StatelessWidget {
                   ),
                 ),
                 "to exit deleting mode"),
-            textTitle("Reorder the List"),
+            textTitle(AppLocalizations.of(context)!.reorderTheList),
             TextRow("Long press the card", cardShow(context),
                 "to reorder the list"),
-            textTitle("setting"),
+            textTitle(AppLocalizations.of(context)!.setting),
             TextRow(
                 "Tap the button in the right top ",
                 IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
@@ -133,7 +133,7 @@ class Introduce extends StatelessWidget {
             TextRow(
                 "And you can tap",
                 ElevatedButton(
-                    onPressed: () {}, child: const Text("Read Introduce")),
+                    onPressed: () {}, child: Text(AppLocalizations.of(context)!.userGuidance)),
                 "to open the User's Guide again"),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
@@ -141,11 +141,11 @@ class Introduce extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.all(20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
                     child: Text(
-                      "I'm fully understand",
-                      textScaler: TextScaler.linear(1.2),
+                      AppLocalizations.of(context)!.iUnderstand,
+                      textScaler: const TextScaler.linear(1.2),
                     ),
                   )),
             )

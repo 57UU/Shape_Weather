@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/setting/configuration.dart';
+import 'package:shape_weather/weather_ui/change_language.dart';
 import 'package:shape_weather/weather_ui/updates.dart';
 import 'package:shape_weather/libs/utils.dart';
 import 'package:shape_weather/weather_ui/about.dart';
@@ -35,6 +36,13 @@ class _SettingState extends State<Setting> {
             }));
           },
           child: Text(AppLocalizations.of(context)!.changeThemeColor)),
+      ButtonWithPadding(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+              return const ChangeLanguagePage();
+            }));
+          },
+          child: Text(AppLocalizations.of(context)!.modifyLanguage)),
 
 /*          ElevatedButton(
               onPressed: () {
@@ -106,7 +114,7 @@ class _SettingState extends State<Setting> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("setting"),
+        title: Text(AppLocalizations.of(context)!.setting),
       ),
       body: ListView.builder(
           itemCount: children.length,

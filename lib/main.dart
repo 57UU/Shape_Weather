@@ -51,13 +51,29 @@ GlobalKey<HomePageState> _globalKey = GlobalKey<HomePageState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  Locale? getLocale(){
+    String? lang=appSetting.value[language_set];
+    Locale? locale;
+    if(lang!=null){
+      var splitLang=lang.split("_");
+      if(splitLang.length==1){
+        locale=Locale(lang);
+      }else if(splitLang.length==2){
+        locale=Locale.fromSubtags(languageCode:  splitLang[0],scriptCode:  splitLang[1]);
+      }
+    }
+    return locale;
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
     return ListenableBuilder(
       builder: (context, widget) {
         return MaterialApp(
+          locale: getLocale(),
           onGenerateTitle: (context) => AppLocalizations.of(context)!.shapeWeather,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
@@ -77,7 +93,7 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.dark),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: const StartUp(),
+          home:const StartUp(),
         );
       },
       listenable: appSetting,

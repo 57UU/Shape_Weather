@@ -106,8 +106,10 @@
   "cannotLocateBadInternet": "Can not locate\nBad Internet Connection",
   "cannotFetchData": "Can not fetch data",
   "country": "Country",
-  "locate": "locate"
-
-
-
+  "locate": "locate",
+  "modifyLanguage": "Modify Language",
+  "followSystem": "follow system",
+  "switchCities": "Switch cities",
+  "reorderTheList": "Reorder the List",
+  "iUnderstand": "I understand"
 }
