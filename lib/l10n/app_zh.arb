@@ -110,5 +110,6 @@
   "followSystem": "跟随系统",
   "switchCities": "切换城市",
   "reorderTheList": "城市自定义排序",
-  "iUnderstand": "我明白了"
+  "iUnderstand": "我明白了",
+  "locate": "定位"
 }
