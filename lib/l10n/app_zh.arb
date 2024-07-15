@@ -111,5 +111,7 @@
   "switchCities": "切换城市",
   "reorderTheList": "城市自定义排序",
   "iUnderstand": "我明白了",
-  "locate": "定位"
+  "locate": "定位",
+  "allReleases": "所有历史版本",
+  "click2Check": "点击查看"
 }

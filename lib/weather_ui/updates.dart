@@ -8,8 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../libs/version.dart';
 
-
-
 class CheckUpdates extends StatefulWidget {
   const CheckUpdates({super.key});
 
@@ -31,7 +29,8 @@ class _CheckUpdatesState extends State<CheckUpdates> {
 
   @override
   Widget build(BuildContext context) {
-    bool isNewVersion = currentVersion != latestVersion && currentVersion!="$latestVersion.0";
+    bool isNewVersion =
+        currentVersion != latestVersion && currentVersion != "$latestVersion.0";
     //isNewVersion=false;
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +45,8 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("${AppLocalizations.of(context)!.currentVersion} $currentVersion"),
+                        Text(
+                            "${AppLocalizations.of(context)!.currentVersion} $currentVersion"),
                         Text(AppLocalizations.of(context)!.webIsLatest)
                       ],
                     )),
@@ -63,12 +63,12 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                     context: context,
                     title: AppLocalizations.of(context)!.latestVersion,
                     icon: isNewVersion && latestVersion != null
-                        ? const Icon(Icons.arrow_circle_up_rounded)
+                        ? const Icon(Icons.open_in_new)
                         : Container(),
                     onTap: (c) {
                       if (isNewVersion) {
                         launchUrl(Uri.parse(
-                            "https://github.com/57UU/Shape_Weather/releases"));
+                            "https://github.com/57UU/Shape_Weather/releases/latest"));
                       }
                     },
                     child: isError
@@ -81,14 +81,28 @@ class _CheckUpdatesState extends State<CheckUpdates> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)!.newVersionAvailable,
-                                        textScaler: const TextScaler.linear(1.1),
+                                        AppLocalizations.of(context)!
+                                            .newVersionAvailable,
+                                        textScaler:
+                                            const TextScaler.linear(1.1),
                                       ),
-                                      Text("${AppLocalizations.of(context)!.latestVersion} $latestVersion"),
-                                      Text(AppLocalizations.of(context)!.clickHere2Download)
+                                      Text(
+                                          "${AppLocalizations.of(context)!.latestVersion} $latestVersion"),
+                                      Text(AppLocalizations.of(context)!
+                                          .clickHere2Download),
                                     ],
                                   )
-                                : Text(AppLocalizations.of(context)!.currentVersionIsUpToDate)),
+                                : Text(AppLocalizations.of(context)!
+                                    .currentVersionIsUpToDate)),
+                commonCard(
+                    context: context,
+                    title: AppLocalizations.of(context)!.allReleases,
+                    child: Text(AppLocalizations.of(context)!.click2Check),
+                    onTap: (c) {
+                      launchUrl(Uri.parse(
+                          "https://github.com/57UU/Shape_Weather/releases"));
+                    },
+                    icon: const Icon(Icons.open_in_new)),
                 ElevatedButton(
                     onPressed: () {
                       fetch();
@@ -101,22 +115,21 @@ class _CheckUpdatesState extends State<CheckUpdates> {
 
   void fetch() async {
     setState(() {
-      isError=false;
+      isError = false;
       latestVersion = null;
     });
-    try{
+    try {
       var request = json.decode(await http.read(Uri.parse(uri)));
       setState(() {
         latestVersion = request["tag_name"];
       });
-    }catch(e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
       setState(() {
-        isError=true;
+        isError = true;
       });
     }
-
   }
 }
