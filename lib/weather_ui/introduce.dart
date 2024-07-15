@@ -18,7 +18,7 @@ class Introduce extends StatelessWidget {
           children: [
             textTitle(AppLocalizations.of(context)!.addCity),
             TextRow(
-                (AppLocalizations.of(context)!.inPortraitModeTap), Icon(Icons.map), (AppLocalizations.of(context)!.toOpenMap)),
+                (AppLocalizations.of(context)!.inPortraitModeTap), const Icon(Icons.map), (AppLocalizations.of(context)!.toOpenMap)),
             TextRow(
                 (AppLocalizations.of(context)!.thenTap),
                 SizedBox(

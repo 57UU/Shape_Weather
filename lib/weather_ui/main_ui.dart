@@ -27,7 +27,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
     return RefreshIndicator(
       child: ListenableBuilder(
         builder: (context, child) {
-          return appSetting.value[enable_dynamic_backgorund] ?? true
+          return appSetting.value[enable_dynamic_background] ?? true
               ? Stack(
                   children: [
                     background(),

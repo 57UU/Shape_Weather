@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../setting/configuration.dart';
 class ChangeLanguagePage extends StatefulWidget {
@@ -17,7 +16,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   String? selected;
   @override
   void initState() {
-    selected=preferences!.getString(language_set);
+    selected=preferences.getString(language_set);
     super.initState();
   }
   void onValueChanged(String? v){

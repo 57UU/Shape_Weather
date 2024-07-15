@@ -13,27 +13,21 @@ import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'weather_ui/home_page.dart';
 
-void main() {
+void main()async {
   //test();
   if(!kIsWeb){
     WidgetsFlutterBinding.ensureInitialized();
     DartPluginRegistrant.ensureInitialized();
   }
-  loadConfig().then((value) {
-    startGUI();
-  });
+  //call init
+  await ensureInitialize();
+  await loadConfig();
+  startGUI();
 }
 
 void startGUI() {
-  runApp(const MyApp());
-  //call init
-  ensureInitialize();
-  weatherPages.addListener(() {
-    saveConfig();
-  });
-  appSetting.addListener(() {
-    saveAppSetting();
-  });
+  runApp( const MyApp());
+
   if ((!kIsWeb) && Platform.isWindows) {
     doWhenWindowReady(() {
       final win = appWindow;

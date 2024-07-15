@@ -26,7 +26,7 @@ class _SettingState extends State<Setting> {
     var children = <Widget>[
        SwitchRow(
           text: AppLocalizations.of(context)!.enableDynamicBackground,
-          valueKey: enable_dynamic_backgorund,
+          valueKey: enable_dynamic_background,
           title: AppLocalizations.of(context)!.dynamicBackground,
           content:AppLocalizations.of(context)!.dynamicBackgroundIntroduce),
       ButtonWithPadding(
