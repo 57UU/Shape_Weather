@@ -1,3 +1,6 @@
 /*
   Cross-Origin-Embedder-Policy: credentialless
   Cross-Origin-Opener-Policy: same-origin
+  Access-Control-Allow-Origin: https://57uu.github.io
+  Access-Control-Allow-Headers: Content-Type, Authorization
+  Access-Control-Allow-Methods: GET, OPTIONS

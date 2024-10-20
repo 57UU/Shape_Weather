@@ -20,7 +20,7 @@ jobs:
       run: flutter pub get
 
     - name: Build web
-      run: flutter build web --wasm --base-href "/Shape_Weather/"
+      run: flutter build web --wasm --base-href ""https://shape-weather.pages.dev/ # "/Shape_Weather/"
 
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3
