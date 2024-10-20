@@ -1,5 +1,0 @@
-
-[build]
-command = "bash"
-args = ["-c", "mkdir -p Shape_Weather && find . -maxdepth 1 -not -name 'ShapeWeather' -exec cp -r {} ./ShapeWeather/ ';'"]
- 
