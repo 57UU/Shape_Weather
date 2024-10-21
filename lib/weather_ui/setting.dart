@@ -35,6 +35,7 @@ class _SettingState extends State<Setting> {
               return const ChangeThemeColorPage();
             }));
           },
+          icon: const Icon(Icons.color_lens),
           child: Text(AppLocalizations.of(context)!.changeThemeColor)),
       ButtonWithPadding(
           onPressed: () {
@@ -42,6 +43,7 @@ class _SettingState extends State<Setting> {
               return const ChangeLanguagePage();
             }));
           },
+          icon: const Icon(Icons.language),
           child: Text(AppLocalizations.of(context)!.modifyLanguage)),
 
 /*          ElevatedButton(
@@ -59,6 +61,7 @@ class _SettingState extends State<Setting> {
               return const Introduce();
             }));
           },
+          icon: const Icon(Icons.book),
           child: Text(AppLocalizations.of(context)!.userGuidance)),
       ButtonWithPadding(
           onPressed: () async {
@@ -72,6 +75,7 @@ class _SettingState extends State<Setting> {
               loadConfig();
             }
           },
+          icon: const Icon(Icons.delete_forever),
           child: Text(
             AppLocalizations.of(context)!.clearAllData,
             style: const TextStyle(color: Colors.red),
@@ -82,12 +86,14 @@ class _SettingState extends State<Setting> {
                 await launchUrl(Uri.parse(
                     "https://github.com/57UU/Shape_Weather/releases"));
               },
-              child: Text(AppLocalizations.of(context)!.downloadNativeEdition))
+              icon: const Icon(Icons.open_in_new),
+              child: Text(AppLocalizations.of(context)!.downloadNativeEdition),)
           : Container(),
       ButtonWithPadding(
           onPressed: () async {
             await launchUrl(Uri.parse("https://github.com/57UU/Shape_Weather"));
           },
+          icon: const Icon(Icons.open_in_new),
           child: Text(AppLocalizations.of(context)!.openGithubRepo)),
       ButtonWithPadding(
           onPressed: () {
@@ -95,6 +101,7 @@ class _SettingState extends State<Setting> {
               return const CheckUpdates();
             }));
           },
+          icon: const Icon(Icons.arrow_circle_up),
           child: Text(AppLocalizations.of(context)!.checkUpdate)),
       ButtonWithPadding(
           onPressed: () {
@@ -102,6 +109,7 @@ class _SettingState extends State<Setting> {
               return const About();
             }));
           },
+          icon: const Icon(Icons.info),
           child:  Text(AppLocalizations.of(context)!.about)),
 
 /*      ButtonWithPadding(

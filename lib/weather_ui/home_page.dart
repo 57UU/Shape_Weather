@@ -37,6 +37,7 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var rootScaffold=GlobalKey<ScaffoldState>();
     if (weatherPages.value.isEmpty) {
       title = AppLocalizations.of(context)!.welcome2ShapeWeather;
     } else {
@@ -58,6 +59,7 @@ class HomePageState extends State<HomePage> {
     if (weatherPages.value.length == 1) {
       title = weatherPages.value.first.title;
     }
+
     var mainWidget = Scaffold(
 /*      drawer: Drawer(
         child: LocationChoose(widget.orientation,pageController),
@@ -85,17 +87,25 @@ class HomePageState extends State<HomePage> {
                     title,
                     key: ValueKey<String>(title),
                   )),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        CupertinoPageRoute(builder: (builder) {
-                      return const Setting();
-                    }));
-                  },
-                  icon: const Icon(Icons.settings))
+              Builder(builder: (context) {
+                return IconButton(
+                    onPressed: () {
+                      if (widget.orientation == Orientation.portrait) {
+                        Navigator.push(context,
+                            CupertinoPageRoute(builder: (builder) {
+                          return const Setting();
+                        }));
+                      } else {
+                        //open drawer
+                        rootScaffold.currentState!.openEndDrawer();
+                      }
+                    },
+                    icon: const Icon(Icons.settings));
+              })
             ],
           ),
         ),
+
         body: weatherPages.value.isEmpty
             ? Builder(builder: (context) {
                 return const Welcome();
@@ -111,13 +121,15 @@ class HomePageState extends State<HomePage> {
 
     var width = MediaQuery.of(context).size.width;
 
+
+    Widget child;
     if (isLandscape) {
       var locationChooseWidth = width * 2 / 5;
       double widthMax = 350;
       if (locationChooseWidth > widthMax) {
         locationChooseWidth = widthMax;
       }
-      return Row(
+      child= Row(
         children: [
           SizedBox(
               width: locationChooseWidth,
@@ -128,8 +140,17 @@ class HomePageState extends State<HomePage> {
         ],
       );
     } else {
-      return mainWidget;
+      child= mainWidget;
     }
+    return Scaffold(
+      key: rootScaffold,
+      body: child,
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: const Drawer(
+        width: 500,
+        child: Fragment(child: Setting()),
+      ),
+    );
 
     //return MyWidget();
   }

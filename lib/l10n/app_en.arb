@@ -113,5 +113,9 @@
   "reorderTheList": "Reorder the List",
   "iUnderstand": "I understand",
   "allReleases": "All Releases",
-  "click2Check": "Click Here to Check"
+  "click2Check": "Click Here to Check",
+  "webMode":"Web Mode",
+  "tap2GetMoreInfo":"Tap to Get More Info",
+  "webModeIntroduce": "There are two kinds of web modes, one is webassembly and another is javascript.\nWebassembly usually comes with better performance, but it need a compatible browser."
+
 }

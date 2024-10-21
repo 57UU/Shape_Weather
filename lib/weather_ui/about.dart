@@ -53,14 +53,14 @@ class About extends StatelessWidget {
           ),
           kIsWeb?commonCard(
               context: context,
-              title: "Web Mode",
-              icon: const Text("Tap to Get More Info"),
+              title: AppLocalizations.of(context)!.webMode,
+              icon: Text(AppLocalizations.of(context)!.tap2GetMoreInfo),
               child: const Center(child: Text(isRunningWithWasm?"WebAssembly":"JavaScript")),
               onTap: (context){
                 showInfoDialog(
                     context: context,
-                    title: "Web Mode",
-                    content: "There are two kinds of web modes, one is webassembly, and another is javascript.\nWebassembly usually comes with better performance, but it need a compatible browser and a customized server.\nHowever, the server of Github Pages can not be customized.");
+                    title: AppLocalizations.of(context)!.webMode,
+                    content: AppLocalizations.of(context)!.webModeIntroduce);
               }
           ):Container()
         ],

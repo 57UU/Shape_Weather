@@ -303,19 +303,31 @@ class Fragment extends StatelessWidget {
 class ButtonWithPadding extends StatelessWidget {
   final Function() onPressed;
   final Widget child;
+  final Widget? icon;
 
   const ButtonWithPadding(
-      {required this.child, required this.onPressed, super.key});
+      {required this.child, required this.onPressed, super.key, this.icon});
 
   @override
   Widget build(BuildContext context) {
+    Widget realChild;
+    if(icon!=null){
+      realChild=Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(),child,icon!
+        ],
+      );
+    }else{
+      realChild=child;
+    }
     return Padding(
       padding: const EdgeInsets.all(10),
       child: ElevatedButton(
           onPressed: onPressed,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: child,
+            child: realChild,
           )),
     );
   }
@@ -341,24 +353,27 @@ class TextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var result = MediaQuery.of(context);
-    var isThin = result.size.width < 700 && (text2.length + text.length) > 30;
-    return isThin
-        ? Padding(
-            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text(text), child, Text(text2)],
-            ),
-          )
-        : Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text(text), child, Text(text2)],
-            ),
-          );
+    return LayoutBuilder(builder: (builder,constraints){
+      //var result = MediaQuery.of(context);
+      var isThin = constraints.maxWidth < 700 && (text2.length + text.length) > 30;
+      return isThin
+          ? Padding(
+        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text(text), child, Text(text2)],
+        ),
+      )
+          : Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text(text), child, Text(text2)],
+        ),
+      );
+    });
+
   }
 }
 
