@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/setting/configuration.dart';
@@ -21,17 +22,36 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+  PageRoute<T> getRoute<T>({
+    required WidgetBuilder builder,
+    String? title,
+    RouteSettings? settings,
+    bool maintainState = true,
+    bool fullscreenDialog = false,
+    bool allowSnapshotting = true,
+    bool barrierDismissible = false,
+  }) {
+    return CupertinoPageRoute(builder: builder,
+      title: title,
+      settings: settings,
+      maintainState: maintainState,
+      fullscreenDialog: fullscreenDialog,
+      allowSnapshotting: allowSnapshotting,
+      barrierDismissible: barrierDismissible
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var children = <Widget>[
-       SwitchRow(
+      SwitchRow(
           text: AppLocalizations.of(context)!.enableDynamicBackground,
           valueKey: enable_dynamic_background,
           title: AppLocalizations.of(context)!.dynamicBackground,
-          content:AppLocalizations.of(context)!.dynamicBackgroundIntroduce),
+          content: AppLocalizations.of(context)!.dynamicBackgroundIntroduce),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+            Navigator.push(context, getRoute(builder: (builder) {
               return const ChangeThemeColorPage();
             }));
           },
@@ -39,7 +59,7 @@ class _SettingState extends State<Setting> {
           child: Text(AppLocalizations.of(context)!.changeThemeColor)),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+            Navigator.push(context, getRoute(builder: (builder) {
               return const ChangeLanguagePage();
             }));
           },
@@ -49,7 +69,7 @@ class _SettingState extends State<Setting> {
 /*          ElevatedButton(
               onPressed: () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (builder) {
+                    .push(getRoute(builder: (builder) {
                   return Scaffold(appBar: AppBar(title: const Text("Re-order"),),body: const Reorder(),);
                 }));
               },
@@ -57,7 +77,7 @@ class _SettingState extends State<Setting> {
 
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+            Navigator.push(context, getRoute(builder: (builder) {
               return const Introduce();
             }));
           },
@@ -66,7 +86,9 @@ class _SettingState extends State<Setting> {
       ButtonWithPadding(
           onPressed: () async {
             var flag = await showYesNoDialog(
-                context: context, content: AppLocalizations.of(context)!.areYouSure, title:AppLocalizations.of(context)!.warning);
+                context: context,
+                content: AppLocalizations.of(context)!.areYouSure,
+                title: AppLocalizations.of(context)!.warning);
             if (flag == true) {
               weatherPages.value.clear();
               appSetting.value.clear();
@@ -82,12 +104,12 @@ class _SettingState extends State<Setting> {
           )),
       kIsWeb
           ? ButtonWithPadding(
-              onPressed: () async {
-                await launchUrl(Uri.parse(
-                    "https://github.com/57UU/Shape_Weather/releases"));
-              },
-              icon: const Icon(Icons.open_in_new),
-              child: Text(AppLocalizations.of(context)!.downloadNativeEdition),)
+        onPressed: () async {
+          await launchUrl(Uri.parse(
+              "https://github.com/57UU/Shape_Weather/releases"));
+        },
+        icon: const Icon(Icons.open_in_new),
+        child: Text(AppLocalizations.of(context)!.downloadNativeEdition),)
           : Container(),
       ButtonWithPadding(
           onPressed: () async {
@@ -97,7 +119,7 @@ class _SettingState extends State<Setting> {
           child: Text(AppLocalizations.of(context)!.openGithubRepo)),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+            Navigator.push(context, getRoute(builder: (builder) {
               return const CheckUpdates();
             }));
           },
@@ -105,16 +127,16 @@ class _SettingState extends State<Setting> {
           child: Text(AppLocalizations.of(context)!.checkUpdate)),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+            Navigator.push(context, getRoute(builder: (builder) {
               return const About();
             }));
           },
           icon: const Icon(Icons.info),
-          child:  Text(AppLocalizations.of(context)!.about)),
+          child: Text(AppLocalizations.of(context)!.about)),
 
 /*      ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (builder) {
+            Navigator.push(context, getRoute(builder: (builder) {
               return const Test();
             }));
           },
