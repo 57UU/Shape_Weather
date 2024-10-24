@@ -202,6 +202,20 @@ class _LocationSearchState extends State<LocationSearch> {
   @override
   void initState() {
     super.initState();
+    controller.addListener(() {
+      if (controller.text == "") {
+        return;
+      }
+      if (prevStr == controller.text) {
+        return;
+      } else {
+        prevStr = controller.text;
+      }
+
+      _isFetched = false;
+
+      count = 0;
+    });
     _increase();
   }
 
@@ -218,41 +232,55 @@ class _LocationSearchState extends State<LocationSearch> {
 
   Future _increase() async {
     while (true) {
+
+      await Future.delayed(const Duration(milliseconds: 250));
       if (isDispose) {
         return;
       }
-      await Future.delayed(const Duration(milliseconds: 250));
-
       if (count >= countMax) {
         if (!_isFetched) {
-          setState(() {});
-          _isFetched = true;
+          setState(() {
+            isRealFetched=false;
+            _isFetched=true;
+          });
         }
-
-        continue;
+      }else{
+        count += 0.5;
       }
-      count += 0.5;
+
     }
   }
 
   String prevStr = "";
+  bool isRealFetched=false;
+  Future locate()async{
+    late CityLocationData location;
+    await showLoadingDialog(
+        context: context,
+        func: () async {
+          if (kIsWeb) {
+            location = await Weather.getCityByIP_Alapi();
+          } else {
+            location = await Weather.getCityByIP_Baidu();
+          }
+        },
+        onError: () {
+          showInfoDialog(
+              context: context,
+              title: AppLocalizations.of(context)!.error,
+              content:AppLocalizations.of(context)!.cannotLocateBadInternet);
+        });
 
+    setState(() {
+      addLocation(LocationInfo.formCityData(location));
+    });
+    if (context.mounted) {
+      Navigator.of(context).pop();
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    controller.addListener(() {
-      if (controller.text == "") {
-        return;
-      }
-      if (prevStr == controller.text) {
-        return;
-      } else {
-        prevStr = controller.text;
-      }
 
-      _isFetched = false;
-
-      count = 0;
-    });
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.search),
@@ -273,31 +301,7 @@ class _LocationSearchState extends State<LocationSearch> {
                     Tooltip(
                       message:AppLocalizations.of(context)!.locate,
                       child: IconButton(
-                        onPressed: () async {
-                          late CityLocationData location;
-                          await showLoadingDialog(
-                              context: context,
-                              func: () async {
-                                if (kIsWeb) {
-                                  location = await Weather.getCityByIP_Alapi();
-                                } else {
-                                  location = await Weather.getCityByIP_Baidu();
-                                }
-                              },
-                              onError: () {
-                                showInfoDialog(
-                                    context: context,
-                                    title: AppLocalizations.of(context)!.error,
-                                    content:AppLocalizations.of(context)!.cannotLocateBadInternet);
-                              });
-                      
-                          setState(() {
-                            addLocation(LocationInfo.formCityData(location));
-                          });
-                          if (context.mounted) {
-                            Navigator.of(context).pop();
-                          }
-                        },
+                        onPressed: locate,
                         icon: const Icon(Icons.gps_fixed_rounded),
                       ),
                     )
@@ -380,7 +384,15 @@ class _LocationSearchState extends State<LocationSearch> {
       ),
     );
   }
-
+  List<CityLocationData>? last;
+  Future<List<CityLocationData>> searchProviderProxy(String cityName)async{
+    if(isRealFetched && last!=null){
+      return last!;
+    }
+    var result=await searchProvider(cityName);
+    isRealFetched=true;
+    return result;
+  }
   Future<List<CityLocationData>> searchProvider(String cityName) async {
     if (cityName == "") {
       return [];

@@ -63,11 +63,16 @@ Future showLoadingDialog(
   ContextWrapper contextWrapper = ContextWrapper();
   var future = func().then((v) {
     Future.delayed(const Duration(milliseconds: 100)).then((value) {
-      Navigator.pop(contextWrapper.context);
+      if(context.mounted){
+        Navigator.pop(contextWrapper.context);
+      }
+
     });
   }).onError((error, stackTrace) {
     //await Future.delayed(const Duration(microseconds: 5000));
-    Navigator.pop(contextWrapper.context);
+    if(context.mounted){
+      Navigator.pop(contextWrapper.context);
+    }
     if (onError != null) {
       onError();
     }
@@ -160,4 +165,20 @@ T getMin<T>(List<T> source, int Function(T a, T b) f) {
     }
   }
   return source[index];
+}
+double parseDouble(dynamic num_like){
+  switch(num_like){
+    case double num:
+      return num;
+    case String num:
+      return double.parse(num);
+    case int num:
+      return num.toDouble();
+  }
+  throw Exception("can not parse $num_like");
+}
+void popContext(BuildContext context){
+  if(context.mounted){
+    Navigator.of(context).pop();
+  }
 }

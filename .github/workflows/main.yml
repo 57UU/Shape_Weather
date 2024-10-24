@@ -23,10 +23,10 @@ jobs:
       run: flutter pub get
 
     - name: Build web
-      run: flutter build web --wasm --base-href "/Shape_Weather/"
+      run: flutter build web --wasm #--base-href "/Shape_Weather/"
 
-    - name: modify web source
-      run: python modify_web_source.py
+    #- name: modify web source
+    #  run: python modify_web_source.py
 
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3

@@ -139,7 +139,10 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         onError = false;
       });
     } catch (e) {
-      showInfoDialog(context: context, title: AppLocalizations.of(context)!.error, content: e.toString());
+      if(context.mounted){
+        showInfoDialog(context: context, title: AppLocalizations.of(context)!.error, content: e.toString());
+      }
+
 
       setState(() {
         onError = true;

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:open_weather_client/enums/languages.dart';
 import 'package:open_weather_client/open_weather.dart';
 import 'package:http/http.dart' as http;
+import 'package:shape_weather/libs/utils.dart';
 
 import '../setting/weather_data.dart';
 
@@ -105,8 +106,8 @@ class Weather {
       ..name = detail["district"] == "" ? detail["city"] : detail["district"]
       ..state = detail["province"]
       ..country = detail["nation"];
-    cityLocationData.lat = (data["location"]["lat"]);
-    cityLocationData.lon = (data["location"]["lng"]);
+    cityLocationData.lat = parseDouble(data["location"]["lat"]);
+    cityLocationData.lon = parseDouble(data["location"]["lng"]);
     return cityLocationData;
   }
 
