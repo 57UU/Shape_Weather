@@ -23,6 +23,56 @@ Widget titleText(String text) {
 
 const Widget empty = Text("");
 
+class BasicCard extends StatelessWidget {
+  final void Function(BuildContext context)? onTap;
+  final Widget? child;
+  const BasicCard({
+    super.key,
+    required this.child,
+    this.onTap
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget? realChild;
+    if (onTap == null) {
+      realChild = child;
+    } else {
+      realChild = InkWell(
+          highlightColor: Colors.transparent,
+          // 透明色
+          splashColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          onTap: () {
+            onTap!(context);
+          },
+          child: child);
+    }
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Container(
+          alignment: Alignment.topLeft,
+          decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusDirectional.circular(20)),
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            shadows: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1), //color of shadow
+                spreadRadius: 0.1, //spread radius
+                blurRadius: 10, // blur radius
+                //offset: Offset(0, 2), // changes position of shadow
+                //first parameter of offset is left-right
+                //second parameter is top to down
+              )
+            ],
+          ),
+          width: double.infinity,
+          child: realChild),
+    );
+  }
+}
+@Deprecated("immigrate to BasicCard")
 Widget basicCard(
     {required BuildContext context,
     required Widget? child,

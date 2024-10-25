@@ -150,6 +150,7 @@ class _LocationChooseState extends State<LocationChoose> {
       ));
     }
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.map),
         ),
@@ -210,11 +211,9 @@ class _LocationSearchState extends State<LocationSearch> {
         return;
       } else {
         prevStr = controller.text;
+        _isFetched = false;
+        count = 0;
       }
-
-      _isFetched = false;
-
-      count = 0;
     });
     _increase();
   }
@@ -279,12 +278,17 @@ class _LocationSearchState extends State<LocationSearch> {
     }
   }
   @override
+  Widget? cachedChild;
   Widget build(BuildContext context) {
-
-    return Scaffold(
+    if(isRealFetched &&cachedChild!=null){
+      debugPrint("cache hit");
+      return cachedChild!;
+    }
+    cachedChild= Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.search),
       ),
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -312,7 +316,7 @@ class _LocationSearchState extends State<LocationSearch> {
             controller.text == ""
                 ? empty
                 : FutureBuilder(
-                    future: searchProvider(controller.text),
+                    future: searchProviderProxy(controller.text),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       // 请求已结束
                       if (snapshot.connectionState == ConnectionState.done) {
@@ -383,15 +387,16 @@ class _LocationSearchState extends State<LocationSearch> {
         ),
       ),
     );
+    return cachedChild!;
   }
   List<CityLocationData>? last;
   Future<List<CityLocationData>> searchProviderProxy(String cityName)async{
     if(isRealFetched && last!=null){
       return last!;
     }
-    var result=await searchProvider(cityName);
+    last=await searchProvider(cityName);
     isRealFetched=true;
-    return result;
+    return last!;
   }
   Future<List<CityLocationData>> searchProvider(String cityName) async {
     if (cityName == "") {
