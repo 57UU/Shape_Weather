@@ -306,9 +306,27 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
     }));
   }
 
+  static String convertDateTime(DateTime time,BuildContext context){
+    final today = DateTime.now();
+    if (time.month == today.month) {
+      if( time.day == today.day){
+        return "${AppLocalizations.of(context)!.today}-${dateFormatTime.format(time)}";
+      }
+      if(Localizations.localeOf(context).languageCode=="zh"){//在中文语境中使用 “明天” “后天”
+        if( time.day == today.day+1 ){
+          return "${AppLocalizations.of(context)!.tomorrow}-${dateFormatTime.format(time)}";
+        }
+        if( time.day == today.day+2 ){
+          return "${AppLocalizations.of(context)!.dayAfterTomorrow}-${dateFormatTime.format(time)}";
+        }
+      }
+
+    }
+    return "${dateFormatDay.format(time)}-${dateFormatTime.format(time)}";
+  }
   @override
   Widget child(BuildContext context, WeatherForecastData parameter) {
-    final today = DateTime.now();
+
 
     var tempMax = getMax(
             parameter.forecastData,
@@ -329,8 +347,8 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
         majorGridLines: MajorGridLines(width: 1),
       ),
       primaryYAxis: NumericAxis(
-          minimum: tempMin,
-          maximum: tempMax + 1,
+          minimum: tempMin-0.3,
+          maximum: tempMax + 0.3,
           //axisLine: const AxisLine(width: 10),
           edgeLabelPlacement: EdgeLabelPlacement.shift,
           labelFormat: '{value}℃',
@@ -338,13 +356,11 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
       series: <CartesianSeries>[
         // Renders spline chart
         SplineSeries<WeatherData, String>(
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
           dataSource: parameter.forecastData,
           xValueMapper: (var data, _) {
             var time = (DateTime.fromMillisecondsSinceEpoch(data.date * 1000));
-            if (time.month == today.month && time.day == today.day) {
-              return "${AppLocalizations.of(context)!.today}-${dateFormatTime.format(time)}";
-            }
-            return "${dateFormatDay.format(time)}-${dateFormatTime.format(time)}";
+            return convertDateTime(time, context);
           },
           yValueMapper: (var data, _) => data.temperature.currentTemperature,
           name: "Expected",

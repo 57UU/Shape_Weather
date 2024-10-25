@@ -120,14 +120,9 @@ class HomePageState extends State<HomePage> {
     return mainWidget;
   }
   Orientation? lastOrientation;
-  late GlobalKey<ScaffoldState> rootScaffold;
-  Widget? cachedChild;
+  late GlobalKey<ScaffoldState> rootScaffold=GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    if(cachedChild!=null && lastOrientation!=null && lastOrientation==widget.orientation){//只有在横竖屏切换时才rebuild
-      return cachedChild!;
-    }
-    rootScaffold=GlobalKey<ScaffoldState>();
     lastOrientation=widget.orientation;
     bool isLandscape = widget.orientation == Orientation.landscape;
     var mainWidget=buildMainWidget(isLandscape);
@@ -159,7 +154,7 @@ class HomePageState extends State<HomePage> {
       child= mainWidget;
     }
     //return child;
-    cachedChild= Scaffold(
+    return Scaffold(
       key: rootScaffold,
       body: child,
       resizeToAvoidBottomInset: false,
@@ -169,7 +164,6 @@ class HomePageState extends State<HomePage> {
         child: Fragment(child: Setting()),
       ),
     );
-    return cachedChild!;
     //return MyWidget();
   }
 }

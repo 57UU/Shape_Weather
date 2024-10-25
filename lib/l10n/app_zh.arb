@@ -116,6 +116,7 @@
   "click2Check": "点击查看",
   "webMode":"网页运行模式",
   "tap2GetMoreInfo":"点击查看更多",
-  "webModeIntroduce": "Shape Weather(Web)支持两种运行模式: webassembly与javascript.\nWebassembly通常来说具有更好的性能, 但是它需要浏览器支持才行"
-
+  "webModeIntroduce": "Shape Weather(Web)支持两种运行模式: webassembly与javascript.\nWebassembly通常来说具有更好的性能, 但是它需要浏览器支持才行",
+  "tomorrow": "明天",
+  "dayAfterTomorrow":"后天"
 }

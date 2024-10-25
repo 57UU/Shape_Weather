@@ -76,10 +76,15 @@ class _WeatherInterfaceState extends State<WeatherInterface>
 
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? ForecastGraphCard(
-                    widget.weatherPageData.weatherForecastData.value,title: AppLocalizations.of(context)!.forecastGraph,)
+                    widget.weatherPageData.weatherForecastData.value,
+                    title: AppLocalizations.of(context)!.forecastGraph,
+                  )
                 : Container(),
             (widget.weatherPageData.weatherType == WeatherType.current)
-                ? ForecastCard(widget.weatherPageData.weatherForecastData.value,title: AppLocalizations.of(context)!.forecasts,)
+                ? ForecastCard(
+                    widget.weatherPageData.weatherForecastData.value,
+                    title: AppLocalizations.of(context)!.forecasts,
+                  )
                 : Container(),
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? AqiDetail(widget.weatherPageData.weatherAqiData.value)
@@ -88,8 +93,13 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             WindCard(widget.weatherPageData.weatherData.value!),
             Details(widget.weatherPageData.weatherData.value!),
             WeatherIcon(widget.weatherPageData.weatherData.value!),
-            TimeCard(widget.weatherPageData.weatherData.value,title: AppLocalizations.of(context)!.time,),
-            LocationDetail(widget.weatherPageData.weatherData.value!),
+            TimeCard(
+              widget.weatherPageData.weatherData.value,
+              title: AppLocalizations.of(context)!.time,
+            ),
+            (widget.weatherPageData.weatherType == WeatherType.current)
+                ? LocationDetail(widget.weatherPageData.weatherData.value!)
+                : Container(),
             EditCard(widget.weatherPageData),
 
             //AnimatedWeatherCard(),
@@ -139,10 +149,12 @@ class _WeatherInterfaceState extends State<WeatherInterface>
         onError = false;
       });
     } catch (e) {
-      if(context.mounted){
-        showInfoDialog(context: context, title: AppLocalizations.of(context)!.error, content: e.toString());
+      if (context.mounted) {
+        showInfoDialog(
+            context: context,
+            title: AppLocalizations.of(context)!.error,
+            content: e.toString());
       }
-
 
       setState(() {
         onError = true;
