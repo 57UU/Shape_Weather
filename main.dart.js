@@ -27630,31 +27630,32 @@ s=1
 break
 case 1:return A.O(q,r)}})
 return A.P($async$asF,r)},
-asD(a,b){var s=0,r=A.Q(t.Xv),q,p,o,n,m,l,k,j,i,h,g,f
+asD(a,b){var s=0,r=A.Q(t.Xv),q,p,o,n,m,l,k,j,i,h,g,f,e
 var $async$asD=A.R(function(c,d){if(c===1)return A.N(d,r)
-while(true)switch(s){case 0:f=B.bR
+while(true)switch(s){case 0:e=B.bR
 s=3
 return A.S(A.EF("https://api.openweathermap.org/geo/1.0/direct?q="+a+"&limit=5&appid=4712166053f9a5ae4cf514b908becdf0"),$async$asD)
-case 3:h=f.vG(d,null)
-g=A.a([],t.Kv)
-for(p=J.aF(h);p.A();){o=p.gO()
+case 3:g=e.vG(d,null)
+f=A.a([],t.Kv)
+for(p=J.aF(g);p.A();){o=p.gO()
 n=J.bk(o)
 m=n.h(o,"name")
 m.toString
 l=o.aQ("local_names")
 if(l){k=n.h(o,"local_names")
-if(k.aQ(b))j=J.bU(k,b)
-else j=m}else j=m
-i=new A.iS()
-i.a=j
-i.b=n.h(o,"lat")
-i.c=n.h(o,"lon")
+j=b.toLowerCase()
+if(k.aQ(j))i=J.bU(k,j)
+else i=m}else i=m
+h=new A.iS()
+h.a=i
+h.b=n.h(o,"lat")
+h.c=n.h(o,"lon")
 m=n.h(o,"country")
 m.toString
-i.d=m
+h.d=m
 if(o.aQ("state")){n=n.h(o,"state")
 n.toString
-i.e=n}g.push(i)}q=g
+h.e=n}f.push(h)}q=f
 s=1
 break
 case 1:return A.O(q,r)}})
