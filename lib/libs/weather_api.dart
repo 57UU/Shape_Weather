@@ -123,7 +123,7 @@ class Weather {
       var name=i["name"]!;
       if(localName!=null && i.containsKey("local_names")){
         var localNames=i["local_names"];
-        var code=localName;//.toLowerCase();
+        var code=localName.toLowerCase();
         if(localNames.containsKey(code)){
           name=localNames[code];
         }
