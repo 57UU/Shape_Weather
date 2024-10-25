@@ -29,7 +29,7 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 3), () {
+    Future.delayed(const Duration(milliseconds: 30), () {
       setState(() {
         bottomColor = Colors.blue;
       });
@@ -45,10 +45,9 @@ class _AnimatedGradientState extends State<AnimatedGradient> {
                   // animate the color
                   bottomColor = colorList[index % colorList.length];
                   topColor = colorList[(index + 1) % colorList.length];
-
                   //// animate the alignment
-                  // begin = alignmentList[index % alignmentList.length];
-                  // end = alignmentList[(index + 2) % alignmentList.length];
+                   begin = alignmentList[index % alignmentList.length];
+                   end = alignmentList[(index + 2) % alignmentList.length];
                 });
               },
               decoration: BoxDecoration(

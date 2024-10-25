@@ -111,7 +111,7 @@ class Weather {
     return cityLocationData;
   }
 
-  static Future<List<CityLocationData>> getCitiesByName(String cityName) async {
+  static Future<List<CityLocationData>> getCitiesByName(String cityName,[String? localName]) async {
     var response = await request(
         "https://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=$_keyOpenweather");
     var result = jsonDecode(response);
@@ -120,8 +120,16 @@ class Weather {
     for (var i in result) {
 /*      String lon=(i["lon"])as String;
       String lat=(i["lat"])as String;*/
+      var name=i["name"]!;
+      if(localName!=null && i.containsKey("local_names")){
+        var localNames=i["local_names"];
+        var code=localName;//.toLowerCase();
+        if(localNames.containsKey(code)){
+          name=localNames[code];
+        }
+      }
       var data = CityLocationData()
-        ..name = i["name"]!
+        ..name = name
         ..lat = i["lat"]
         ..lon = i["lon"]
         ..country = i["country"]!;

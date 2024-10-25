@@ -12,19 +12,10 @@ class Test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Column(
         children: [
           CupertinoButton(child: const Text("Hello"), onPressed: () {}),
-          CupertinoButton(
-              child: const Text("Test open_weatherV3 api"),
-              onPressed: () {
-                Weather.getWeatherHttpGet(weatherPages.value[0].locationInfo);
-              }),
-          CupertinoButton(
-              child: const Text("Load config"),
-              onPressed: () {
-                loadConfig();
-              }),
           const AnimatedWeatherCard(),
 
           ElevatedButton(onPressed: (){

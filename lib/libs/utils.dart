@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Future showInfoDialog(
@@ -181,4 +182,28 @@ void popContext(BuildContext context){
   if(context.mounted){
     Navigator.of(context).pop();
   }
+}
+
+PageRoute<T> defaultRoute<T>({
+  required WidgetBuilder builder,
+  String? title,
+  RouteSettings? settings,
+  bool maintainState = true,
+  bool fullscreenDialog = false,
+  bool allowSnapshotting = true,
+  bool barrierDismissible = false,
+}) {
+  return CupertinoPageRoute(builder: builder,
+      title: title,
+      settings: settings,
+      maintainState: maintainState,
+      fullscreenDialog: fullscreenDialog,
+      allowSnapshotting: allowSnapshotting,
+      barrierDismissible: barrierDismissible
+  );
+}
+void defaultPush(BuildContext context,Widget page){
+  Navigator.push(context, defaultRoute(builder: (builder) {
+    return page;
+  }));
 }

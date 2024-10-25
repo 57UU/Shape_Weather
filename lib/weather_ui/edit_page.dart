@@ -30,7 +30,7 @@ class _EditPageState extends State<EditPage> {
               widget.weatherPageData.locationInfo.cityName = s;
               weatherPages.notifyListeners();
             },widget.weatherPageData.locationInfo.cityName),
-            commonCard(context: context,title:AppLocalizations.of(context)!.note ,child: const Text("Some changes may need restarting to apply")),
+            commonCard(context: context,title:AppLocalizations.of(context)!.note ,child: Text(AppLocalizations.of(context)!.changesNeedRestarting2Apply)),
           ],
 
 

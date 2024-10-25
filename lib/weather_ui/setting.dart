@@ -22,24 +22,7 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-  PageRoute<T> getRoute<T>({
-    required WidgetBuilder builder,
-    String? title,
-    RouteSettings? settings,
-    bool maintainState = true,
-    bool fullscreenDialog = false,
-    bool allowSnapshotting = true,
-    bool barrierDismissible = false,
-  }) {
-    return CupertinoPageRoute(builder: builder,
-      title: title,
-      settings: settings,
-      maintainState: maintainState,
-      fullscreenDialog: fullscreenDialog,
-      allowSnapshotting: allowSnapshotting,
-      barrierDismissible: barrierDismissible
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +34,7 @@ class _SettingState extends State<Setting> {
           content: AppLocalizations.of(context)!.dynamicBackgroundIntroduce),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, getRoute(builder: (builder) {
+            Navigator.push(context, defaultRoute(builder: (builder) {
               return const ChangeThemeColorPage();
             }));
           },
@@ -59,7 +42,7 @@ class _SettingState extends State<Setting> {
           child: Text(AppLocalizations.of(context)!.changeThemeColor)),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, getRoute(builder: (builder) {
+            Navigator.push(context, defaultRoute(builder: (builder) {
               return const ChangeLanguagePage();
             }));
           },
@@ -77,7 +60,7 @@ class _SettingState extends State<Setting> {
 
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, getRoute(builder: (builder) {
+            Navigator.push(context, defaultRoute(builder: (builder) {
               return const Introduce();
             }));
           },
@@ -119,7 +102,7 @@ class _SettingState extends State<Setting> {
           child: Text(AppLocalizations.of(context)!.openGithubRepo)),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, getRoute(builder: (builder) {
+            Navigator.push(context, defaultRoute(builder: (builder) {
               return const CheckUpdates();
             }));
           },
@@ -127,7 +110,7 @@ class _SettingState extends State<Setting> {
           child: Text(AppLocalizations.of(context)!.checkUpdate)),
       ButtonWithPadding(
           onPressed: () {
-            Navigator.push(context, getRoute(builder: (builder) {
+            Navigator.push(context, defaultRoute(builder: (builder) {
               return const About();
             }));
           },

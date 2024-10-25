@@ -20,7 +20,7 @@ class WeatherInterface extends StatefulWidget {
 class _WeatherInterfaceState extends State<WeatherInterface>
     with AutomaticKeepAliveClientMixin {
   bool onError = false;
-
+  Widget? cachedBackground;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -30,7 +30,7 @@ class _WeatherInterfaceState extends State<WeatherInterface>
           return appSetting.value[enable_dynamic_background] ?? true
               ? Stack(
                   children: [
-                    background(),
+                    cachedBackground=cachedBackground??background(),
                     foreground(),
                   ],
                 )

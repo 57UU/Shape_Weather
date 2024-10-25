@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/index.dart';
+import 'package:shape_weather/weather_ui/test.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,10 +48,18 @@ class About extends StatelessWidget {
                 child: Text("Alapi(Web)\nBaidu Map(other platform)"),
               )),
           commonCard(
+              context: context,
+              title: AppLocalizations.of(context)!.developersOptions,
+              child: const Center(child: Text("Navigate to Test Page")),
+              icon: const Icon(Icons.category_outlined),
+              onTap: (context){defaultPush(context,Test());}
+          ),
+          commonCard(
             context: context,
             title: AppLocalizations.of(context)!.currentVersion,
             child: Center(child: Text("${AppLocalizations.of(context)!.currentVersion} $currentVersion")),
           ),
+
           kIsWeb?commonCard(
               context: context,
               title: AppLocalizations.of(context)!.webMode,

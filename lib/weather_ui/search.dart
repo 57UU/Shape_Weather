@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:reorderables/reorderables.dart';
+import 'package:shape_weather/libs/country_code_mapper.dart';
 import 'package:shape_weather/libs/utils.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/libs/weather_api.dart';
@@ -199,6 +200,7 @@ class _LocationSearchState extends State<LocationSearch> {
 
     weatherPages.notifyListeners();
   }
+  var countryCodeMapper=CountryCodeMapper();
 
   @override
   void initState() {
@@ -333,10 +335,11 @@ class _LocationSearchState extends State<LocationSearch> {
                           var children = <Widget>[];
                           for (var i in cities) {
                             late String text;
+                            var country=countryCodeMapper.fromCountryCode(i.country);
                             if (i.state == "") {
-                              text = "${AppLocalizations.of(context)!.country} : ${i.country}";
+                              text = "${AppLocalizations.of(context)!.country} : $country";
                             } else {
-                              text = "${i.country},${i.state}";
+                              text = "$country, ${i.state}";
                             }
                             children.add(CommonCardWithVariableOnClick(
                                 icon: const Icon(Icons.add),
@@ -403,8 +406,9 @@ class _LocationSearchState extends State<LocationSearch> {
       return [];
     }
     //await Future.delayed(Duration(seconds: 1));
+
     try {
-      var result1 = await Weather.getCitiesByName(cityName);
+      var result1 = await Weather.getCitiesByName(cityName,Localizations.localeOf(context).languageCode);
       if (result1.isNotEmpty) {
         return result1;
       }
