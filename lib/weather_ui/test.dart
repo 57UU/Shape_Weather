@@ -17,12 +17,16 @@ class Test extends StatelessWidget {
         children: [
           CupertinoButton(child: const Text("Hello"), onPressed: () {}),
           const AnimatedWeatherCard(),
-
-          ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (builder){
-              return Scaffold(appBar:AppBar(),body: const DragList(),);
-            }));
-          }, child: const Text("Reorder")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (builder) {
+                  return Scaffold(
+                    appBar: AppBar(),
+                    body: const DragList(),
+                  );
+                }));
+              },
+              child: const Text("Reorder")),
         ],
       ),
     );
@@ -38,47 +42,30 @@ class AnimatedWeatherCard extends StatefulWidget {
 
 class _AnimatedWeatherCardState extends State<AnimatedWeatherCard> {
   bool isTimeOut = false;
+  final String content = "This is a very long string\n" * 10;
 
   @override
   Widget build(BuildContext context) {
-    countdown();
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: AnimatedContainer(
-          alignment: Alignment.topLeft,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.circular(20)),
-            color: Theme.of(context).colorScheme.secondaryContainer,
-          ),
-          width: double.infinity,
-          duration: const Duration(seconds: 1),
-          curve: Curves.ease,
+      child: commonCard(
+        child: AnimatedSize(
+          curve: Curves.easeOutQuart,
+          duration: const Duration(milliseconds: 500),
           child: Padding(
               padding: const EdgeInsetsDirectional.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  titleText("title"),
-                  isTimeOut ? const Text("data") : loading(),
-                ],
-              ))),
+              child: isTimeOut ? loading() : Text(content)),
+        ),
+        onTap: (context) {
+          setState(() {
+            isTimeOut = !isTimeOut;
+          });
+        },
+        context: context, title: 'Test Animation (Click)',
+      ),
     );
   }
-
-  Future countdown() async {
-    await Future.delayed(const Duration(seconds: 3), () {
-      setState(() {
-        isTimeOut = true;
-      });
-    });
-  }
 }
-
-
-
-
 
 class DragList extends StatefulWidget {
   const DragList({super.key});
@@ -98,6 +85,7 @@ class _DragListState extends State<DragList> {
         _tiles.insert(newIndex, row);
       });
     }
+
     ScrollController scrollController = PrimaryScrollController.of(context);
     return CustomScrollView(
       controller: scrollController,
@@ -118,7 +106,6 @@ class _DragListState extends State<DragList> {
 
   @override
   void initState() {
-
     _tiles = weatherPages.value
         .map((i) {
           return Text(i.title);

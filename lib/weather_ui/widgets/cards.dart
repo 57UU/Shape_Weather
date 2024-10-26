@@ -13,6 +13,7 @@ import 'package:shape_weather/weather_ui/edit_page.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../setting/configuration.dart';
 import 'controls.dart';
 
 class Overview extends StatelessWidget {
@@ -210,8 +211,12 @@ class WeatherIcon extends StatelessWidget {
       context: context,
       title: AppLocalizations.of(context)!.icon,
       child: null,
-      icon: Image.network(
-          "https://openweathermap.org/img/wn/${weatherData.details.first.icon}.png"),
+      icon: AnimatedSize(
+        duration: cardSizeAnimationDuration,
+        curve: Curves.easeOutQuart,
+        child: Image.network(
+            "https://openweathermap.org/img/wn/${weatherData.details.first.icon}.png"),
+      ),
     );
   }
 }
@@ -347,8 +352,8 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
         majorGridLines: MajorGridLines(width: 1),
       ),
       primaryYAxis: NumericAxis(
-          minimum: tempMin-0.3,
-          maximum: tempMax + 0.3,
+          minimum: tempMin-0.5,
+          maximum: tempMax + 0.5,
           //axisLine: const AxisLine(width: 10),
           edgeLabelPlacement: EdgeLabelPlacement.shift,
           labelFormat: '{value}℃',

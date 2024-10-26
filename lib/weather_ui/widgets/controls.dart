@@ -9,7 +9,6 @@ import 'package:shape_weather/libs/utils.dart';
 
 import '../../setting/weather_data.dart';
 
-
 Widget titleText(String text) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -26,11 +25,8 @@ const Widget empty = Text("");
 class BasicCard extends StatelessWidget {
   final void Function(BuildContext context)? onTap;
   final Widget? child;
-  const BasicCard({
-    super.key,
-    required this.child,
-    this.onTap
-  });
+
+  const BasicCard({super.key, required this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +42,10 @@ class BasicCard extends StatelessWidget {
           onTap: () {
             onTap!(context);
           },
-          child: child);
+          child: Container(
+              width: double.infinity,
+              child: child)
+      );
     }
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -72,6 +71,7 @@ class BasicCard extends StatelessWidget {
     );
   }
 }
+
 @Deprecated("immigrate to BasicCard")
 Widget basicCard(
     {required BuildContext context,
@@ -121,9 +121,8 @@ Widget commonCard(
     required Widget? child,
     Widget? icon,
     void Function(BuildContext context)? onTap}) {
-  return basicCard(
+  return BasicCard(
       onTap: onTap,
-      context: context,
       child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
           child: Column(
@@ -139,14 +138,14 @@ Widget commonCard(
           )));
 }
 
+
 abstract class NullableCard<T> extends StatelessWidget {
   final T? parameter;
   final String title;
 
-  void onTap(BuildContext context, T parameter){
+  void onTap(BuildContext context, T parameter) {}
 
-  }
-  Widget? getIcon(){
+  Widget? getIcon() {
     return null;
   }
 
@@ -162,15 +161,18 @@ abstract class NullableCard<T> extends StatelessWidget {
         icon: getIcon(),
         context: context,
         title: title,
-        child: parameter == null ? loading() : child(context, parameter as T),
+        child: AnimatedSize(
+            duration: cardSizeAnimationDuration,
+            curve: Curves.easeOutQuart,
+            child:
+                parameter == null ? loading() : child(context, parameter as T)),
         onTap: (context) {
-          if ( parameter == null) {
+          if (parameter == null) {
             return;
           }
           onTap(context, parameter as T);
         });
   }
-
 
   Widget child(BuildContext context, T parameter);
 }
@@ -203,7 +205,7 @@ class ForecastDataGrid extends StatelessWidget {
             ),
             child: InkWell(
                 onTap: () {
-                  pushForecastPage(context, weatherData,time);
+                  pushForecastPage(context, weatherData, time);
                 },
                 child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -221,19 +223,22 @@ class ForecastDataGrid extends StatelessWidget {
   }
 }
 
-void pushForecastPage(BuildContext context, WeatherData weatherData,DateTime dateTime) {
+void pushForecastPage(
+    BuildContext context, WeatherData weatherData, DateTime dateTime) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     WeatherPageData weatherPageData =
-        WeatherPageData(locationInfo: LocationInfo.empty)..title = AppLocalizations.of(context)!.forecast;
+        WeatherPageData(locationInfo: LocationInfo.empty)
+          ..title = AppLocalizations.of(context)!.forecast;
     weatherPageData.weatherData.value = weatherData;
     weatherPageData.weatherType = WeatherType.forecast;
-    var deltaTime=dateTime.difference(DateTime.now());
-    var hours=deltaTime.inHours;
+    var deltaTime = dateTime.difference(DateTime.now());
+    var hours = deltaTime.inHours;
 
     return Scaffold(
       body: WeatherInterface(weatherPageData),
       appBar: AppBar(
-        title: Text("${hours==0?AppLocalizations.of(context)!.minutes(deltaTime.inMinutes):AppLocalizations.of(context)!.hours(hours)} ${AppLocalizations.of(context)!.later}"),
+        title: Text(
+            "${hours == 0 ? AppLocalizations.of(context)!.minutes(deltaTime.inMinutes) : AppLocalizations.of(context)!.hours(hours)} ${AppLocalizations.of(context)!.later}"),
       ),
     );
   }));
@@ -256,7 +261,7 @@ class ForecastDataList extends StatelessWidget {
       splashColor: Colors.transparent,
       focusColor: Colors.transparent,
       onTap: () {
-        pushForecastPage(context, weatherData,dateTime);
+        pushForecastPage(context, weatherData, dateTime);
       },
       child: commonCard(
           context: context,
@@ -282,7 +287,6 @@ class Forecasts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var children = <Widget>[];
     for (var element in weatherForecastData.forecastData) {
       children.add(ForecastDataList(element));
@@ -350,6 +354,8 @@ class Fragment extends StatelessWidget {
   }
 }
 
+EdgeInsets _settingPadding = const EdgeInsets.all(10);
+
 class ButtonWithPadding extends StatelessWidget {
   final Function() onPressed;
   final Widget child;
@@ -361,18 +367,16 @@ class ButtonWithPadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget realChild;
-    if(icon!=null){
-      realChild=Row(
+    if (icon != null) {
+      realChild = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(),child,icon!
-        ],
+        children: [Container(), child, icon!],
       );
-    }else{
-      realChild=child;
+    } else {
+      realChild = child;
     }
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: _settingPadding,
       child: ElevatedButton(
           onPressed: onPressed,
           child: Padding(
@@ -403,27 +407,27 @@ class TextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (builder,constraints){
+    return LayoutBuilder(builder: (builder, constraints) {
       //var result = MediaQuery.of(context);
-      var isThin = constraints.maxWidth < 700 && (text2.length + text.length) > 30;
+      var isThin =
+          constraints.maxWidth < 700 && (text2.length + text.length) > 30;
       return isThin
           ? Padding(
-        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(text), child, Text(text2)],
-        ),
-      )
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text(text), child, Text(text2)],
+              ),
+            )
           : Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(text), child, Text(text2)],
-        ),
-      );
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text(text), child, Text(text2)],
+              ),
+            );
     });
-
   }
 }
 
@@ -480,26 +484,33 @@ class SwitchRow extends StatefulWidget {
 class _SwitchRowState extends State<SwitchRow> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(widget.text),
-        Switch(
-            value: appSetting.value[widget.valueKey]!,
-            onChanged: (value) {
-              appSetting.value[widget.valueKey] = value;
-              appSetting.notifyListeners();
-              setState(() {});
-            }),
-        IconButton(
-            onPressed: () {
-              showInfoDialog(
-                  context: context,
-                  title: widget.title,
-                  content: widget.content);
-            },
-            icon: const Icon(Icons.question_mark_sharp))
-      ],
+    return Padding(
+      padding: _settingPadding,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            children: [
+              Text(widget.text),
+              IconButton(
+                  onPressed: () {
+                    showInfoDialog(
+                        context: context,
+                        title: widget.title,
+                        content: widget.content);
+                  },
+                  icon: const Icon(Icons.info_outlined)),
+            ],
+          ),
+          Switch(
+              value: appSetting.value[widget.valueKey]!,
+              onChanged: (value) {
+                appSetting.value[widget.valueKey] = value;
+                appSetting.notifyListeners();
+                setState(() {});
+              }),
+        ],
+      ),
     );
   }
 }

@@ -114,7 +114,7 @@ class _SettingState extends State<Setting> {
               return const About();
             }));
           },
-          icon: const Icon(Icons.info),
+          icon: const Icon(Icons.info_outline_rounded),
           child: Text(AppLocalizations.of(context)!.about)),
 
 /*      ButtonWithPadding(
