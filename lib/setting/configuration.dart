@@ -69,3 +69,4 @@ Future notFirstTime() async {
   preferences.setStringList(_key, list);
 }
 Duration cardSizeAnimationDuration = const Duration(milliseconds: 300);
+late BuildContext logicRootContext;

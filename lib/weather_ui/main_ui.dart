@@ -3,10 +3,11 @@ import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 import 'package:shape_weather/libs/utils.dart';
 
-import 'package:shape_weather/weather_ui/widgets/background.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../setting/weather_data.dart';
-import 'widgets/cards.dart';
+import 'widgets/index.dart';
+
+
 
 class WeatherInterface extends StatefulWidget {
   final WeatherPageData weatherPageData;

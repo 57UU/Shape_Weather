@@ -120,5 +120,7 @@
   "tomorrow": "明天",
   "dayAfterTomorrow":"后天",
   "developersOptions":"开发者选项",
-  "changesNeedRestarting2Apply":"一些更改需要重启以应用"
+  "changesNeedRestarting2Apply":"一些更改需要重启以应用",
+  "testPage":"测试页面",
+  "viewLicense":"查看许可"
 }

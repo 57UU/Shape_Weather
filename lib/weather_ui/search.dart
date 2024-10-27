@@ -7,11 +7,11 @@ import 'package:open_weather_client/models/weather_data.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/libs/country_code_mapper.dart';
 import 'package:shape_weather/libs/utils.dart';
-import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../setting/configuration.dart';
 import '../setting/weather_data.dart';
+import 'widgets/index.dart';
 
 class LocationChoose extends StatefulWidget {
   final PageController pageController;

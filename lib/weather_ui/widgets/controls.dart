@@ -5,7 +5,7 @@ import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/main_ui.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shape_weather/libs/utils.dart';
+import 'ui_utils.dart';
 
 import '../../setting/weather_data.dart';
 
@@ -42,7 +42,7 @@ class BasicCard extends StatelessWidget {
           onTap: () {
             onTap!(context);
           },
-          child: Container(
+          child: SizedBox(
               width: double.infinity,
               child: child)
       );

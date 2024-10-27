@@ -134,19 +134,27 @@ class StartUp extends StatelessWidget {
                       "  ${AppLocalizations.of(context)!.shapeWeather}",
                     ),
                   ),
-                  Expanded(child: MoveWindow()),
+                  Expanded(child:
+                       MoveWindow()
+                  ),
                   const WindowButtons()
                 ],
               ),
             ),
           ),
-          Expanded(child: Fragment(child: child))
+          Expanded(child: Fragment(child: Builder(
+            builder: (context) {
+              logicRootContext=context;
+              return child;
+            }
+          )))
         ],
       );
       //return Window("Shape Weather", child);
+    }else{
+      logicRootContext=context=context;
+      return child;
     }
-
-    return child;
   }
 }
 

@@ -120,5 +120,7 @@
   "tomorrow": "Tomorrow",
   "dayAfterTomorrow": "The Day after tomorrow",
   "developersOptions": "Developers Options",
-  "changesNeedRestarting2Apply": "Some changes may need restarting to apply"
+  "changesNeedRestarting2Apply": "Some changes may need restarting to apply",
+  "testPage": "Test Page",
+  "viewLicense": "View License"
 }

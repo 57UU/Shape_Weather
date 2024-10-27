@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shape_weather/libs/index.dart';
 import 'package:shape_weather/weather_ui/test.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
+import 'package:shape_weather/weather_ui/widgets/ui_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../libs/version.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -49,7 +50,7 @@ class About extends StatelessWidget {
               )),
           commonCard(
               context: context,
-              title: AppLocalizations.of(context)!.developersOptions,
+              title: AppLocalizations.of(context)!.testPage,
               child: const Center(child: Text("Navigate to Test Page")),
               icon: const Icon(Icons.category_outlined),
               onTap: (context){defaultPush(context,Test());}
@@ -71,7 +72,7 @@ class About extends StatelessWidget {
                     title: AppLocalizations.of(context)!.webMode,
                     content: AppLocalizations.of(context)!.webModeIntroduce);
               }
-          ):Container()
+          ):Container(),
         ],
       ),
     );

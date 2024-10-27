@@ -15,6 +15,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../setting/configuration.dart';
 import 'controls.dart';
+import 'ui_utils.dart';
 
 class Overview extends StatelessWidget {
   final WeatherData data;

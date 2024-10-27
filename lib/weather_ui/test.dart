@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/libs/weather_api.dart';
+import 'package:shape_weather/weather_ui/widgets/index.dart';
 
 import 'widgets/controls.dart';
 
@@ -15,7 +16,23 @@ class Test extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          CupertinoButton(child: const Text("Hello"), onPressed: () {}),
+          CupertinoButton(
+              child: const Text("loading dialog with error"),
+              onPressed: () {
+                showLoadingDialogWithErrorString(
+                    context: context,
+                    func: () async {
+                      await Future.delayed(const Duration(seconds: 1));
+                      throw Exception("designed error");
+                    },
+                  onErrorMessage: "designed error\n"*10
+
+                    );
+              }),
+          CupertinoButton(
+            onPressed: () {showInfoDialog(context: context,title: "test",content: "114514");},
+            child: const Text("show Info dialog"),
+          ),
           const AnimatedWeatherCard(),
           ElevatedButton(
               onPressed: () {
@@ -61,7 +78,8 @@ class _AnimatedWeatherCardState extends State<AnimatedWeatherCard> {
             isTimeOut = !isTimeOut;
           });
         },
-        context: context, title: 'Test Animation (Click)',
+        context: context,
+        title: 'Test Animation (Click)',
       ),
     );
   }

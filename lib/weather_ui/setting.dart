@@ -13,6 +13,7 @@ import 'package:shape_weather/weather_ui/introduce.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'theme_color_page.dart';
+import 'widgets/index.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
