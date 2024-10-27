@@ -110,5 +110,6 @@
   "followSystem": "跟隨系統",
   "switchCities": "切換城市",
   "reorderTheList": "城市自定義排序",
-  "iUnderstand": "我明白了"
+  "iUnderstand": "我明白了",
+  "selfLanguage":"中文-繁体"
 }

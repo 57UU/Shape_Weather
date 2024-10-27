@@ -122,5 +122,7 @@
   "developersOptions": "Developers Options",
   "changesNeedRestarting2Apply": "Some changes may need restarting to apply",
   "testPage": "Test Page",
-  "viewLicense": "View License"
+  "viewLicense": "View License",
+  "selfLanguage": "English",
+  "current": "Current"
 }
