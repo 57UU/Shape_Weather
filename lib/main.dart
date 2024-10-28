@@ -54,8 +54,11 @@ class MyApp extends StatelessWidget {
         locale=Locale(lang);
       }else if(splitLang.length==2){
         locale=Locale.fromSubtags(languageCode:  splitLang[0],scriptCode:  splitLang[1]);
+      }else if(splitLang.length==3){
+        locale=Locale.fromSubtags(languageCode:  splitLang[0],scriptCode:  splitLang[1],countryCode: splitLang[2]);
       }
     }
+    debugPrint("current locale :${locale?.toLanguageTag()}");
     return locale;
   }
 

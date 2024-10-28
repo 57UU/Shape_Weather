@@ -4,7 +4,7 @@ import 'package:reorderables/reorderables.dart';
 import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/libs/weather_api.dart';
 import 'package:shape_weather/weather_ui/widgets/index.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widgets/controls.dart';
 
 class Test extends StatelessWidget {
@@ -30,8 +30,14 @@ class Test extends StatelessWidget {
                     );
               }),
           CupertinoButton(
-            onPressed: () {showInfoDialog(context: context,title: "test",content: "114514");},
-            child: const Text("show Info dialog"),
+            onPressed: () {
+              showInfoDialog(
+                  context: context,
+                  title: "test",
+                  content: "context: ${Localizations.localeOf(context).toLanguageTag()}\nset: ${appSetting.value[language_set]}"
+              );
+              },
+            child: const Text("show locale"),
           ),
           const AnimatedWeatherCard(),
           ElevatedButton(
