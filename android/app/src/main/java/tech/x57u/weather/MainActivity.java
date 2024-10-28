@@ -1,4 +1,4 @@
-package com.example.shape_weather;
+package tech.x57u.weather;
 
 import io.flutter.embedding.android.FlutterActivity;
 
