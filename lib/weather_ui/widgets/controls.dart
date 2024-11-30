@@ -42,10 +42,7 @@ class BasicCard extends StatelessWidget {
           onTap: () {
             onTap!(context);
           },
-          child: SizedBox(
-              width: double.infinity,
-              child: child)
-      );
+          child: SizedBox(width: double.infinity, child: child));
     }
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -138,10 +135,10 @@ Widget commonCard(
           )));
 }
 
-
 abstract class NullableCard<T> extends StatelessWidget {
   final T? parameter;
   final String title;
+  final bool isFailed;
 
   void onTap(BuildContext context, T parameter) {}
 
@@ -153,6 +150,7 @@ abstract class NullableCard<T> extends StatelessWidget {
     this.parameter, {
     super.key,
     required this.title,
+    this.isFailed = false,
   });
 
   @override
@@ -164,8 +162,11 @@ abstract class NullableCard<T> extends StatelessWidget {
         child: AnimatedSize(
             duration: cardSizeAnimationDuration,
             curve: Curves.easeOutQuart,
-            child:
-                parameter == null ? loading() : child(context, parameter as T)),
+            child: this.isFailed
+                ? failedChild(context)
+                : (parameter == null
+                    ? loading()
+                    : child(context, parameter as T))),
         onTap: (context) {
           if (parameter == null) {
             return;
@@ -175,6 +176,10 @@ abstract class NullableCard<T> extends StatelessWidget {
   }
 
   Widget child(BuildContext context, T parameter);
+
+  Widget failedChild(BuildContext context) {
+    return const Text("Failed");
+  }
 }
 
 Widget loading() {
@@ -489,18 +494,17 @@ class _SwitchRowState extends State<SwitchRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Row(
-            children: [
-              Text(widget.text),
-              IconButton(
-                  onPressed: () {
-                    showInfoDialog(
-                        context: context,
-                        title: widget.title,
-                        content: widget.content);
-                  },
-                  icon: const Icon(Icons.info_outlined)),
-            ],
+          Text(widget.text),
+          IconButton(
+              onPressed: () {
+                showInfoDialog(
+                    context: context,
+                    title: widget.title,
+                    content: widget.content);
+              },
+              icon: const Icon(Icons.info_outlined)),
+          const Spacer(
+            flex: 1,
           ),
           Switch(
               value: appSetting.value[widget.valueKey]!,
@@ -509,8 +513,29 @@ class _SwitchRowState extends State<SwitchRow> {
                 appSetting.notifyListeners();
                 setState(() {});
               }),
+          const Spacer(
+            flex: 1,
+          ),
         ],
       ),
     );
+  }
+}
+
+class VerticalPadding extends StatelessWidget {
+  const VerticalPadding({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(padding: EdgeInsets.symmetric(vertical: 10));
+  }
+}
+
+class HorizontalPadding extends StatelessWidget {
+  const HorizontalPadding({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(padding: EdgeInsets.symmetric(horizontal: 10));
   }
 }

@@ -124,5 +124,6 @@
   "testPage":"测试页面",
   "viewLicense":"查看许可",
   "selfLanguage":"中文",
-  "current":"当前"
+  "current":"当前",
+  "whatsNew": "更新内容"
 }

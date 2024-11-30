@@ -39,13 +39,50 @@ class _EditPageState extends State<EditPage> {
     );
   }
 }
-
+Future popupEditPageDialog(BuildContext context,WeatherPageData weatherPageData){
+  String modifiedName=weatherPageData.locationInfo.cityName;
+  return showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.edit),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RowInput(AppLocalizations.of(context)!.cityName, (s){modifiedName=s;}, modifiedName),
+              const VerticalPadding(),
+              Row(children: [
+                  const Icon(Icons.info_outline_rounded),
+                  const HorizontalPadding(),
+                  Expanded(child: Text(AppLocalizations.of(context)!.changesNeedRestarting2Apply))
+                ],
+              )
+            ],
+          ),
+          actions: [
+            TextButton(
+                onPressed: (){Navigator.of(context).pop();},
+                child: Text(AppLocalizations.of(context)!.cancel)
+            ),
+            TextButton(
+                onPressed: (){
+                  weatherPageData.locationInfo.cityName = modifiedName;
+                  weatherPages.notifyListeners();
+                  Navigator.of(context).pop();
+                  },
+                child: Text(AppLocalizations.of(context)!.edit)
+            ),
+          ],
+        );
+      }
+  );
+}
 class RowInput extends StatefulWidget {
-  final String left;
-  final void Function(String s) right;
+  final String hint;
+  final void Function(String s) onChanged;
   final String defaultText;
 
-  const RowInput(this.left, this.right, this.defaultText,{super.key});
+  const RowInput(this.hint, this.onChanged, this.defaultText,{super.key});
 
   @override
   State<RowInput> createState() => _RowInputState();
@@ -65,10 +102,10 @@ class _RowInputState extends State<RowInput> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      decoration: InputDecoration(labelText: widget.left),
+      decoration: InputDecoration(labelText: widget.hint),
       controller: controller,
       onChanged: (s) {
-        widget.right(controller.text);
+        widget.onChanged(controller.text);
       },
     );
   }

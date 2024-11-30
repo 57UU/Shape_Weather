@@ -394,12 +394,19 @@ class EditCard extends StatelessWidget {
         child: TextButton(
           child: Text(AppLocalizations.of(context)!.edit),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
-              return EditPage(weatherPageData);
-            }));
+            var orientation=MediaQuery.of(context).orientation;
+            _popupEditPage(context);
           },
         ),
       ),
     );
+  }
+  void _pushEditPage(BuildContext context){
+    Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
+      return EditPage(weatherPageData);
+    }));
+  }
+  void _popupEditPage(BuildContext context){
+    popupEditPageDialog(context, weatherPageData);
   }
 }
