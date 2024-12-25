@@ -193,7 +193,7 @@ class AboutLatestRelease extends NullableCard<dynamic>{
         "Create Time: ${formatter.format(time)}";
     showDialog(context: context, builder: (builder){
       return AlertDialog(
-        title: Text(AppLocalizations.of(context)!.details),
+        title: Text(AppLocalizations.of(builder)!.details),
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,7 +203,7 @@ class AboutLatestRelease extends NullableCard<dynamic>{
           ],
         ),
         actions: [
-          TextButton(onPressed: (){Navigator.of(context).pop();}, child: const Text("OK"))
+          TextButton(onPressed: (){Navigator.of(builder).pop();}, child: const Text("OK"))
         ],
       );
     });

@@ -395,7 +395,12 @@ class EditCard extends StatelessWidget {
           child: Text(AppLocalizations.of(context)!.edit),
           onPressed: () {
             var orientation=MediaQuery.of(context).orientation;
-            _popupEditPage(context);
+            if(orientation==Orientation.landscape){
+              _popupEditPage(context);
+            }else{
+              _pushEditPage(context);
+            }
+
           },
         ),
       ),

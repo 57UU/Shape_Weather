@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shape_weather/libs/index.dart';
 import 'package:shape_weather/weather_ui/test.dart';
 import 'package:shape_weather/weather_ui/widgets/controls.dart';
 import 'package:shape_weather/weather_ui/widgets/ui_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -59,6 +61,24 @@ class About extends StatelessWidget {
             context: context,
             title: AppLocalizations.of(context)!.currentVersion,
             child: Center(child: Text("${AppLocalizations.of(context)!.currentVersion} $currentVersion")),
+            onTap: (context)async{
+              PackageInfo packageInfo = await PackageInfo.fromPlatform();
+              var appName=packageInfo.appName;
+              var buildNumber=packageInfo.buildNumber;
+              var version=packageInfo.version;
+              var signature=packageInfo.buildSignature;
+              var installerStore=packageInfo.installerStore;
+              var packageName=packageInfo.packageName;
+
+
+              String content="AppName: $appName\n"
+                  "BuildNumber: $buildNumber\n"
+                  "Version: $version\n"
+                  "Signature: $signature\n"
+                  "Installer: $installerStore\n"
+                  "PackageName: $packageName";
+              await showInfoDialog(title: AppLocalizations.of(context)!.details,content:content);
+            }
           ),
 
           kIsWeb?commonCard(
