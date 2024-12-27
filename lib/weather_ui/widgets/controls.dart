@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_forecast_data.dart';
@@ -5,6 +6,7 @@ import 'package:shape_weather/setting/configuration.dart';
 import 'package:shape_weather/weather_ui/main_ui.dart';
 import 'package:open_weather_client/models/weather_data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shape_weather/weather_ui/widgets/cards.dart';
 import 'ui_utils.dart';
 
 import '../../setting/weather_data.dart';
@@ -210,7 +212,8 @@ class ForecastDataGrid extends StatelessWidget {
             ),
             child: InkWell(
                 onTap: () {
-                  pushForecastPage(context, weatherData, time);
+                  final page=buildForecastPage(context, weatherData, time);
+                  popupOrNavigate(context,page,useFragment: false);
                 },
                 child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -227,25 +230,27 @@ class ForecastDataGrid extends StatelessWidget {
                     )))));
   }
 }
+Widget buildForecastPage(BuildContext context, WeatherData weatherData, DateTime dateTime){
+  WeatherPageData weatherPageData =
+  WeatherPageData(locationInfo: LocationInfo.empty)
+    ..title = AppLocalizations.of(context)!.forecast;
+  weatherPageData.weatherData.value = weatherData;
+  weatherPageData.weatherType = WeatherType.forecast;
+  var deltaTime = dateTime.difference(DateTime.now());
+  var hours = deltaTime.inHours;
 
-void pushForecastPage(
-    BuildContext context, WeatherData weatherData, DateTime dateTime) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
-    WeatherPageData weatherPageData =
-        WeatherPageData(locationInfo: LocationInfo.empty)
-          ..title = AppLocalizations.of(context)!.forecast;
-    weatherPageData.weatherData.value = weatherData;
-    weatherPageData.weatherType = WeatherType.forecast;
-    var deltaTime = dateTime.difference(DateTime.now());
-    var hours = deltaTime.inHours;
+  return Scaffold(
+    body: WeatherInterface(weatherPageData),
+    appBar: AppBar(
+      title: Text(
+          "${hours == 0 ? AppLocalizations.of(context)!.minutes(deltaTime.inMinutes) : AppLocalizations.of(context)!.hours(hours)} ${AppLocalizations.of(context)!.later}"),
+    ),
+  );
+}
+void pushForecastPage(BuildContext context, WeatherData weatherData, DateTime dateTime) {
 
-    return Scaffold(
-      body: WeatherInterface(weatherPageData),
-      appBar: AppBar(
-        title: Text(
-            "${hours == 0 ? AppLocalizations.of(context)!.minutes(deltaTime.inMinutes) : AppLocalizations.of(context)!.hours(hours)} ${AppLocalizations.of(context)!.later}"),
-      ),
-    );
+  Navigator.push(context, CupertinoPageRoute(builder: (context) {
+    return buildForecastPage(context, weatherData, dateTime);
   }));
 }
 

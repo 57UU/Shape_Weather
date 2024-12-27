@@ -101,7 +101,9 @@ class _WeatherInterfaceState extends State<WeatherInterface>
             (widget.weatherPageData.weatherType == WeatherType.current)
                 ? LocationDetail(widget.weatherPageData.weatherData.value!)
                 : Container(),
-            EditCard(widget.weatherPageData),
+            (widget.weatherPageData.weatherType == WeatherType.current)
+                ? EditCard(widget.weatherPageData)
+                : Container(),
 
             //AnimatedWeatherCard(),
           ],

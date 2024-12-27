@@ -1,6 +1,7 @@
 
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_client/models/weather_data.dart';
@@ -252,9 +253,8 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
 
   @override
   void onTap(BuildContext context, WeatherAQIData parameter) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
-      return AqiDetailPage(parameter);
-    }));
+    final page=AqiDetailPage(parameter);
+    popupOrNavigate(context, page,useFragment: false,adaptiveHeight: true);
   }
 
   static List<String>? aqiDetailRank;
@@ -296,30 +296,7 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
     );
   }
 }
-showForecastsWindow(BuildContext context, WeatherForecastData parameter){
-  var mediaQuery=MediaQuery.of(context);
-  var width=mediaQuery.size.width;
-  bool isLandscape=mediaQuery.orientation==Orientation.landscape;
-  var widget=Forecasts(parameter);
-  if(isLandscape){
-    showDialog(
-        context: logicRootContext,
-        useRootNavigator: false,
-        builder: (builder){
-          return Dialog(
-            child: SizedBox(
-              width: width/2,
-              child: Fragment(child: widget),
-            ),
-          );
-        }
-    );
-  }else{
-    Navigator.push(context, MaterialPageRoute(builder: (builder) {
-      return widget;
-    }));
-  }
-}
+
 class ForecastGraphCard extends NullableCard<WeatherForecastData> {
   static final DateFormat dateFormatDay = DateFormat("M/d");
   static final DateFormat dateFormatTime = DateFormat("H:mm");
