@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:shape_weather/libs/EnvironmentInfo/native.dart' if(dart.library.js_interop)'package:shape_weather/libs/EnvironmentInfo/web.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -70,13 +72,27 @@ class About extends StatelessWidget {
               var installerStore=packageInfo.installerStore;
               var packageName=packageInfo.packageName;
 
+              var dartVersion="Unknown";
+              var system="Unknown";
+              List<String> env;
+              var exe="Unknown";
+              var systemVersion="Unknown";
+              var environmentText="---Environment---\n${getEnvironmentInfo()}";
 
-              String content="AppName: $appName\n"
+
+              String content=
+                  "---APP---\n"
+                  "AppName: $appName\n"
                   "BuildNumber: $buildNumber\n"
                   "Version: $version\n"
                   "Signature: $signature\n"
                   "Installer: $installerStore\n"
-                  "PackageName: $packageName";
+                  "PackageName: $packageName\n"
+                  "$environmentText"
+                  "---FLAG---\n"
+                  "Web: $kIsWeb\n"
+                  "WASM: $kIsWasm\n"
+              ;
               await showInfoDialog(title: AppLocalizations.of(context)!.details,content:content);
             }
           ),
