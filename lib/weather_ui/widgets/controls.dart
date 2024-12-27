@@ -249,12 +249,12 @@ void pushForecastPage(
   }));
 }
 
-class ForecastDataList extends StatelessWidget {
+class ForecastDataListElement extends StatelessWidget {
   final WeatherData weatherData;
   static final DateFormat dateFormat = DateFormat("M-d H:mm");
   late final DateTime dateTime;
 
-  ForecastDataList(this.weatherData, {super.key}) {
+  ForecastDataListElement(this.weatherData, {super.key}) {
     dateTime = DateTime.fromMillisecondsSinceEpoch(weatherData.date * 1000);
   }
 
@@ -294,7 +294,7 @@ class Forecasts extends StatelessWidget {
   Widget build(BuildContext context) {
     var children = <Widget>[];
     for (var element in weatherForecastData.forecastData) {
-      children.add(ForecastDataList(element));
+      children.add(ForecastDataListElement(element));
     }
     return Scaffold(
       appBar: AppBar(

@@ -309,7 +309,7 @@ showForecastsWindow(BuildContext context, WeatherForecastData parameter){
           return Dialog(
             child: SizedBox(
               width: width/2,
-              child: widget,
+              child: Fragment(child: widget),
             ),
           );
         }
