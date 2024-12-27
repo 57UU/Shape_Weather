@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:shape_weather/libs/EnvironmentInfo/native.dart' if(dart.library.js_interop)'package:shape_weather/libs/EnvironmentInfo/web.dart';
+import 'package:shape_weather/libs/environment_info//native.dart' if(dart.library.js_interop)'package:shape_weather/libs/environment_info/web.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
