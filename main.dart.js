@@ -95503,13 +95503,22 @@ $1(a){A.b8l(a,new A.W2(null))},
 $S:44}
 A.a89.prototype={
 $1(a){return this.a43(a)},
-a43(a){var s=0,r=A.O(t.H),q
+a43(a){var s=0,r=A.O(t.H),q,p,o,n,m,l,k,j,i,h
 var $async$$1=A.P(function(b,c){if(b===1)return A.L(c,r)
 while(true)switch(s){case 0:s=2
 return A.R(A.T3(),$async$$1)
 case 2:q=c
+p=q.a
+o=q.d
+n=q.c
+m=q.e
+l=q.f
+k=q.b
+j=self.window.navigator
+i=j.platform
+h=j.onLine
 s=3
-return A.R(A.tp("AppName: "+q.a+"\nBuildNumber: "+q.d+"\nVersion: "+q.c+"\nSignature: "+q.e+"\nInstaller: "+A.m(q.f)+"\nPackageName: "+q.b,null,A.a_(a,B.l,t.J).gwp()),$async$$1)
+return A.R(A.tp("---APP---\nAppName: "+p+"\nBuildNumber: "+o+"\nVersion: "+n+"\nSignature: "+m+"\nInstaller: "+A.m(l)+"\nPackageName: "+k+"\n"+("---Environment---\n"+("Platform: "+i+"\nVendor: "+j.vendor+"\nUA: "+j.userAgent+"\nMemory: "+A.m(j.deviceMemory)+"\nOnline: "+A.m(h)+"\nHardware Concurrency: "+A.m(j.hardwareConcurrency)+"\n"))+"---FLAG---\nWeb: true\nWASM: false\n",null,A.a_(a,B.l,t.J).gwp()),$async$$1)
 case 3:return A.M(null,r)}})
 return A.N($async$$1,r)},
 $S:210}
