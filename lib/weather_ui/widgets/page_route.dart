@@ -7,6 +7,8 @@ class LTRCupertinoPageRoute<T> extends CupertinoPageRoute<T> {
     super.maintainState,
     super.fullscreenDialog,
   });
+  @override
+  DelegatedTransitionBuilder? get delegatedTransition => null;
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,

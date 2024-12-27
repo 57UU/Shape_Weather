@@ -144,9 +144,7 @@ class ForecastCard extends NullableCard<WeatherForecastData> {
   const ForecastCard(super.parameter, {super.key, super.title = "Forecast"});
   @override
   void onTap(BuildContext context, WeatherForecastData parameter) {
-    Navigator.push(context, MaterialPageRoute(builder: (builder) {
-      return Forecasts(parameter);
-    }));
+    showForecastsWindow(context,parameter);
   }
 
   @override
@@ -298,7 +296,30 @@ class AqiDetail extends NullableCard<WeatherAQIData> {
     );
   }
 }
-
+showForecastsWindow(BuildContext context, WeatherForecastData parameter){
+  var mediaQuery=MediaQuery.of(context);
+  var width=mediaQuery.size.width;
+  bool isLandscape=mediaQuery.orientation==Orientation.landscape;
+  var widget=Forecasts(parameter);
+  if(isLandscape){
+    showDialog(
+        context: logicRootContext,
+        useRootNavigator: false,
+        builder: (builder){
+          return Dialog(
+            child: SizedBox(
+              width: width/2,
+              child: widget,
+            ),
+          );
+        }
+    );
+  }else{
+    Navigator.push(context, MaterialPageRoute(builder: (builder) {
+      return widget;
+    }));
+  }
+}
 class ForecastGraphCard extends NullableCard<WeatherForecastData> {
   static final DateFormat dateFormatDay = DateFormat("M/d");
   static final DateFormat dateFormatTime = DateFormat("H:mm");
@@ -307,9 +328,7 @@ class ForecastGraphCard extends NullableCard<WeatherForecastData> {
       {super.key, super.title = "Forecast Graph"});
   @override
   void onTap(BuildContext context, WeatherForecastData parameter) {
-    Navigator.push(context, MaterialPageRoute(builder: (builder) {
-      return Forecasts(parameter);
-    }));
+    showForecastsWindow(context,parameter);
   }
 
   static String convertDateTime(DateTime time,BuildContext context){
